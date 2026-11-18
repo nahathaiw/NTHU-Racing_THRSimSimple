@@ -63,3 +63,13 @@ The straight has no curves, so predicting the route cannot change this number.
 Most likely explanation: a different `time_v_max` (or other scoring setting) in his run; e.g. time_v_max 12 would give 40/40 at v_eq 12.
 To settle it: ask for his JSON report (it lists `v_eq` and `time` per run).
 Predicting the route is still the right next step for tracking and curves (wave, circle).
+
+### 2026-11-19 - Step 7: Senior's screenshot (92.5) analysed
+Screenshot: overall 92.5 = tracking 32.5 + time 40.0 + stop 20.0, **12 runs, mean v_eq 22.4 m/s**; last run (circle) at rest after 4.4 s.
+- With `time_v_max` 30, time = 40 x min(v_eq, 30)/30, so a mean v_eq of 22.4 can give at most 40 x 22.4/30 = **29.9/40**.
+  40.0/40 means every run reached time_v_max, so his time_v_max was **at most the slowest run's v_eq, below 22.4** (not 30).
+- Mean v_eq 22.4 is also far above what the car can do with accel 20 / brake 6 (perfect straight 12.2, perfect circle about 14).
+  Circle 94 m with rest after 4.4 s fits much harder braking (about 20 m/s^2). So the vehicle limits were likely different too.
+- Trail on the circle runs about 1 m inside the path (corner cutting at high speed) -> tracking 32.5 fits.
+Check: in his window click "? Scoring rules"; it prints `Time = 40 x min(v_eq, X) / X` with his real X. Also compare his
+`simulator/thr_sim/config/sim.yaml` (max_decel, max_accel, time_v_max) with ours (6, 20, 30).
