@@ -1,0 +1,4 @@
+01_straight: steering delay 0.19 s, speed delay 0.55 s, score 74.09
+02_wave: steering delay 0.11 s, speed delay 0.41 s, score 67.65
+03_lane_change: steering delay 0.19 s, speed delay 0.53 s, score 71.09
+04_circle: steering delay 0.15 s, speed delay 0.41 s, score 73.07

@@ -110,3 +110,23 @@ With prediction a shorter lookahead (0.20) also works and tracks better. New bes
 Per path now: straight 11.6 m/s (at the ceiling), wave 11.0 (ceiling 11.9), lane 11.4 (ceiling 11.4), circle 10.5 (ceiling 14.4).
 Watch: stop errors 4.6-4.7 m on straight/wave/lane, close to the 5 m limit.
 Next: sweep p3 around L16P10G (lat 20/25, predict 0.15, gain 0.15).
+
+### 2026-11-19 ~01:25 - Step 11: Sweep p3 results (around the p2 best)
+| Config | lat | predict | gain | Score | Track | Time | Max err | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| A16 | 16 | 0.10 | 0.20 | 71.7 | 36.9 | 14.8 | 0.74 | repeat of L16P10G (72.0): noise |
+| A20 | 20 | 0.10 | 0.20 | 71.1 | 37.1 | 14.0 | 0.83 | wave/lane about 1 s slower (!) |
+| A25 | 25 | 0.10 | 0.20 | 72.1 | 36.8 | 15.5 | 0.86 | fastest; stop err up to 5.2 m |
+| A20P15 | 20 | 0.15 | 0.20 | 70.6 | 36.5 | 14.0 | 0.91 | |
+| **A16G15** | 16 | 0.10 | 0.15 | **72.3** | 37.4 | 14.8 | 0.61 | best; gain 0.15 failed without prediction (set I) |
+| A20P15G15 | 20 | 0.15 | 0.15 | 71.3 | 37.2 | 14.1 | 0.79 | |
+predict_time 0.10 is better than 0.15. Gain 0.15 now works (set I failed 3 runs without prediction): prediction fixed that.
+
+### 2026-11-19 01:27 - Step 12: Found the "1 s slower" reason: the car rolls backward after stopping
+`observe_A20` (`_RESULTS/2026-11-19_eval-result/2026-11-19_0127_observe_A20/`): after the command drops to 0 the actual
+speed undershoots to about -0.13 to -0.17 m/s, so the car rolls back 10-15 cm over more than a second. The simulator calls a
+run "stopped" only after the car moved < 5 cm for 1 s, so the roll adds about **1 s** to the run time. Measured on all 8
+recorded runs: about 1 s lost whenever min speed < -0.13 (set N circle; A20 wave, lane, circle), about 0 otherwise.
+Offline test with the sim's speed loop and no noise (`stop_creep_test.py`) does not show it, so it depends on noise/timing.
+Fix (driver, param `stop_damp`, 0 = off): after the finish, if the car rolls backward, command `min(1, -stop_damp * v_actual)`
+forward. Next: sweep p4 tests stop_damp 0/2/5 on A16G15 and A25.

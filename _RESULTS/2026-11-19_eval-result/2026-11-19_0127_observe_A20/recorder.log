@@ -1,0 +1,21 @@
+[INFO] [1795022823.129258626] [run_recorder]: recording into /home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/2026-11-19_0127_observe_A20
+[INFO] [1795022832.283877519] [run_recorder]: 01_straight: steering delay 0.19 s, speed delay 0.55 s, score 74.09
+[INFO] [1795022841.597433086] [run_recorder]: 02_wave: steering delay 0.11 s, speed delay 0.41 s, score 67.65
+[INFO] [1795022850.962252563] [run_recorder]: 03_lane_change: steering delay 0.19 s, speed delay 0.53 s, score 71.09
+[INFO] [1795022862.490133936] [run_recorder]: 04_circle: steering delay 0.15 s, speed delay 0.41 s, score 73.07
+Traceback (most recent call last):
+  File "/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_SCRIPT/2026-11-19_script/record_run.py", line 175, in <module>
+    main()
+  File "/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_SCRIPT/2026-11-19_script/record_run.py", line 167, in main
+    rclpy.spin(node)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 229, in spin
+    executor.spin_once()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 812, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 801, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 784, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 685, in _wait_for_ready_callbacks
+    raise ExternalShutdownException()
+rclpy.executors.ExternalShutdownException

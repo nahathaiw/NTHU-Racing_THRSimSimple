@@ -67,6 +67,7 @@ public:
     steer_tau_ = declare_parameter("steer_tau", 0.10);       // wheel follows the command with this lag [s]
     steer_rate_ = declare_parameter("steer_rate", 1.0);      // wheel turns at most this fast [rad/s]
     use_age_ = declare_parameter("predict_add_age", true);   // also cover the age of the pose message
+    stop_damp_ = declare_parameter("stop_damp", 0.0);        // after the finish: cancel backward roll, 0 = off
 
     // /path is latched: transient-local so we still get it if we start late.
     auto path_qos = rclcpp::QoS(1).reliable().transient_local();
@@ -235,6 +236,11 @@ private:
         v = std::min(v, std::sqrt(2.0 * brake_ * (remaining + stop_aim_)));
       }
       velocity = std::clamp(v, 0.0, cruise_);
+      // After the finish the speed loop undershoots below 0 and the car rolls backward; the simulator only
+      // calls it "stopped" after < 5 cm of movement in 1 s, so the roll costs up to 1 s. Push it back to 0.
+      if (remaining <= 0.0 && stop_damp_ > 0.0 && v_actual_ < 0.0) {
+        velocity = std::min(1.0, -stop_damp_ * v_actual_);
+      }
 
       RCLCPP_INFO_THROTTLE(
         get_logger(), *get_clock(), 1000,
@@ -257,7 +263,7 @@ private:
   size_t finish_ = 0, progress_ = 0;
   std::optional<VehState> state_;
   double v_actual_ = 0.0, steer_actual_ = 0.0, last_steer_ = 0.0;
-  double predict_, steer_tau_, steer_rate_;
+  double predict_, steer_tau_, steer_rate_, stop_damp_;
   bool use_age_;
 
   double cruise_, a_lat_, brake_, stop_aim_, ld_base_, ld_gain_, wheelbase_, max_steer_;
