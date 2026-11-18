@@ -1,0 +1,13 @@
+Evaluating straight,wave,lane_change,circle x 2 run(s); driver expected on ROS_DOMAIN_ID=0
+[INFO] [launch]: All log files can be found below /home/sigma/.ros/log/2026-11-19-02-41-22-325986-sigma-2450206
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [vehicle_sim-1]: process started with pid [2450210]
+[INFO] [sim_ctrl-2]: process started with pid [2450212]
+[vehicle_sim-1] [INFO] [1795027282.657830309] [vehicle_sim]: Vehicle sim ready (L=2.5 m, dt=0.01 s, init=(0.0, 0.0, 0.0))
+[sim_ctrl-2] [INFO] [1795027282.735080724] [sim_ctrl]: Path 'wave', 61.5 m to the finish. Evaluating ['straight', 'wave', 'lane_change', 'circle'] x 2 run(s) once vehicle_sim and a driver are up.
+[sim_ctrl-2] [INFO] [1795027282.803934995] [sim_ctrl]: === Evaluation: 8 runs over ['straight', 'wave', 'lane_change', 'circle'] ===
+[sim_ctrl-2] [INFO] [1795027282.807548500] [sim_ctrl]: === Run 1/8 on 'straight': reset sent ===
+[vehicle_sim-1] [INFO] [1795027282.808036224] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795027289.006537900] [sim_ctrl]: Run 1 finished: stopped | score 74.2/100 | tracking 38.7/40 | time 15.5/40 (v_eq 11.59 m/s) | stop 20.0/20 (err +4.13 m) | completion 100.0% | RMS cte 0.064 m | time 5.18 s
+[sim_ctrl-2] [INFO] [1795027291.054244603] [sim_ctrl]: === Run 2/8 on 'straight': reset sent ===
+[vehicle_sim-1] [INFO] [1795027291.054556537] [vehicle_sim]: Reset received: vehicle back at initial pose

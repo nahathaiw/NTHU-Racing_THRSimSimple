@@ -14,6 +14,10 @@
 //      stanley     Stanley at the front axle: delta = psi + atan(K e / (K_prot + v))      (DLR 2026 eq. 3.4, Hoffmann 2007)
 //                  with stanley_pred_steps > 0: predictive Stanley, weighted sum over a horizon (DLR 2026 eq. 3.12-3.14)
 //      stanley_ff  rear-axle Stanley + feed-forward atan(L kappa) at v*ff_time ahead      (DLR 2026 enhanced Stanley)
+//      lqr         kinematic MPC without constraints (= infinite-horizon LQR) on the path-error model with the
+//                  steering lag as a state, + curvature feed-forward      (idea of MAP2 / LPV-MPC / FS Driverless 2026)
+//                  state x = [e, psi_e, steer - steer_ff];  e' = v psi_e;  psi_e' = v/L (steer - steer_ff);
+//                  steer' = (u - steer)/tau.  u = steer_ff(ahead) - K x,  K from the discrete Riccati equation.
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -83,6 +87,10 @@ public:
     st_decay_ = declare_parameter("stanley_pred_decay", 0.7);  // weight of step k = decay^k (then normalised)
     ff_time_ = declare_parameter("ff_time", 0.10);           // feed-forward point = v * ff_time ahead [s]
     ff_gain_ = declare_parameter("ff_gain", 0.0);            // pp only: blend of feed-forward steering, 0 = off
+    lqr_qe_ = declare_parameter("lqr_q_e", 1.0);             // cost on sideways error [1/m^2]
+    lqr_qpsi_ = declare_parameter("lqr_q_psi", 1.0);         // cost on heading error [1/rad^2]
+    lqr_r_ = declare_parameter("lqr_r", 1.0);                // cost on steering command [1/rad^2]
+    lqr_dt_ = declare_parameter("lqr_dt", 0.05);             // model step [s] (= control period)
 
     // /path is latched: transient-local so we still get it if we start late.
     auto path_qos = rclcpp::QoS(1).reliable().transient_local();
@@ -168,12 +176,65 @@ private:
     }
   }
 
-  Pose predict(double horizon) const
+  Pose predict(double horizon, double * st_out = nullptr) const
   {
     Pose p{state_->x, state_->y, state_->yaw};
     double st = steer_actual_;
     roll(p, st, last_steer_, v_actual_, horizon);
+    if (st_out) {*st_out = st;}
     return p;
+  }
+
+  // LQR gain for x = [e, psi_e, steer_dev], discrete model at speed v (Euler, step lqr_dt), steering lag steer_tau.
+  void lqr_gain(double v, double K[3]) const
+  {
+    const double dt = lqr_dt_, tau = std::max(steer_tau_, 1e-3), L = wheelbase_;
+    const double A[3][3] = {{1.0, v * dt, 0.0}, {0.0, 1.0, v / L * dt}, {0.0, 0.0, 1.0 - dt / tau}};
+    const double B[3] = {0.0, 0.0, dt / tau};
+    double P[3][3] = {{lqr_qe_, 0, 0}, {0, lqr_qpsi_, 0}, {0, 0, 0}};
+    for (int it = 0; it < 300; ++it) {   // value iteration of the Riccati equation
+      double PA[3][3] = {}, PB[3] = {};
+      for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+          for (int k = 0; k < 3; ++k) {PA[i][j] += P[i][k] * A[k][j];}
+          PB[i] += P[i][j] * B[j];
+        }
+      }
+      double BPB = 0.0, BPA[3] = {};
+      for (int i = 0; i < 3; ++i) {
+        BPB += B[i] * PB[i];
+        for (int j = 0; j < 3; ++j) {BPA[j] += B[i] * PA[i][j];}
+      }
+      const double inv = 1.0 / (lqr_r_ + BPB);
+      double Pn[3][3];
+      for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+          double APA = 0.0;
+          for (int k = 0; k < 3; ++k) {APA += A[k][i] * PA[k][j];}
+          Pn[i][j] = APA - BPA[i] * BPA[j] * inv;
+        }
+      }
+      Pn[0][0] += lqr_qe_;
+      Pn[1][1] += lqr_qpsi_;
+      std::copy(&Pn[0][0], &Pn[0][0] + 9, &P[0][0]);
+      if (it == 299) {for (int j = 0; j < 3; ++j) {K[j] = BPA[j] * inv;}}
+    }
+  }
+
+  double steer_lqr(const Pose & p, double st, double v)
+  {
+    const Location l = locate(p.x, p.y);
+    const size_t from = l.index > 0 ? l.index - 1 : 0;
+    const Pt q = point_at(l.s, from);
+    const double head = heading_at(l.s, from);
+    const double e = std::cos(head) * (p.y - q.y) - std::sin(head) * (p.x - q.x);   // + = left of path
+    const double psi = wrap(p.yaw - head);                                          // + = pointing left
+    const double ff_now = std::atan(wheelbase_ * kappa_at(l.s, from));
+    const double ff_ahead = std::atan(wheelbase_ * kappa_at(l.s + std::fabs(v) * ff_time_, from));
+    double K[3];
+    lqr_gain(std::max(std::fabs(v), 1.0), K);
+    const double u = ff_ahead - (K[0] * e + K[1] * psi + K[2] * (st - ff_now));
+    return std::clamp(u, -max_steer_, max_steer_);
   }
 
   // ------------------------------------------------------------- path helpers for Stanley / feed-forward
@@ -303,7 +364,8 @@ private:
         const double age = (now() - rclcpp::Time(state_->header.stamp)).seconds();
         horizon += std::clamp(age, 0.0, 0.1);
       }
-      const Pose p = horizon > 0.0 ? predict(horizon) : Pose{state_->x, state_->y, state_->yaw};
+      double st_pred = steer_actual_;
+      const Pose p = horizon > 0.0 ? predict(horizon, &st_pred) : Pose{state_->x, state_->y, state_->yaw};
       const Location ploc = horizon > 0.0 ? locate(p.x, p.y) : loc;
       const double ld = std::clamp(ld_base_ + ld_gain_ * std::fabs(v_actual_), ld_base_, 15.0);
       const Pt target = point_at(ploc.s + ld, ploc.index);
@@ -313,6 +375,8 @@ private:
         steer = steer_stanley(p, v_actual_);
       } else if (mode_ == "stanley_ff") {
         steer = steer_stanley_ff(p, v_actual_);
+      } else if (mode_ == "lqr") {
+        steer = steer_lqr(p, st_pred, v_actual_);
       } else if (ff_gain_ > 0.0) {  // pure pursuit blended with curvature feed-forward
         const double ff = std::atan(wheelbase_ * kappa_at(ploc.s + std::fabs(v_actual_) * ff_time_, ploc.index));
         steer = std::clamp((1.0 - ff_gain_) * steer + ff_gain_ * ff, -max_steer_, max_steer_);
@@ -366,6 +430,7 @@ private:
   double predict_, steer_tau_, steer_rate_, stop_damp_;
   std::string mode_;
   double st_k_, st_soft_, st_yaw_, st_dt_, st_decay_, ff_time_, ff_gain_;
+  double lqr_qe_, lqr_qpsi_, lqr_r_, lqr_dt_;
   int st_n_;
   bool use_age_;
 

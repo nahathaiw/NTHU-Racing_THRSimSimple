@@ -259,3 +259,11 @@ Next: E3 (rear-axle Stanley + feed-forward) and E4 (pure pursuit + feed-forward)
 User: if a method has high potential, optimise it; if methods are better combined, combine them. Added a "C-rows" table to
 `experiment_plan.md`: a method within noise (~0.6) of the best, or best on some path, gets an optimisation round; methods good at
 different things get combined. First candidate C1: Stanley with higher K (trend still rising at K6; best straight 74.6).
+
+### 2026-11-19 ~02:50 - Step 26: E5 code: kinematic MPC as LQR (written while E3/E4 runs); overnight run requested
+User asked to keep running experiments overnight. E5 implemented (`steer_mode lqr`): state x = [e, psi_e, steer - steer_ff]
+(sideways error, heading error, wheel angle minus the feed-forward angle), model e' = v psi_e, psi_e' = v/L (steer - steer_ff),
+steer' = (u - steer)/tau (the steering lag). Without constraints, MPC with a long horizon = LQR: K from the discrete Riccati
+equation (value iteration, 3x3, recomputed each cycle for the current speed). Command u = atan(L kappa(ahead)) - K x, from the
+PREDICTED pose and wheel angle. Offline check (numpy): closed loop stable 5-20 m/s; r = 1 is far too aggressive (37 deg per metre
+of error), r = 30-300 gives 3-10 deg/m (pure pursuit about 4). E5 sweep: r 30/100/300, ff_time 0.2, q_psi 4.
