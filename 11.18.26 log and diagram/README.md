@@ -1,4 +1,4 @@
-# Experiment log: THRSimSimple driver (2026-11-18)
+# Log and diagrams: THRSimSimple driver (2026-11-18)
 
 Everything done on 2026-11-18, organised. All times are Taiwan time (UTC+8). Every experiment folder starts with
 `YYYY-MM-DD_HHMM_` (when the run finished), then its id and what it tested.
@@ -23,7 +23,7 @@ Run-to-run noise is about 0.5 points, so N, O and P (70.3, 70.1, 70.1) are effec
 | Path | Content |
 |---|---|
 | [timeline.md](timeline.md) | All 23 experiments in time order with parameters and score |
-| [experiments/](experiments/) | One folder per experiment: `README.md` (purpose, 6 parameters, per-path results, what it showed), `result.json`, `report.png`, `driver.log`, `sim.log` |
+| [../11.18.26 eval result/](../11.18.26%20eval%20result/) | Grouped by phase (`..._sweep 1`, `..._sweep 2`, ...), one folder per experiment inside, plus the sweep's `summary.txt`: `README.md` (purpose, 6 parameters, per-path results, what it showed), `result.json`, `report.png`, `driver.log`, `sim.log` |
 | [personal_log.md](personal_log.md) | The step-by-step learning log: setup, code walkthrough, study notes, decisions |
 | [diagrams/](diagrams/) | Explanatory figures (date-time prefixed) |
 | [../ARCHITECTURE.md](../ARCHITECTURE.md), [../FLOW.md](../FLOW.md) | How the code works and how data flows |
@@ -44,11 +44,21 @@ Run-to-run noise is about 0.5 points, so N, O and P (70.3, 70.1, 70.1) are effec
 
 - The baseline has no report file (GUI run); its numbers come from the log, and its time (about 19:29) is approximate.
 - The three confirmation runs did not record their parameters; they are assumed to be the final set N.
-- `eval_results/` (raw output, git-ignored) is the source; `experiment_log/experiments/` is a tracked copy.
-  Rebuild with `python3 scripts/build_experiment_log.py`.
+- `eval_results/` (raw output, git-ignored) is the source; `11.18.26 eval result/` is a tracked, renamed copy.
+  Rebuild with `python3 11.18.26 script/build_experiment_log.py`.
 
 ## How to add a new experiment
 
 1. Run the sweep or evaluation (results appear in `eval_results/`).
-2. Add one line to the list `E` in `scripts/build_experiment_log.py` (source, id, phase, parameters, purpose, what it showed).
-3. `python3 scripts/build_experiment_log.py`, then commit.
+2. Add one line to the list `E` in `11.18.26 script/build_experiment_log.py` (source, id, phase, parameters, purpose, what it showed).
+3. `python3 11.18.26 script/build_experiment_log.py`, then commit.
+
+## Top-level folders
+
+| Folder | Content |
+|---|---|
+| `11.18.26 script/` | sweep, demo, plot and log-builder scripts |
+| `11.18.26 eval result/` | tracked copy of every result, grouped by phase |
+| `11.18.26 log and diagram/` | this folder: timeline, personal log, diagrams |
+
+Raw output of `evaluate.bash` and the sweep scripts still goes to `eval_results/` (git-ignored); it is the source that the build script copies from.

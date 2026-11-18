@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Parameter sweep, round 4 (around set M): for each config start my_driver with those ROS parameters,
+# Parameter sweep, round 2 (around the best set G): for each config start my_driver with those ROS parameters,
 # run a headless evaluation, stop the driver, print + save a one-line summary.
 #
-# Usage:  ./scripts/sweep.bash [-n RUNS_PER_PATH]      (default 2)
+# Usage:  "./11.18.26 script/sweep.bash" [-n RUNS_PER_PATH]      (default 2)
 # Output: eval_results/sweep/<name>.json  and  eval_results/sweep/summary.txt
 # Needs the workspace built (colcon build) and NO other driver running.
 set -u
@@ -18,15 +18,18 @@ source /opt/ros/humble/setup.bash
 source "$WS/install/setup.bash"
 set -u
 
-OUT="$WS/eval_results/sweep4"
+OUT="$WS/eval_results/sweep2"
 mkdir -p "$OUT"
 : > "$OUT/summary.txt"
 
 # name  then  ROS parameters (defaults: cruise 12, lat 3.0, brake 3.5, aim 1.5)
 CONFIGS=(
-  "N  cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.9 stop_aim:=2.0 lookahead_gain:=0.25"
-  "O  cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.8 stop_aim:=2.5 lookahead_gain:=0.30"
-  "P  cruise_speed:=30.0 lat_accel:=6.0 brake_decel:=5.8 stop_aim:=2.5 lookahead_gain:=0.25"
+  "H  cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.5 stop_aim:=3.0 lookahead_gain:=0.25"
+  "I  cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.5 stop_aim:=3.0 lookahead_gain:=0.15"
+  "J  cruise_speed:=25.0 lat_accel:=7.0 brake_decel:=5.5 stop_aim:=3.0 lookahead_gain:=0.25"
+  "K  cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.8 stop_aim:=3.0 lookahead_gain:=0.25"
+  "L  cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.5 stop_aim:=3.0 lookahead_gain:=0.25 lookahead_base:=2.0"
+  "H2 cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.5 stop_aim:=3.0 lookahead_gain:=0.25"
 )
 
 for cfg in "${CONFIGS[@]}"; do

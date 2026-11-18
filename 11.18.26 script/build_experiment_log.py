@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Build experiment_log/ from eval_results/ (which is gitignored).
+"""Build '11.18.26 eval result/' and the timeline in '11.18.26 log and diagram/' from eval_results/ (which is gitignored).
 
 One folder per experiment, named  YYYY-MM-DD_HHMM_<id>_<what-it-tested>  (HHMM = when the run finished, Taiwan time),
 holding README.md (parameters + results), result.json, report.png and the driver/sim logs.
-Also writes experiment_log/README.md (index + timeline).  Re-run any time:  python3 scripts/build_experiment_log.py
+Also writes timeline.md.  Re-run any time:  python3 11.18.26 script/build_experiment_log.py
 """
 import json, shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC, OUT = ROOT / "eval_results", ROOT / "experiment_log" / "experiments"
+SRC, OUT = ROOT / "eval_results", ROOT / "11.18.26 eval result"
+LOGDIR = ROOT / "11.18.26 log and diagram"
 DEF = dict(cruise=12.0, lat=3.0, brake=3.5, aim=1.5, gain=0.40, base=2.5)
 
 def P(**kw): d = dict(DEF); d.update(kw); return d
@@ -40,7 +41,7 @@ E = [
  ("sweep2/H", "H_G-with-aim3.0", "sweep 2", P(cruise=25.0, lat=6.0, brake=5.5, aim=3.0, gain=0.25),
   "G with a safer stop margin (aim 3.0).", "68.9.", ""),
  ("sweep2/I", "I_gain0.15_FAILED", "sweep 2", P(cruise=25.0, lat=6.0, brake=5.5, aim=3.0, gain=0.15),
-  "Is an even shorter lookahead better?", "47.0: 3 runs left the track. A short lookahead steers about 2x harder for the same error (see experiment_log/diagrams/2026-11-18_2125_pure-pursuit-geometry.png).", ""),
+  "Is an even shorter lookahead better?", "47.0: 3 runs left the track. A short lookahead steers about 2x harder for the same error (see 11.18.26 log and diagram/diagrams/2026-11-18_2125_pure-pursuit-geometry.png).", ""),
  ("sweep2/J", "J_lat7", "sweep 2", P(cruise=25.0, lat=7.0, brake=5.5, aim=3.0, gain=0.25),
   "More lateral acceleration on top of H.", "68.7. No gain.", ""),
  ("sweep2/K", "K_brake5.8", "sweep 2", P(cruise=25.0, lat=6.0, brake=5.8, aim=3.0, gain=0.25),
@@ -88,12 +89,23 @@ def results(d):
 def hhmm(d):  # '2026-11-18 20:07:33' -> ('2026-11-18','2007')
     day, tm = d["time"].split(); return day, tm[:5].replace(":", "")
 
+def phase_start(phase):
+    ts = []
+    for src, _s, sw, *_ in E:
+        if sw != phase: continue
+        ts.append("1929" if src is None else hhmm(json.load(open(SRC / (src + ".json"))))[1])
+    return min(ts)
+
+def group(phase, day):
+    g = OUT / f"{day}_{phase_start(phase)}_{phase}"; g.mkdir(parents=True, exist_ok=True); return g
+
 index, plain = [], []
 if OUT.exists(): shutil.rmtree(OUT)
+OUT.mkdir()
 for src, slug, sweep, p, purpose, obs, extra in E:
     if src is None:   # baseline: no json, numbers from personal_log Step 2b; time from the session transcript (~19:29)
         day, hm, score = "2026-11-18", "1929", 62.3
-        folder = OUT / f"{day}_{hm}_{slug}"; folder.mkdir(parents=True)
+        folder = group(sweep, day) / f"{day}_{hm}_{slug}"; folder.mkdir(parents=True)
         (folder / "README.md").write_text(f"""# {day} {hm[:2]}:{hm[2:]} - {slug}
 
 **Sweep/phase:** {sweep}  |  **Score: {score}**  (time is approximate: no report file was written; this was a GUI run)
@@ -111,12 +123,12 @@ for src, slug, sweep, p, purpose, obs, extra in E:
 
 **What it showed:** {obs}
 """)
-        index.append((day, hm, folder.name, sweep, "demo", score, "no files")); continue
+        index.append((day, hm, str(folder.relative_to(OUT)).replace(' ', '%20'), sweep, "demo", score, "no files")); continue
     sdir, name = (src.rsplit("/", 1) if "/" in src else (None, src))
     base = SRC / (sdir or "") / name
     d = json.load(open(str(base) + ".json"))
     day, hm = hhmm(d)
-    folder = OUT / f"{day}_{hm}_{slug}"; folder.mkdir(parents=True)
+    folder = group(sweep, day) / f"{day}_{hm}_{slug}"; folder.mkdir(parents=True)
     for suf, dst in ((".json", "result.json"), (".png", "report.png"), (".driver.log", "driver.log"), (".sim.log", "sim.log")):
         f = Path(str(base) + suf)
         if f.exists(): shutil.copy(f, folder / dst)
@@ -137,12 +149,16 @@ for src, slug, sweep, p, purpose, obs, extra in E:
 {results(d)}
 Files: `result.json` (full data), `report.png` (plots){', `driver.log`, `sim.log`' if (folder / 'driver.log').exists() else ''}.
 """)
-    index.append((day, hm, folder.name, sweep, ",".join(f"{p[k]}" for k in NAMES), d["overall_score"], "ok" if not fails else f"{len(fails)} failed"))
+    index.append((day, hm, str(folder.relative_to(OUT)).replace(' ', '%20'), sweep, ",".join(f"{p[k]}" for k in NAMES), d["overall_score"], "ok" if not fails else f"{len(fails)} failed"))
 
+for n, d in (("sweep 1", "sweep"), ("sweep 2", "sweep2"), ("sweep 3", "sweep3"), ("sweep 4", "sweep4")):
+    sm = SRC / d / "summary.txt"
+    if sm.exists():
+        shutil.copy(sm, next(OUT.glob(f"*_{n}")) / "summary.txt")
 index.sort()
 lines = ["| # | Date | Time | Experiment folder | Phase | Score | cruise / lat / brake / aim / gain / base |", "|--:|---|---|---|---|---:|---|"]
 for i, (day, hm, name, sweep, ps, sc, st) in enumerate(index, 1):
     ps = ps.replace(",", " / ") if ps != "demo" else "demo driver (3 m/s)"
-    lines.append(f"| {i} | {day} | {hm[:2]}:{hm[2:]} | [{name}](experiments/{name}/README.md) | {sweep} | **{sc:.1f}**{' (' + st + ')' if st not in ('ok','no files') else ''} | {ps} |")
-(OUT.parent / "timeline.md").write_text("# Experiment timeline (Taiwan time, 2026-11-18)\n\nEvery run in the order it finished. Folder names: `date_time_id_what-it-tested`.\n\n" + "\n".join(lines) + "\n")
+    lines.append(f"| {i} | {day} | {hm[:2]}:{hm[2:]} | [{name.split(chr(47))[-1]}](../11.18.26%20eval%20result/{name}/README.md) | {sweep} | **{sc:.1f}**{' (' + st + ')' if st not in ('ok','no files') else ''} | {ps} |")
+(LOGDIR / "timeline.md").write_text("# Experiment timeline (Taiwan time, 2026-11-18)\n\nEvery run in the order it finished. Folder names: `date_time_id_what-it-tested`.\n\n" + "\n".join(lines) + "\n")
 print(len(index), "experiments written to", OUT)

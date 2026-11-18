@@ -4,7 +4,7 @@
 
 **Purpose:** Is an even shorter lookahead better?
 
-**What it showed:** 47.0: 3 runs left the track. A short lookahead steers about 2x harder for the same error (see experiment_log/diagrams/2026-11-18_2125_pure-pursuit-geometry.png).
+**What it showed:** 47.0: 3 runs left the track. A short lookahead steers about 2x harder for the same error (see 11.18.26 log and diagram/diagrams/2026-11-18_2125_pure-pursuit-geometry.png).
 
 ## Parameters
 | Parameter | Value | Default |

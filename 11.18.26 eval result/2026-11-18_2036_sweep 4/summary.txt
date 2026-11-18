@@ -1,0 +1,9 @@
+[N]  cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.9 stop_aim:=2.0 lookahead_gain:=0.25
+   OVERALL 70.3 = track 37.5 + time 12.8 + stop 20.0 | max_cte 0.58 m | failures: none
+   per path: straight 71.8 (v_eq 11.6)  wave 68.9 (v_eq 9.0)  lane_change 71.6 (v_eq 10.0)  circle 68.9 (v_eq 7.8)
+[O]  cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.8 stop_aim:=2.5 lookahead_gain:=0.30
+   OVERALL 70.1 = track 37.3 + time 12.8 + stop 20.0 | max_cte 0.59 m | failures: none
+   per path: straight 73.1 (v_eq 11.6)  wave 67.9 (v_eq 9.0)  lane_change 70.7 (v_eq 10.0)  circle 68.7 (v_eq 7.7)
+[P]  cruise_speed:=30.0 lat_accel:=6.0 brake_decel:=5.8 stop_aim:=2.5 lookahead_gain:=0.25
+   OVERALL 70.1 = track 37.6 + time 12.5 + stop 20.0 | max_cte 0.56 m | failures: none
+   per path: straight 72.7 (v_eq 10.9)  wave 68.6 (v_eq 9.0)  lane_change 70.3 (v_eq 10.0)  circle 68.9 (v_eq 7.7)

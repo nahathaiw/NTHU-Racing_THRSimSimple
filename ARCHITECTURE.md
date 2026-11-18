@@ -110,7 +110,7 @@ which keeps speed higher for longer.
 | `max_steer` | 0.6 | 0.6 | Steering limit [rad] |
 
 > **Note:** the defaults **inside the code are still the first-run values (score 66.6)**. The best settings are passed
-> at launch (see section 9) or by `scripts/demo_best.bash`.
+> at launch (see section 9) or by `11.18.26 script/demo_best.bash`.
 
 ## 7. Design decisions
 
@@ -148,7 +148,7 @@ ros2 run my_driver driver --ros-args \
 
 ./run_sim.bash                        # simulator GUI (second terminal)
 ./evaluate.bash -n 3                  # official evaluation
-./scripts/demo_best.bash eval         # live demo: driver + GUI evaluation in one command
+"./11.18.26 script/demo_best.bash" eval         # live demo: driver + GUI evaluation in one command
 ./scripts/sweep4.bash                 # parameter sweep (headless)
 ```
 
@@ -159,6 +159,6 @@ ros2 run my_driver driver --ros-args \
 | `my_driver/` | This driver (C++, `ament_cmake`) |
 | `simulator/` | `thr_sim` (vehicle_sim, sim_ctrl, GUI) and `thr_sim_msgs` (message types) |
 | `demo_driver/` | The Python baseline (62.3) |
-| `scripts/` | Sweep scripts (`sweep*.bash`) and the demo launcher (`demo_best.bash`) |
-| `experiment_log/personal_log.md` | Step-by-step log, every experiment and its result |
+| `11.18.26 script/` | Sweep scripts (`sweep*.bash`) and the demo launcher (`demo_best.bash`) |
+| `11.18.26 log and diagram/personal_log.md` | Step-by-step log, every experiment and its result |
 | `ARCHITECTURE.md`, `FLOW.md` | These documents |
