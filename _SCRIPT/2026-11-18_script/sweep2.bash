@@ -2,7 +2,7 @@
 # Parameter sweep, round 2 (around the best set G): for each config start my_driver with those ROS parameters,
 # run a headless evaluation, stop the driver, print + save a one-line summary.
 #
-# Usage:  "./11.18.26 script/sweep.bash" [-n RUNS_PER_PATH]      (default 2)
+# Usage:  "./2026-11-18_script/sweep.bash" [-n RUNS_PER_PATH]      (default 2)
 # Output: eval_results/sweep/<name>.json  and  eval_results/sweep/summary.txt
 # Needs the workspace built (colcon build) and NO other driver running.
 set -u

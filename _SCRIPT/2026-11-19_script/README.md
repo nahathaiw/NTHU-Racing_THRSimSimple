@@ -1,4 +1,4 @@
-# _SCRIPT/11.19.26 script
+# _SCRIPT/2026-11-19_script
 
 Scripts for the 95-point goal (sweeps, demos, plots, log builders). Name new scripts clearly; outputs are logged in
-`_LOG/11.19.26 log and diagram/` and copied into `_All_Results/11.19.26 eval result/`.
+`_LOG/2026-11-19_log-and-diagram/` and copied into `_RESULTS/2026-11-19_eval-result/`.

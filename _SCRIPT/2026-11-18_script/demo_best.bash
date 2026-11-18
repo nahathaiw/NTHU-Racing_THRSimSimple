@@ -2,9 +2,9 @@
 # Live demo of the best settings (set N) with the simulator GUI.
 #
 # Usage:
-#   "./11.18.26 script/demo_best.bash"            # GUI: pick a path in the window and click Start
-#   "./11.18.26 script/demo_best.bash" eval       # GUI evaluation: click "Start evaluation" (1 run x 4 paths, about 1 minute)
-#   "./11.18.26 script/demo_best.bash" wave       # GUI already set to that path (straight|wave|lane_change|circle)
+#   "./2026-11-18_script/demo_best.bash"            # GUI: pick a path in the window and click Start
+#   "./2026-11-18_script/demo_best.bash" eval       # GUI evaluation: click "Start evaluation" (1 run x 4 paths, about 1 minute)
+#   "./2026-11-18_script/demo_best.bash" wave       # GUI already set to that path (straight|wave|lane_change|circle)
 #
 # It starts my_driver with the final parameters, opens the simulator, and stops the driver when you close the window.
 WS="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"

@@ -4,7 +4,7 @@
 Left:  car, path, carrot point, lookahead ld, angle alpha, steering delta.
 Right: the same 1 m error with two lookaheads (ld = 8.75 m and 6.25 m, i.e. gain 0.25 and 0.15 at 25 m/s).
 
-Usage: python3 _SCRIPT/11.18.26 script/plot_pure_pursuit.py [output.png]      (default _LOG/11.18.26 log and diagram/diagrams/2026-11-18_2125_pure-pursuit-geometry.png)
+Usage: python3 _SCRIPT/2026-11-18_script/plot_pure_pursuit.py [output.png]      (default _LOG/2026-11-18_log-and-diagram/diagrams/2026-11-18_2125_pure-pursuit-geometry.png)
 All angles are computed with the same formula as driver_node.cpp:
     steer = atan(2 * L * sin(alpha) / ld)
 """
@@ -35,7 +35,7 @@ def arc_points(alpha, ld, n=60):
 
 
 out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "..", "_LOG", "11.18.26 log and diagram", "diagrams", "2026-11-18_2125_pure-pursuit-geometry.png")
+    os.path.dirname(os.path.abspath(__file__)), "..", "..", "_LOG", "2026-11-18_log-and-diagram", "diagrams", "2026-11-18_2125_pure-pursuit-geometry.png")
 os.makedirs(os.path.dirname(out), exist_ok=True)
 
 fig, (ax, bx) = plt.subplots(1, 2, figsize=(13, 6), gridspec_kw={"width_ratios": [1.25, 1]})

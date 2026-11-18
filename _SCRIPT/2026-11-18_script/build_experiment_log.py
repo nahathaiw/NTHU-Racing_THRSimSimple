@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Build '_All_Results/11.18.26 eval result/' and the timeline in '_LOG/11.18.26 log and diagram/' from eval_results/ (which is gitignored).
+"""Build '_RESULTS/2026-11-18_eval-result/' and the timeline in '_LOG/2026-11-18_log-and-diagram/' from eval_results/ (which is gitignored).
 
 One folder per experiment, named  YYYY-MM-DD_HHMM_<id>_<what-it-tested>  (HHMM = when the run finished, Taiwan time),
 holding README.md (parameters + results), result.json, report.png and the driver/sim logs.
-Also writes timeline.md.  Re-run any time:  python3 _SCRIPT/11.18.26 script/build_experiment_log.py
+Also writes timeline.md.  Re-run any time:  python3 _SCRIPT/2026-11-18_script/build_experiment_log.py
 """
 import json, shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-SRC, OUT = ROOT / "eval_results", ROOT / "_All_Results" / "11.18.26 eval result"
-LOGDIR = ROOT / "_LOG" / "11.18.26 log and diagram"
+SRC, OUT = ROOT / "eval_results", ROOT / "_RESULTS" / "2026-11-18_eval-result"
+LOGDIR = ROOT / "_LOG" / "2026-11-18_log-and-diagram"
 DEF = dict(cruise=12.0, lat=3.0, brake=3.5, aim=1.5, gain=0.40, base=2.5)
 
 def P(**kw): d = dict(DEF); d.update(kw); return d
@@ -41,7 +41,7 @@ E = [
  ("sweep2/H", "H_G-with-aim3.0", "sweep 2", P(cruise=25.0, lat=6.0, brake=5.5, aim=3.0, gain=0.25),
   "G with a safer stop margin (aim 3.0).", "68.9.", ""),
  ("sweep2/I", "I_gain0.15_FAILED", "sweep 2", P(cruise=25.0, lat=6.0, brake=5.5, aim=3.0, gain=0.15),
-  "Is an even shorter lookahead better?", "47.0: 3 runs left the track. A short lookahead steers about 2x harder for the same error (see _LOG/11.18.26 log and diagram/diagrams/2026-11-18_2125_pure-pursuit-geometry.png).", ""),
+  "Is an even shorter lookahead better?", "47.0: 3 runs left the track. A short lookahead steers about 2x harder for the same error (see _LOG/2026-11-18_log-and-diagram/diagrams/2026-11-18_2125_pure-pursuit-geometry.png).", ""),
  ("sweep2/J", "J_lat7", "sweep 2", P(cruise=25.0, lat=7.0, brake=5.5, aim=3.0, gain=0.25),
   "More lateral acceleration on top of H.", "68.7. No gain.", ""),
  ("sweep2/K", "K_brake5.8", "sweep 2", P(cruise=25.0, lat=6.0, brake=5.8, aim=3.0, gain=0.25),
@@ -97,7 +97,7 @@ def phase_start(phase):
     return min(ts)
 
 def group(phase, day):
-    g = OUT / f"{day}_{phase_start(phase)}_{phase}"; g.mkdir(parents=True, exist_ok=True); return g
+    g = OUT / f"{day}_{phase_start(phase)}_{phase.replace(chr(32), chr(45))}"; g.mkdir(parents=True, exist_ok=True); return g
 
 index, plain = [], []
 if OUT.exists(): shutil.rmtree(OUT)
@@ -154,11 +154,11 @@ Files: `result.json` (full data), `report.png` (plots){', `driver.log`, `sim.log
 for n, d in (("sweep 1", "sweep"), ("sweep 2", "sweep2"), ("sweep 3", "sweep3"), ("sweep 4", "sweep4")):
     sm = SRC / d / "summary.txt"
     if sm.exists():
-        shutil.copy(sm, next(OUT.glob(f"*_{n}")) / "summary.txt")
+        shutil.copy(sm, next(OUT.glob(f"*_{n.replace(chr(32), chr(45))}")) / "summary.txt")
 index.sort()
 lines = ["| # | Date | Time | Experiment folder | Phase | Score | cruise / lat / brake / aim / gain / base |", "|--:|---|---|---|---|---:|---|"]
 for i, (day, hm, name, sweep, ps, sc, st) in enumerate(index, 1):
     ps = ps.replace(",", " / ") if ps != "demo" else "demo driver (3 m/s)"
-    lines.append(f"| {i} | {day} | {hm[:2]}:{hm[2:]} | [{name.split(chr(47))[-1]}](../../_All_Results/11.18.26%20eval%20result/{name}/README.md) | {sweep} | **{sc:.1f}**{' (' + st + ')' if st not in ('ok','no files') else ''} | {ps} |")
+    lines.append(f"| {i} | {day} | {hm[:2]}:{hm[2:]} | [{name.split(chr(47))[-1]}](../../_RESULTS/2026-11-18_eval-result/{name}/README.md) | {sweep} | **{sc:.1f}**{' (' + st + ')' if st not in ('ok','no files') else ''} | {ps} |")
 (LOGDIR / "timeline.md").write_text("# Experiment timeline (Taiwan time, 2026-11-18)\n\nEvery run in the order it finished. Folder names: `date_time_id_what-it-tested`.\n\n" + "\n".join(lines) + "\n")
 print(len(index), "experiments written to", OUT)
