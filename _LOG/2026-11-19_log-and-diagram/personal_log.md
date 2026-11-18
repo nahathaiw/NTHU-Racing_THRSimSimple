@@ -188,3 +188,9 @@ Remaining gap to the ceiling (about 76) is tracking (38.2/40). More tuning will 
 
 ### 2026-11-19 - Step 17: Live demo script for set R2G10
 `./_SCRIPT/2026-11-19_script/demo_best.bash [eval [RUNS] | straight|wave|lane_change|circle]` starts my_driver with R2G10 and opens the GUI.
+
+### 2026-11-19 02:08 - Step 18: Downloaded papers into `_paper/`
+9 PDFs (Coulter 1992, Snider 2009, Lipp & Boyd 2014, Kapania & Gerdes 2015, Paden 2016, Kabzan/AMZ 2020, O'Kelly/F1TENTH 2020,
+Betz 2022, Becker 2023), each checked by reading its title page. Not found free: Hoffmann 2007 (Stanley), Kong 2015, Rajamani book.
+`_paper/README.md` has the reading order, links and what each paper means for my_driver. PDFs are git-ignored (40 MB, copyright).
+Read first: Snider 2009 (explains the sweeps), Kapania & Gerdes 2015 (feed-forward steering, the next step).

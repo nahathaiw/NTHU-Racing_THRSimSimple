@@ -45,3 +45,6 @@ Thumbs.db
 # Crash dumps
 core
 core.[0-9]*
+
+# Downloaded papers: local only (size, publisher copyright)
+/_paper/*.pdf
