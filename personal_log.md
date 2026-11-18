@@ -624,3 +624,14 @@ Start 12/3.0/3.5/1.5/0.40/2.5 -> 66.6; B 16/4.0/4.5/2.5/0.40/2.5 -> 66.7; C 20/5
 E 30/7.0/5.5/3.5/0.40/2.5 -> 67.7; F 20/8.0/5.0/3.0/0.40/2.5 -> 68.0; G 25/6.0/5.5/3.5/0.25/2.5 -> 68.8; H 25/6.0/5.5/3.0/0.25/2.5 -> 68.9;
 I 25/6.0/5.5/3.0/0.15/2.5 -> 47.0 (failed); J 25/7.0/5.5/3.0/0.25/2.5 -> 68.7; K 25/6.0/5.8/3.0/0.25/2.5 -> 69.8; L 25/6.0/5.5/3.0/0.25/2.0 -> 67.7;
 H2 = H -> 69.4; K2 = K -> 69.5; M 25/6.0/5.8/2.5/0.25/2.5 -> 69.4; N 25/6.0/5.9/2.0/0.25/2.5 -> 70.3; O 25/6.0/5.8/2.5/0.30/2.5 -> 70.1; P 30/6.0/5.8/2.5/0.25/2.5 -> 70.1.
+
+### 2026-11-18 — Step 16: ARCHITECTURE.md and FLOW.md (~20:49)
+
+Added two documents with Mermaid diagrams (render on GitHub):
+- `ARCHITECTURE.md`: system context, code map, one control cycle (flowchart), the three algorithms (locate, pure pursuit, speed profile),
+  parameter table (code default vs final), design decisions, limits, build/run/test, repo map. Note: code defaults are still the first-run values;
+  best settings are passed at launch or by `scripts/demo_best.bash`.
+- `FLOW.md`: topic table with QoS and rates, one run as a sequence diagram, data flow inside the driver, command-to-motion pipeline in the simulator,
+  scoring flow, the sweep/tuning pipeline, timing table, ordering pitfalls.
+Diagram ideas suggested for the slides: pure-pursuit geometry, speed-vs-distance profile, trajectory vs path, score progression, speed-vs-tracking trade-off,
+state machine of one run, simple 3-box loop.
