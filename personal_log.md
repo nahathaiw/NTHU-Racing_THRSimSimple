@@ -602,3 +602,13 @@ N, O, P all beat M (69.4) by ~0.7-0.9 but tie each other within noise (~0.5). N:
 Score journey: demo 62.3 -> first run 66.6 -> sweep 1 68.8 -> sweep 2 69.8 -> sweep 3 69.4 (safer) -> sweep 4 70.3.
 Deck now 18 slides: added "Sweep 4" (result 5 of 5); parameters slide shows default -> final values.
 Run command: `ros2 run my_driver driver --ros-args -p cruise_speed:=25.0 -p lat_accel:=6.0 -p brake_decel:=5.9 -p stop_aim:=2.0 -p lookahead_gain:=0.25`
+
+### 2026-11-18 — Step 14: Why N won + live demo script (~20:43)
+
+**Why set N scored best (70.3 vs M 69.4):** `brake_decel` 5.9 is just under the car's 6 m/s^2 limit, so the plan starts braking later and keeps speed longer
+(straight average speed 10.1 -> 11.6 m/s); `stop_aim` 2.0 offsets the later braking so the stop stays inside the 5 m zone (worst 4.75 m).
+Gain +0.9 = +0.5 time points (12.3 -> 12.8) + 0.4 tracking points (37.1 -> 37.5). Honest caveat: noise is ~0.5 and O/P score 70.1, so N, O, P are effectively tied.
+Added slide "Why set N scored 70.3" (deck now 19 slides).
+
+**Live demo:** `./scripts/demo_best.bash` (GUI, choose a path, click Start); `./scripts/demo_best.bash eval` (GUI evaluation, 1 run x 4 paths, ~1 minute);
+`./scripts/demo_best.bash wave` (GUI preset to a path). It starts my_driver with the final parameters and stops it when the window closes.
