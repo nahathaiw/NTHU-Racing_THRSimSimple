@@ -1,0 +1,233 @@
+// my_driver: pure-pursuit steering + curvature/braking speed profile.
+//
+// Idea in 4 lines:
+//   1. Find where the car is along the path (arc length s), moving forward only.
+//   2. Steer toward a point `lookahead` metres further along the path (pure pursuit).
+//   3. Speed limit at every upcoming node: v^2 <= lat_accel / curvature, and
+//      v^2 <= 2 * brake_decel * distance_to_finish.  Command the smallest limit.
+//   4. At the finish command 0; the 5 m free stop zone lets us aim slightly past it.
+#include <algorithm>
+#include <chrono>
+#include <cmath>
+#include <memory>
+#include <optional>
+#include <vector>
+
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/empty.hpp"
+#include "thr_sim_msgs/msg/ref_path.hpp"
+#include "thr_sim_msgs/msg/veh_ctrl.hpp"
+#include "thr_sim_msgs/msg/veh_state.hpp"
+
+using namespace std::chrono_literals;
+using thr_sim_msgs::msg::RefPath;
+using thr_sim_msgs::msg::VehCtrl;
+using thr_sim_msgs::msg::VehState;
+
+namespace
+{
+double wrap(double a) {return std::atan2(std::sin(a), std::cos(a));}
+
+struct Pt
+{
+  double x, y;
+};
+
+struct Location
+{
+  size_t index;  // nearest node (used to advance progress)
+  double s;      // arc length of the car's projection on the path [m]
+};
+}  // namespace
+
+class Driver : public rclcpp::Node
+{
+public:
+  Driver()
+  : Node("my_driver")
+  {
+    // All tuning values are ROS parameters: change with --ros-args -p name:=value
+    cruise_ = declare_parameter("cruise_speed", 12.0);       // top speed [m/s]
+    a_lat_ = declare_parameter("lat_accel", 3.0);            // allowed v^2*kappa [m/s^2]
+    brake_ = declare_parameter("brake_decel", 3.5);          // planned braking [m/s^2]
+    stop_aim_ = declare_parameter("stop_aim", 1.5);          // plan to stop this far PAST finish [m]
+    ld_base_ = declare_parameter("lookahead_base", 2.5);     // [m]
+    ld_gain_ = declare_parameter("lookahead_gain", 0.4);     // extra lookahead per m/s [s]
+    wheelbase_ = declare_parameter("wheelbase", 2.5);        // [m]
+    max_steer_ = declare_parameter("max_steer", 0.6);        // [rad]
+
+    // /path is latched: transient-local so we still get it if we start late.
+    auto path_qos = rclcpp::QoS(1).reliable().transient_local();
+    path_sub_ = create_subscription<RefPath>(
+      "/path", path_qos, [this](const RefPath & m) {on_path(m);});
+    state_sub_ = create_subscription<VehState>(
+      "/veh_state", 10, [this](const VehState & m) {state_ = m;});
+    actual_sub_ = create_subscription<VehCtrl>(
+      "/veh_actual", 10, [this](const VehCtrl & m) {v_actual_ = m.velocity;});
+    reset_sub_ = create_subscription<std_msgs::msg::Empty>(
+      "/reset", 10, [this](const std_msgs::msg::Empty &) {on_reset();});
+    publisher_ = create_publisher<VehCtrl>("/veh_ctrl", 10);
+    timer_ = create_wall_timer(50ms, [this]() {control();});  // 20 Hz, always
+  }
+
+private:
+  // ---------------------------------------------------------------- callbacks
+  void on_path(const RefPath & msg)
+  {
+    pts_.clear();
+    s_.clear();
+    kappa_.clear();
+    progress_ = 0;
+    finish_ = msg.finish_index;
+    if (msg.nodes.size() < 2 || finish_ >= msg.nodes.size()) {
+      return;  // empty/invalid path = no task -> control() commands zero
+    }
+    for (const auto & p : msg.nodes) {
+      pts_.push_back({p.x, p.y});
+    }
+    // cumulative arc length
+    s_.assign(pts_.size(), 0.0);
+    for (size_t i = 1; i < pts_.size(); ++i) {
+      s_[i] = s_[i - 1] + std::hypot(pts_[i].x - pts_[i - 1].x, pts_[i].y - pts_[i - 1].y);
+    }
+    // curvature at each node from the heading change over +/- k nodes
+    const size_t n = pts_.size(), k = 2;
+    kappa_.assign(n, 0.0);
+    for (size_t i = k; i + k < n; ++i) {
+      const double h1 = std::atan2(pts_[i].y - pts_[i - k].y, pts_[i].x - pts_[i - k].x);
+      const double h2 = std::atan2(pts_[i + k].y - pts_[i].y, pts_[i + k].x - pts_[i].x);
+      const double ds = 0.5 * (s_[i + k] - s_[i - k]);
+      kappa_[i] = ds > 1e-6 ? std::fabs(wrap(h2 - h1)) / ds : 0.0;
+    }
+    for (size_t i = 0; i < std::min(k, n); ++i) {  // copy to the ends
+      kappa_[i] = kappa_[std::min(k, n - 1)];
+      kappa_[n - 1 - i] = kappa_[n - 1 - std::min(k, n - 1)];
+    }
+  }
+
+  void on_reset()
+  {
+    // Forget progress and feedback, KEEP the path (/path and /reset can arrive in any order).
+    state_.reset();
+    v_actual_ = 0.0;
+    progress_ = 0;
+  }
+
+  // ------------------------------------------------------------- geometry
+  // Project the car on the path. Search only ahead of the last progress, so the
+  // circle (start == finish) can never jump back or ahead.
+  Location locate(double x, double y)
+  {
+    const size_t n = pts_.size();
+    const size_t hi = std::min(n - 1, progress_ + 80);  // 80 nodes = 40 m window
+    size_t best = progress_;
+    double best_d2 = 1e18;
+    for (size_t i = progress_; i <= hi; ++i) {
+      const double d2 = (pts_[i].x - x) * (pts_[i].x - x) + (pts_[i].y - y) * (pts_[i].y - y);
+      if (d2 < best_d2) {
+        best_d2 = d2;
+        best = i;
+      }
+    }
+    // refine: project onto the two segments touching the nearest node
+    double best_s = s_[best], seg_d2 = best_d2;
+    for (size_t j = (best > 0 ? best - 1 : 0); j <= best && j + 1 < n; ++j) {
+      const double dx = pts_[j + 1].x - pts_[j].x, dy = pts_[j + 1].y - pts_[j].y;
+      const double len2 = dx * dx + dy * dy;
+      const double t =
+        len2 > 1e-12 ? std::clamp(((x - pts_[j].x) * dx + (y - pts_[j].y) * dy) / len2, 0.0, 1.0) :
+        0.0;
+      const double px = pts_[j].x + t * dx - x, py = pts_[j].y + t * dy - y;
+      const double d2 = px * px + py * py;
+      if (d2 <= seg_d2) {
+        seg_d2 = d2;
+        best_s = s_[j] + t * std::sqrt(len2);
+      }
+    }
+    return {best, best_s};
+  }
+
+  Pt point_at(double s_target, size_t from) const
+  {
+    size_t j = from;
+    while (j + 1 < pts_.size() && s_[j + 1] < s_target) {++j;}
+    if (j + 1 >= pts_.size()) {return pts_.back();}
+    const double seg = s_[j + 1] - s_[j];
+    const double t = seg > 1e-9 ? (s_target - s_[j]) / seg : 0.0;
+    return {pts_[j].x + t * (pts_[j + 1].x - pts_[j].x),
+      pts_[j].y + t * (pts_[j + 1].y - pts_[j].y)};
+  }
+
+  // ------------------------------------------------------------------ control
+  void control()
+  {
+    double velocity = 0.0, steer = 0.0;  // default: stand still
+
+    if (!pts_.empty() && state_) {
+      const Location loc = locate(state_->x, state_->y);
+      progress_ = std::max(progress_, loc.index);
+      const double remaining = s_[finish_] - loc.s;  // >0 before the finish line
+
+      // --- steering: pure pursuit  delta = atan(2 L sin(alpha) / ld)
+      const double ld = std::clamp(ld_base_ + ld_gain_ * std::fabs(v_actual_), ld_base_, 15.0);
+      const Pt target = point_at(loc.s + ld, loc.index);
+      const double alpha = wrap(std::atan2(target.y - state_->y, target.x - state_->x) - state_->yaw);
+      steer = std::clamp(std::atan2(2.0 * wheelbase_ * std::sin(alpha), ld), -max_steer_, max_steer_);
+
+      // --- speed: smallest of (cruise, curve limits, braking limit), looking ahead
+      double v = cruise_;
+      if (remaining <= 0.0) {
+        v = 0.0;  // at the finish: stop
+      } else {
+        const size_t horizon =
+          static_cast<size_t>((cruise_ * cruise_ / (2.0 * brake_) + 10.0) / 0.5) + 1;
+        const size_t last = std::min(finish_, loc.index + horizon);
+        for (size_t j = loc.index; j <= last; ++j) {
+          const double dist = std::max(0.0, s_[j] - loc.s);
+          const double vc = kappa_[j] > 1e-4 ? std::sqrt(a_lat_ / kappa_[j]) : cruise_;
+          // can we still brake from here down to vc by node j?
+          v = std::min(v, std::sqrt(vc * vc + 2.0 * brake_ * dist));
+        }
+        // and brake so that we stop about `stop_aim` past the finish line
+        v = std::min(v, std::sqrt(2.0 * brake_ * (remaining + stop_aim_)));
+      }
+      velocity = std::clamp(v, 0.0, cruise_);
+
+      RCLCPP_INFO_THROTTLE(
+        get_logger(), *get_clock(), 1000,
+        "s=%.1f remaining=%.1f v_cmd=%.1f v_act=%.1f steer=%.2f", loc.s, remaining, velocity,
+        v_actual_, steer);
+    }
+
+    // Always publish (20 Hz): the sim zeroes the car if commands stop for 0.5 s.
+    VehCtrl msg;
+    msg.header.stamp = now();
+    msg.velocity = velocity;
+    msg.steer = steer;
+    publisher_->publish(msg);
+  }
+
+  // ------------------------------------------------------------------ data
+  std::vector<Pt> pts_;
+  std::vector<double> s_, kappa_;
+  size_t finish_ = 0, progress_ = 0;
+  std::optional<VehState> state_;
+  double v_actual_ = 0.0;
+
+  double cruise_, a_lat_, brake_, stop_aim_, ld_base_, ld_gain_, wheelbase_, max_steer_;
+
+  rclcpp::Subscription<RefPath>::SharedPtr path_sub_;
+  rclcpp::Subscription<VehState>::SharedPtr state_sub_;
+  rclcpp::Subscription<VehCtrl>::SharedPtr actual_sub_;
+  rclcpp::Subscription<std_msgs::msg::Empty>::SharedPtr reset_sub_;
+  rclcpp::Publisher<VehCtrl>::SharedPtr publisher_;
+  rclcpp::TimerBase::SharedPtr timer_;
+};
+
+int main(int argc, char ** argv)
+{
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<Driver>());
+  rclcpp::shutdown();
+  return 0;
+}
