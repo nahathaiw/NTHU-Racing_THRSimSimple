@@ -130,3 +130,16 @@ recorded runs: about 1 s lost whenever min speed < -0.13 (set N circle; A20 wave
 Offline test with the sim's speed loop and no noise (`stop_creep_test.py`) does not show it, so it depends on noise/timing.
 Fix (driver, param `stop_damp`, 0 = off): after the finish, if the car rolls backward, command `min(1, -stop_damp * v_actual)`
 forward. Next: sweep p4 tests stop_damp 0/2/5 on A16G15 and A25.
+
+### 2026-11-19 ~01:36 - Step 13: Sweep p4 results: stop_damp (cancel the backward roll)
+| Config | base | stop_damp | Score | Track | Time | Stop | Circle v_eq | Worst stop err |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| G15D0 | A16G15 | 0 | 72.4 | 37.6 | 14.8 | 20.0 | 10.4 | 4.8 |
+| **G15D2** | A16G15 | 2 | **72.8** | 37.5 | 15.2 | 20.0 | **12.0** | 4.8 |
+| G15D5 | A16G15 | 5 | 72.7 | 37.4 | 15.3 | 20.0 | 12.0 | 4.8 |
+| A25D0 | A25 | 0 | 72.4 | 37.1 | 15.5 | 19.9 | 11.6 | 5.1 |
+| A25D2 | A25 | 2 | 72.6 | 37.0 | **16.0** | 19.6 | **13.4** | 5.2 |
+| A25D5 | A25 | 5 | 72.1 | 36.8 | 15.9 | 19.4 | 13.4 | 5.3 |
+**The roll fix works:** circle v_eq +1.6 m/s (lat 16) and +1.8 m/s (lat 25; 13.4 vs ceiling 14.4). stop_damp 2 is enough.
+A25D2 has the highest time (16.0) but loses stop points: stop errors 5.0-5.2 m, just past the 5 m free zone.
+-> p5 (queued) tests stop_aim 1.5 with lat 25.

@@ -1,0 +1,7 @@
+# sweep p4: cancel the backward roll after the finish (stop_damp), on the two best p3 settings
+G15D0   lat_accel:=16.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=0.0
+G15D2   lat_accel:=16.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0
+G15D5   lat_accel:=16.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=5.0
+A25D0   lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.20 stop_damp:=0.0
+A25D2   lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.20 stop_damp:=2.0
+A25D5   lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.20 stop_damp:=5.0

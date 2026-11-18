@@ -1,0 +1,8 @@
+# sweep p5: base = G15D2 (lat 16, predict 0.10, gain 0.15, stop_damp 2). Push curve speed now that the roll is fixed,
+# and check the stop margin (stop errors are 4.6-4.8 m, limit 5).
+Q16A15  lat_accel:=16.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5
+Q20     lat_accel:=20.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0
+Q25     lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0
+Q25A15  lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5
+Q30     lat_accel:=30.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0
+Q25P05  lat_accel:=25.0 predict_time:=0.05 lookahead_gain:=0.15 stop_damp:=2.0

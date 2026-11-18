@@ -1,0 +1,18 @@
+[G15D0] lat_accel:=16.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=0.0
+   OVERALL 72.4 = track 37.6 + time 14.8 + stop 20.0 | max_cte 0.52 m | failures: none
+   per path: straight 73.9 (v_eq 11.5, err 4.8)  wave 70.1 (v_eq 11.0, err 4.6)  lane_change 72.8 (v_eq 11.4, err 4.7)  circle 72.7 (v_eq 10.4, err 3.5)
+[G15D2] lat_accel:=16.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0
+   OVERALL 72.8 = track 37.5 + time 15.2 + stop 20.0 | max_cte 0.66 m | failures: none
+   per path: straight 73.9 (v_eq 11.5, err 4.8)  wave 69.8 (v_eq 11.0, err 4.6)  lane_change 72.8 (v_eq 11.3, err 4.6)  circle 74.5 (v_eq 12.0, err 3.6)
+[G15D5] lat_accel:=16.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=5.0
+   OVERALL 72.7 = track 37.4 + time 15.3 + stop 20.0 | max_cte 0.66 m | failures: none
+   per path: straight 73.9 (v_eq 11.5, err 4.7)  wave 70.3 (v_eq 11.0, err 4.8)  lane_change 72.4 (v_eq 11.4, err 4.7)  circle 74.0 (v_eq 12.0, err 3.6)
+[A25D0] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.20 stop_damp:=0.0
+   OVERALL 72.4 = track 37.1 + time 15.5 + stop 19.9 | max_cte 0.83 m | failures: none
+   per path: straight 73.5 (v_eq 11.6, err 4.7)  wave 69.0 (v_eq 11.6, err 5.1)  lane_change 73.3 (v_eq 11.6, err 4.8)  circle 73.8 (v_eq 11.6, err 3.9)
+[A25D2] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.20 stop_damp:=2.0
+   OVERALL 72.6 = track 37.0 + time 16.0 + stop 19.6 | max_cte 0.99 m | failures: none
+   per path: straight 73.3 (v_eq 11.5, err 5.1)  wave 68.6 (v_eq 11.5, err 5.2)  lane_change 72.5 (v_eq 11.5, err 5.0)  circle 76.0 (v_eq 13.4, err 4.1)
+[A25D5] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.20 stop_damp:=5.0
+   OVERALL 72.1 = track 36.8 + time 15.9 + stop 19.4 | max_cte 0.85 m | failures: none
+   per path: straight 73.1 (v_eq 11.4, err 5.0)  wave 68.0 (v_eq 11.5, err 5.3)  lane_change 71.9 (v_eq 11.5, err 5.1)  circle 75.4 (v_eq 13.4, err 4.0)
