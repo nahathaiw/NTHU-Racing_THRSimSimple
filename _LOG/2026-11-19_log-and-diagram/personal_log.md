@@ -185,3 +185,6 @@ Parameter tuning has flattened: everything within noise of 74.2. R2G10 repeated 
 predict_time 0.10, steer_tau 0.10, steer_rate 1.0, stop_damp 2.0. predict_time 0.10 is the sweet spot (0.05 unstable, 0.15 worse).
 Score journey today: 70.3 (set N) -> 72.0 (prediction + faster curves) -> 72.8 (roll fix) -> 73.6 (stop_aim) -> 74.2 (short lookahead).
 Remaining gap to the ceiling (about 76) is tracking (38.2/40). More tuning will not find it; a code change would (e.g. curvature feed-forward steering).
+
+### 2026-11-19 - Step 17: Live demo script for set R2G10
+`./_SCRIPT/2026-11-19_script/demo_best.bash [eval [RUNS] | straight|wave|lane_change|circle]` starts my_driver with R2G10 and opens the GUI.
