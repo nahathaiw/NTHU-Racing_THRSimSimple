@@ -6,6 +6,9 @@
 //   3. Speed limit at every upcoming node: v^2 <= lat_accel / curvature, and
 //      v^2 <= 2 * brake_decel * distance_to_finish.  Command the smallest limit.
 //   4. At the finish command 0; the 5 m free stop zone lets us aim slightly past it.
+//   5. (2026-11-19) Prediction: the car reacts about 0.15 s late, so steer from where the car WILL be.
+//      A small bicycle model steps the pose forward `predict_time` s, with the wheel following the last
+//      command with a delay (time constant `steer_tau`, at most `steer_rate` rad/s). predict_time 0 = off.
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -33,6 +36,11 @@ struct Pt
   double x, y;
 };
 
+struct Pose
+{
+  double x, y, yaw;
+};
+
 struct Location
 {
   size_t index;  // nearest node (used to advance progress)
@@ -55,6 +63,10 @@ public:
     ld_gain_ = declare_parameter("lookahead_gain", 0.4);     // extra lookahead per m/s [s]
     wheelbase_ = declare_parameter("wheelbase", 2.5);        // [m]
     max_steer_ = declare_parameter("max_steer", 0.6);        // [rad]
+    predict_ = declare_parameter("predict_time", 0.0);       // look this far into the future [s], 0 = off
+    steer_tau_ = declare_parameter("steer_tau", 0.10);       // wheel follows the command with this lag [s]
+    steer_rate_ = declare_parameter("steer_rate", 1.0);      // wheel turns at most this fast [rad/s]
+    use_age_ = declare_parameter("predict_add_age", true);   // also cover the age of the pose message
 
     // /path is latched: transient-local so we still get it if we start late.
     auto path_qos = rclcpp::QoS(1).reliable().transient_local();
@@ -63,7 +75,10 @@ public:
     state_sub_ = create_subscription<VehState>(
       "/veh_state", 10, [this](const VehState & m) {state_ = m;});
     actual_sub_ = create_subscription<VehCtrl>(
-      "/veh_actual", 10, [this](const VehCtrl & m) {v_actual_ = m.velocity;});
+      "/veh_actual", 10, [this](const VehCtrl & m) {
+        v_actual_ = m.velocity;
+        steer_actual_ = m.steer;
+      });
     reset_sub_ = create_subscription<std_msgs::msg::Empty>(
       "/reset", 10, [this](const std_msgs::msg::Empty &) {on_reset();});
     publisher_ = create_publisher<VehCtrl>("/veh_ctrl", 10);
@@ -110,7 +125,28 @@ private:
     // Forget progress and feedback, KEEP the path (/path and /reset can arrive in any order).
     state_.reset();
     v_actual_ = 0.0;
+    steer_actual_ = 0.0;
+    last_steer_ = 0.0;
     progress_ = 0;
+  }
+
+  // ------------------------------------------------------------- prediction
+  // Kinematic bicycle model (same as the simulator), stepped forward `horizon` seconds.
+  // The wheel starts at its ACTUAL angle and moves toward the last command with a delay.
+  Pose predict(double horizon) const
+  {
+    Pose p{state_->x, state_->y, state_->yaw};
+    double st = steer_actual_;
+    const double v = v_actual_, dt = 0.005;
+    for (double t = 0.0; t < horizon - 1e-9; t += dt) {
+      const double h = std::min(dt, horizon - t);
+      const double want = steer_tau_ > 1e-6 ? (last_steer_ - st) * h / steer_tau_ : last_steer_ - st;
+      st += std::clamp(want, -steer_rate_ * h, steer_rate_ * h);
+      p.x += v * std::cos(p.yaw) * h;
+      p.y += v * std::sin(p.yaw) * h;
+      p.yaw = wrap(p.yaw + v / wheelbase_ * std::tan(st) * h);
+    }
+    return p;
   }
 
   // ------------------------------------------------------------- geometry
@@ -168,10 +204,17 @@ private:
       progress_ = std::max(progress_, loc.index);
       const double remaining = s_[finish_] - loc.s;  // >0 before the finish line
 
-      // --- steering: pure pursuit  delta = atan(2 L sin(alpha) / ld)
+      // --- steering: pure pursuit  delta = atan(2 L sin(alpha) / ld), from the PREDICTED pose
+      double horizon = predict_;
+      if (predict_ > 0.0 && use_age_) {  // the pose message is already a little old
+        const double age = (now() - rclcpp::Time(state_->header.stamp)).seconds();
+        horizon += std::clamp(age, 0.0, 0.1);
+      }
+      const Pose p = horizon > 0.0 ? predict(horizon) : Pose{state_->x, state_->y, state_->yaw};
+      const Location ploc = horizon > 0.0 ? locate(p.x, p.y) : loc;
       const double ld = std::clamp(ld_base_ + ld_gain_ * std::fabs(v_actual_), ld_base_, 15.0);
-      const Pt target = point_at(loc.s + ld, loc.index);
-      const double alpha = wrap(std::atan2(target.y - state_->y, target.x - state_->x) - state_->yaw);
+      const Pt target = point_at(ploc.s + ld, ploc.index);
+      const double alpha = wrap(std::atan2(target.y - p.y, target.x - p.x) - p.yaw);
       steer = std::clamp(std::atan2(2.0 * wheelbase_ * std::sin(alpha), ld), -max_steer_, max_steer_);
 
       // --- speed: smallest of (cruise, curve limits, braking limit), looking ahead
@@ -204,6 +247,7 @@ private:
     msg.header.stamp = now();
     msg.velocity = velocity;
     msg.steer = steer;
+    last_steer_ = steer;  // the prediction needs the command the wheel is moving toward
     publisher_->publish(msg);
   }
 
@@ -212,7 +256,9 @@ private:
   std::vector<double> s_, kappa_;
   size_t finish_ = 0, progress_ = 0;
   std::optional<VehState> state_;
-  double v_actual_ = 0.0;
+  double v_actual_ = 0.0, steer_actual_ = 0.0, last_steer_ = 0.0;
+  double predict_, steer_tau_, steer_rate_;
+  bool use_age_;
 
   double cruise_, a_lat_, brake_, stop_aim_, ld_base_, ld_gain_, wheelbase_, max_steer_;
 
