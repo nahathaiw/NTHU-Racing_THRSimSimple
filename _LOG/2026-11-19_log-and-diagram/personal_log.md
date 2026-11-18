@@ -170,3 +170,18 @@ A25D2 has the highest time (16.0) but loses stop points: stop errors 5.0-5.2 m, 
 New best **74.2** (R2G10). A shorter lookahead tracks better, BUT only with enough prediction: gain 0.10 works with
 predict 0.10 and fails with predict 0.05 (R3). Same lesson as set I: prediction is what makes a short lookahead stable.
 Next: sweep p7 around R2G10 (base 2.0, gain 0.08, predict 0.12/0.15).
+
+### 2026-11-19 ~02:00 - Step 16: Sweep p7 results: around R2G10 -> plateau at about 74.2
+| Config | change from R2G10 | Score | Track | Time | Max err |
+|---|---|---:|---:|---:|---:|
+| S0 | repeat of R2G10 (74.2) | 74.2 | 38.2 | 16.0 | 0.51 |
+| S1B20 | base 2.0 | 74.1 | 38.1 | 16.0 | 0.48 |
+| S2G08 | gain 0.08 | 74.3 | 38.2 | 16.1 | 0.47 |
+| S3P15 | predict 0.15 | 73.5 | 37.5 | 16.0 | 0.82 |
+| S4P15G08 | predict 0.15 + gain 0.08 | 74.1 | 38.1 | 16.0 | 0.65 |
+| S5P12 | predict 0.12 | 73.9 | 37.8 | 16.1 | 0.50 |
+Parameter tuning has flattened: everything within noise of 74.2. R2G10 repeated exactly (74.2 twice), so it is the
+**current best set "R2G10"**: cruise 25, lat_accel 25, brake 5.9, stop_aim 1.5, lookahead_base 2.5, lookahead_gain 0.10,
+predict_time 0.10, steer_tau 0.10, steer_rate 1.0, stop_damp 2.0. predict_time 0.10 is the sweet spot (0.05 unstable, 0.15 worse).
+Score journey today: 70.3 (set N) -> 72.0 (prediction + faster curves) -> 72.8 (roll fix) -> 73.6 (stop_aim) -> 74.2 (short lookahead).
+Remaining gap to the ceiling (about 76) is tracking (38.2/40). More tuning will not find it; a code change would (e.g. curvature feed-forward steering).

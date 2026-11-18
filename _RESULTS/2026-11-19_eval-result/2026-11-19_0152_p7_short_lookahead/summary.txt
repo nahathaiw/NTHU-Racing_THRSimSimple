@@ -1,0 +1,18 @@
+[S0] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
+   OVERALL 74.2 = track 38.2 + time 16.0 + stop 20.0 | max_cte 0.51 m | failures: none
+   per path: straight 74.2 (v_eq 11.5, err 4.4)  wave 72.1 (v_eq 11.5, err 4.7)  lane_change 74.1 (v_eq 11.7, err 4.3)  circle 76.5 (v_eq 13.4, err 3.3)
+[S1B20] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5 lookahead_base:=2.0
+   OVERALL 74.1 = track 38.1 + time 16.0 + stop 20.0 | max_cte 0.48 m | failures: none
+   per path: straight 74.0 (v_eq 11.5, err 4.2)  wave 72.1 (v_eq 11.4, err 4.7)  lane_change 74.0 (v_eq 11.6, err 4.3)  circle 76.3 (v_eq 13.4, err 3.4)
+[S2G08] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.08 stop_damp:=2.0 stop_aim:=1.5
+   OVERALL 74.3 = track 38.2 + time 16.1 + stop 20.0 | max_cte 0.47 m | failures: none
+   per path: straight 74.2 (v_eq 11.6, err 4.2)  wave 72.2 (v_eq 11.5, err 4.7)  lane_change 74.2 (v_eq 11.7, err 4.4)  circle 76.4 (v_eq 13.5, err 3.5)
+[S3P15] lat_accel:=25.0 predict_time:=0.15 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
+   OVERALL 73.5 = track 37.5 + time 16.0 + stop 20.0 | max_cte 0.82 m | failures: none
+   per path: straight 74.4 (v_eq 11.5, err 4.3)  wave 70.0 (v_eq 11.4, err 4.9)  lane_change 73.2 (v_eq 11.6, err 4.3)  circle 76.5 (v_eq 13.4, err 3.6)
+[S4P15G08] lat_accel:=25.0 predict_time:=0.15 lookahead_gain:=0.08 stop_damp:=2.0 stop_aim:=1.5
+   OVERALL 74.1 = track 38.1 + time 16.0 + stop 20.0 | max_cte 0.65 m | failures: none
+   per path: straight 74.6 (v_eq 11.6, err 4.2)  wave 71.2 (v_eq 11.4, err 4.8)  lane_change 73.9 (v_eq 11.6, err 4.3)  circle 76.9 (v_eq 13.4, err 3.7)
+[S5P12] lat_accel:=25.0 predict_time:=0.12 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
+   OVERALL 73.9 = track 37.8 + time 16.1 + stop 20.0 | max_cte 0.50 m | failures: none
+   per path: straight 73.9 (v_eq 11.6, err 4.3)  wave 71.6 (v_eq 11.5, err 4.8)  lane_change 73.5 (v_eq 11.6, err 4.4)  circle 76.6 (v_eq 13.5, err 3.4)
