@@ -19,6 +19,15 @@ Status: TODO -> RUNNING -> DONE (or FAILED / SKIPPED). Filled in step by step; d
 | E7 | Best of E1-E6 + confirmation | | 3 runs per path (12 runs), official style | a reliable final number |
 | E8 | (optional) RL-tuned lookahead | RL pure pursuit, RA-L 2026 | policy picks lookahead and gain from speed + curvature | learning project; needs a training loop |
 
+## Rule added 2026-11-19 ~02:45 (user): optimise promising methods, try combinations
+After each experiment: if a method is **within noise of the best (about 0.6)** or **better on some paths**, it gets an
+optimisation round (C-rows). If two methods are good at different things (e.g. one tracks the wave better, another the circle),
+we try them **combined** (C-rows). Candidate C-rows are added below as results come in.
+
+| ID | Idea | Why (evidence) | Status | Score | Result folder |
+|---|---|---|---|---:|---|
+| C1 | Stanley K6 + tuning (K 6-10, soft, with E4 feed-forward) | E1/E2: higher K kept improving (K1 71.5 -> K6 73.2), straight 74.6 = best straight so far | candidate | | |
+
 ## Results (filled in as we go)
 
 | ID | Status | Date-time | Score | Track /40 | Time /40 | Stop /20 | Max err (m) | Failures | Result folder | Note |

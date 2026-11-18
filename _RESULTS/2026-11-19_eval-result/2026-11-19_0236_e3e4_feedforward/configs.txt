@@ -1,0 +1,9 @@
+# E3: rear-axle Stanley + curvature feed-forward (DLR 2026 enhanced Stanley). E4: pure pursuit blended with feed-forward
+# (Kapania & Gerdes 2015). Base = R2G10 settings: lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+E0         lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+E3K4F10    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley_ff stanley_k:=4.0 ff_time:=0.10
+E3K4F20    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley_ff stanley_k:=4.0 ff_time:=0.20
+E3K2F10    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley_ff stanley_k:=2.0 ff_time:=0.10
+E4G3       lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 ff_gain:=0.3 ff_time:=0.10
+E4G5       lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 ff_gain:=0.5 ff_time:=0.10
+E4G3F20    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 ff_gain:=0.3 ff_time:=0.20

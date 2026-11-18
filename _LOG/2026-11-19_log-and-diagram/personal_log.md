@@ -254,3 +254,8 @@ Next: E2 predictive Stanley (horizon N 3/6, decay 0.5/0.7) and K6.
 delay; the extra horizon averages in commands for future states, which makes the steering slower to react. This differs from the
 DLR thesis, whose base Stanley had no latency compensation. Pure pursuit + prediction stays best (74.0).
 Next: E3 (rear-axle Stanley + feed-forward) and E4 (pure pursuit + feed-forward) in one sweep.
+
+### 2026-11-19 ~02:45 - Step 25: New rule: optimise promising methods and try combinations
+User: if a method has high potential, optimise it; if methods are better combined, combine them. Added a "C-rows" table to
+`experiment_plan.md`: a method within noise (~0.6) of the best, or best on some path, gets an optimisation round; methods good at
+different things get combined. First candidate C1: Stanley with higher K (trend still rising at K6; best straight 74.6).
