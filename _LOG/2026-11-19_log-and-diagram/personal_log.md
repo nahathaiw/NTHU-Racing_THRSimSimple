@@ -289,3 +289,16 @@ User asked to stop and continue next session, after the latest experiment. I fir
 off during E5R100), then restarted the 4 remaining E5 settings as `e5_lqr_part2`. E5 part 1 (`2026-11-19_0245_e5_lqr/`):
 E0 74.4 (track 38.3), E5R30 73.2 (track 37.1); `..._E5R100_INVALID-interrupted` discarded.
 Handoff for tomorrow: `_LOG/2026-11-19_log-and-diagram/NEXT_SESSION.md` (where we are, remaining work in order, sweep rules).
+
+### 2026-11-19 02:48 - Step 29: E5 results: kinematic MPC as LQR (`2026-11-19_0245_e5_lqr/` + `2026-11-19_0248_e5_lqr_part2/`)
+| Config | r | ff_time | q_psi | Score | Track | Max err |
+|---|---:|---:|---:|---:|---:|---:|
+| E0 (pure pursuit, R2G10) | | | | **74.4** | 38.3 | 0.56 |
+| E5R30 | 30 | 0.10 | 1 | 73.2 | 37.1 | 0.57 |
+| E5R100 | 100 | 0.10 | 1 | 71.5 | 35.5 | 0.85 |
+| E5R300 | 300 | 0.10 | 1 | 69.3 | 33.2 | 1.60 |
+| E5R100F20 | 100 | 0.20 | 1 | 70.2 | 34.7 | 1.27 |
+| E5R100Q4 | 100 | 0.10 | 4 | 71.8 | 35.7 | 0.97 |
+No failures. **The smaller r (stronger steering), the better, and the trend has not stopped at r = 30**, so E5 is not finished:
+next session E6 tries r 3/10/20 (+ q_psi 4). LQR at r 30 (73.2) is about 1 point below pure pursuit, the same gap as Stanley.
+All of today's methods stay below pure pursuit + prediction so far. Paused here for the night; plan in `NEXT_SESSION.md`.

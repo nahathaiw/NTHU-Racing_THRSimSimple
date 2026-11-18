@@ -9,14 +9,13 @@
 
 ## Done in the method plan
 E1 Stanley 73.0 | E2 predictive Stanley 72.8 | E3 rear-axle Stanley + feed-forward 73.5 | E4 pure pursuit + feed-forward 73.5 |
-E5 LQR (kinematic MPC): see `experiment_plan.md` (part 1 at 02:45: E5R30 73.2; part 2 = r 100/300, ff 0.2, q_psi 4).
+E5 LQR (kinematic MPC) 73.2 at r=30 (r100 71.5, r300 69.3: stronger steering is better, trend not finished; q_psi 4 helped a little).
 None has beaten pure pursuit + prediction so far.
 
 ## Still to do (in this order)
-1. **E5 check**: read `_RESULTS/2026-11-19_eval-result/*_e5_lqr_part2/summary.txt` if it is not yet in the table.
+1. **E6 LQR tuning first** (trend unfinished): r 3 / 10 / 20, each also with q_psi 4; maybe steer_tau 0.15 in the model. Include E0.
 2. **C-rows** (optimise / combine), from `experiment_plan.md`:
    - C1 Stanley with higher K (6-10) and/or with feed-forward: K was still improving at K6.
-   - If E5 r=100/300 is within noise of R2G10: E6 LQR tuning (q_e, q_psi, r, lqr_dt, steer_tau in the model).
    - Combination idea: Stanley/LQR on straights (best straight scores) + pure pursuit in curves (best wave/circle).
 3. **E7**: 3-run confirmation (`-n 3`) of the best 1-2 settings, same session as R2G10.
 4. Optional **E8**: RL-tuned lookahead (RA-L 2026 paper in `_paper/2025-2026/`).
