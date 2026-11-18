@@ -143,3 +143,17 @@ forward. Next: sweep p4 tests stop_damp 0/2/5 on A16G15 and A25.
 **The roll fix works:** circle v_eq +1.6 m/s (lat 16) and +1.8 m/s (lat 25; 13.4 vs ceiling 14.4). stop_damp 2 is enough.
 A25D2 has the highest time (16.0) but loses stop points: stop errors 5.0-5.2 m, just past the 5 m free zone.
 -> p5 (queued) tests stop_aim 1.5 with lat 25.
+
+### 2026-11-19 ~01:45 - Step 14: Sweep p5 results: faster curves with the roll fixed (base G15D2)
+| Config | lat | predict | aim | Score | Track | Time | Stop | Circle v_eq | Worst stop err |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Q16A15 | 16 | 0.10 | 1.5 | 73.0 | 37.6 | 15.4 | 20.0 | 12.1 | 4.2 |
+| Q20 | 20 | 0.10 | 2.0 | 73.1 | 37.3 | 15.8 | 20.0 | 12.8 | 4.6 |
+| Q25 | 25 | 0.10 | 2.0 | 73.2 | 37.2 | 16.0 | 20.0 | 13.4 | 4.9 |
+| **Q25A15** | 25 | 0.10 | 1.5 | **73.6** | 37.5 | 16.1 | 20.0 | 13.5 | 4.7 |
+| Q30 | 30 | 0.10 | 2.0 | 73.3 | 37.4 | 16.1 | 19.7 | 13.8 | 5.2 |
+| Q25P05 | 25 | 0.05 | 2.0 | 73.5 | 37.4 | 16.0 | 20.0 | 13.4 | 4.8 (best wave 72.4, max err 0.45) |
+- The "1 s slower at lat 20" problem is gone (Q20 wave 11.4, lane 11.6 m/s): it was the backward roll.
+- stop_aim 1.5 keeps the stop inside 5 m at no time cost. New best **73.6** (Q25A15).
+- **Time 16.1/40 is at the ceiling (about 16.3).** v_eq: straight 11.6, wave 11.5, lane 11.6, circle 13.5.
+  What is left: tracking 37.5 -> 40 (about 2.5 points). Next: sweep p6 on tracking (predict 0.05, gain 0.10, base 2.0, steer_tau 0.15).
