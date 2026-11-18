@@ -160,5 +160,5 @@ ros2 run my_driver driver --ros-args \
 | `simulator/` | `thr_sim` (vehicle_sim, sim_ctrl, GUI) and `thr_sim_msgs` (message types) |
 | `demo_driver/` | The Python baseline (62.3) |
 | `scripts/` | Sweep scripts (`sweep*.bash`) and the demo launcher (`demo_best.bash`) |
-| `personal_log.md` | Step-by-step log, every experiment and its result |
+| `experiment_log/personal_log.md` | Step-by-step log, every experiment and its result |
 | `ARCHITECTURE.md`, `FLOW.md` | These documents |

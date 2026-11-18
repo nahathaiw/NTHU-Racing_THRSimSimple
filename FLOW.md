@@ -133,7 +133,7 @@ flowchart LR
     DR --> EV["evaluate.bash --headless -n 2<br/>4 paths x 2 runs"]
     EV --> JS["eval_results/sweepN/SET.json"]
     JS --> SUM["summary.txt<br/>score, track, time, stop,<br/>max error, failures"]
-    SUM --> LOG["personal_log.md"]
+    SUM --> LOG["experiment_log/"]
     LOOP --> KILL["stop the driver"]
 ```
 

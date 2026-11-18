@@ -1,0 +1,196 @@
+{
+  "time": "2026-11-18 20:30:20",
+  "status": "complete",
+  "planned_runs": 8,
+  "completed_runs": 8,
+  "plan": {
+    "shapes": [
+      "straight",
+      "wave",
+      "lane_change",
+      "circle"
+    ],
+    "repeats": 2
+  },
+  "overall_score": 69.44,
+  "per_path": {
+    "straight": {
+      "runs": 2,
+      "score": 69.2,
+      "tracking": 89.28,
+      "time_score": 33.730000000000004,
+      "v_eq": 10.118,
+      "stop": 100.0,
+      "mean_abs_stop_err": 4.333,
+      "stopped": 2,
+      "results": [
+        "stopped",
+        "stopped"
+      ]
+    },
+    "wave": {
+      "runs": 2,
+      "score": 68.58500000000001,
+      "tracking": 91.25,
+      "time_score": 30.205,
+      "v_eq": 9.060500000000001,
+      "stop": 100.0,
+      "mean_abs_stop_err": 4.157,
+      "stopped": 2,
+      "results": [
+        "stopped",
+        "stopped"
+      ]
+    },
+    "lane_change": {
+      "runs": 2,
+      "score": 71.33500000000001,
+      "tracking": 94.95,
+      "time_score": 33.39,
+      "v_eq": 10.0175,
+      "stop": 100.0,
+      "mean_abs_stop_err": 4.388,
+      "stopped": 2,
+      "results": [
+        "stopped",
+        "stopped"
+      ]
+    },
+    "circle": {
+      "runs": 2,
+      "score": 68.66,
+      "tracking": 95.69,
+      "time_score": 25.955,
+      "v_eq": 7.787000000000001,
+      "stop": 100.0,
+      "mean_abs_stop_err": 3.3200000000000003,
+      "stopped": 2,
+      "results": [
+        "stopped",
+        "stopped"
+      ]
+    }
+  },
+  "runs": [
+    {
+      "run": 1,
+      "shape": "straight",
+      "result": "stopped",
+      "score": 68.79,
+      "tracking": 88.4,
+      "time_score": 33.58,
+      "v_eq": 10.073,
+      "stop": 100.0,
+      "stop_err": 4.151,
+      "completion": 1.0,
+      "rms_cte": 0.2319,
+      "max_cte": 0.7645,
+      "time": 5.96
+    },
+    {
+      "run": 2,
+      "shape": "straight",
+      "result": "stopped",
+      "score": 69.61,
+      "tracking": 90.16,
+      "time_score": 33.88,
+      "v_eq": 10.163,
+      "stop": 100.0,
+      "stop_err": 4.515,
+      "completion": 1.0,
+      "rms_cte": 0.1968,
+      "max_cte": 0.6593,
+      "time": 5.9
+    },
+    {
+      "run": 3,
+      "shape": "wave",
+      "result": "stopped",
+      "score": 69.67,
+      "tracking": 93.83,
+      "time_score": 30.34,
+      "v_eq": 9.101,
+      "stop": 100.0,
+      "stop_err": 4.084,
+      "completion": 1.0,
+      "rms_cte": 0.1234,
+      "max_cte": 0.3001,
+      "time": 6.75
+    },
+    {
+      "run": 4,
+      "shape": "wave",
+      "result": "stopped",
+      "score": 67.5,
+      "tracking": 88.67,
+      "time_score": 30.07,
+      "v_eq": 9.02,
+      "stop": 100.0,
+      "stop_err": 4.23,
+      "completion": 1.0,
+      "rms_cte": 0.2265,
+      "max_cte": 0.6246,
+      "time": 6.81
+    },
+    {
+      "run": 5,
+      "shape": "lane_change",
+      "result": "stopped",
+      "score": 71.33,
+      "tracking": 94.84,
+      "time_score": 33.48,
+      "v_eq": 10.044,
+      "stop": 100.0,
+      "stop_err": 4.366,
+      "completion": 1.0,
+      "rms_cte": 0.1032,
+      "max_cte": 0.19,
+      "time": 6.02
+    },
+    {
+      "run": 6,
+      "shape": "lane_change",
+      "result": "stopped",
+      "score": 71.34,
+      "tracking": 95.06,
+      "time_score": 33.3,
+      "v_eq": 9.991,
+      "stop": 100.0,
+      "stop_err": 4.41,
+      "completion": 1.0,
+      "rms_cte": 0.0989,
+      "max_cte": 0.3009,
+      "time": 6.05
+    },
+    {
+      "run": 7,
+      "shape": "circle",
+      "result": "stopped",
+      "score": 68.69,
+      "tracking": 95.7,
+      "time_score": 26.02,
+      "v_eq": 7.807,
+      "stop": 100.0,
+      "stop_err": 3.33,
+      "completion": 1.0,
+      "rms_cte": 0.086,
+      "max_cte": 0.2425,
+      "time": 12.07
+    },
+    {
+      "run": 8,
+      "shape": "circle",
+      "result": "stopped",
+      "score": 68.63,
+      "tracking": 95.68,
+      "time_score": 25.89,
+      "v_eq": 7.767,
+      "stop": 100.0,
+      "stop_err": 3.31,
+      "completion": 1.0,
+      "rms_cte": 0.0864,
+      "max_cte": 0.2277,
+      "time": 12.13
+    }
+  ]
+}
