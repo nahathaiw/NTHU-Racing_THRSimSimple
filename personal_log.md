@@ -559,3 +559,46 @@ Base = M (cruise 25, lat 6, brake 5.8, aim 2.5, gain 0.25). Script: `./scripts/s
 | P | cruise_speed 30 | higher ceiling now that braking is later |
 
 **Deck:** added three code slides after the speed method slide (steering, speed profile, safety), numbered rows with code and explanation.
+
+### 2026-11-18 — Step 12: Committed and pushed to GitHub (~20:35)
+
+Commits on `main` (pushed to `origin` = github.com/nahathaiw/NTHU-Racing_THRSimSimple):
+- `1ae422f` feat: add my_driver C++ pure-pursuit driver with speed profile and planned stop
+- `a7493ae` docs: add personal log and parameter sweep scripts
+Not committed on purpose: `build/`, `install/`, `log/`, `eval_results/` (ignored by `.gitignore`); results are recorded in this log instead.
+Note: `package.xml` still has the default `TODO` description and license; fill them before submitting.
+
+## Presentation outline for the experiments (what changed, what it showed)
+
+1. **Demo (62.3):** fixed 3 m/s. Tracking and stop full, time ~4/40.
+2. **First run, defaults (66.6):** my pure pursuit + speed profile, cruise 12. Time 8.7/40. Proof the method works: all 12 runs stopped.
+3. **Sweep 1 (B-G, up to 68.8):** raise cruise, lat_accel, brake_decel, stop_aim together. Gains until D; E (cruise 30) lost tracking. G (shorter gain 0.25) best.
+4. **Sweep 2 (H-L, best 69.8):** change one thing at a time. H = safer stop (no cost); I = gain 0.15 FAILED (3 off-track runs, 47.0);
+   J = lat_accel 7 (no gain); K = brake 5.8 (best, +0.9, but stop error 4.97 m); L = base 2.0 (worse tracking); H2 = noise 0.5.
+5. **Round 3 (M, K2):** M = K with stop_aim 2.5: 69.4 with 4.51 m stop error (safer); K2 = repeat of K: 69.5 (noise ~0.3). Chosen final: M.
+6. **Round 4 (N, O, P):** brake 5.9, gain 0.30, cruise 30 (results pending).
+Story: speed gives time points -> tracking cost -> braking is the bottleneck -> lookahead must grow with speed -> stop margin vs score -> noise limits what we can claim.
+
+| N (round 4) | brake 5.9, aim 2.0 | 70.3 | time 12.8 | max CTE 0.58 m | straight v_eq 11.6 | new best so far (stop err: see summary) |
+
+### 2026-11-18 — Step 13: Sweep 3 added to the deck (~20:40)
+
+New slide "Sweep 3: a safer stop at the same score" (result 4 of 5): K 69.8 (stop err 4.97 m), K2 69.5 (4.93 m), M 69.4 (4.51 m).
+Result slides renumbered "n of 5" (first run, sweep 1, sweep 2, sweep 3, sweep 4). Deck is now 17 slides; sweep 4 slide to be added when P finishes.
+Round 4 so far (base M): N (brake 5.9, aim 2.0) 70.3, max stop err 4.75 m; O (gain 0.30) 70.1, max stop err 4.75 m; P (cruise 30) running.
+
+### 2026-11-18 — Step 11 results: sweep round 4 (`eval_results/sweep4/`, 2 runs per path, base = M)
+
+| Set | Change from M | Overall | Track | Time | Max CTE | Max stop err | Failures |
+|---|---|---:|---:|---:|---:|---:|---|
+| **N** | brake 5.9, stop_aim 2.0 | **70.3** | 37.5 | 12.8 | 0.58 m | 4.75 m | none |
+| O | lookahead_gain 0.30 | 70.1 | 37.3 | 12.8 | 0.59 m | 4.75 m | none |
+| P | cruise_speed 30 | 70.1 | 37.6 | 12.5 | 0.56 m | 4.57 m | none |
+
+N, O, P all beat M (69.4) by ~0.7-0.9 but tie each other within noise (~0.5). N: straight v_eq 11.6 m/s (the highest of all tests).
+
+## FINAL SETTINGS (chosen 20:41): N
+`cruise_speed 25, lat_accel 6.0, brake_decel 5.9, stop_aim 2.0, lookahead_base 2.5, lookahead_gain 0.25`
+Score journey: demo 62.3 -> first run 66.6 -> sweep 1 68.8 -> sweep 2 69.8 -> sweep 3 69.4 (safer) -> sweep 4 70.3.
+Deck now 18 slides: added "Sweep 4" (result 5 of 5); parameters slide shows default -> final values.
+Run command: `ros2 run my_driver driver --ros-args -p cruise_speed:=25.0 -p lat_accel:=6.0 -p brake_decel:=5.9 -p stop_aim:=2.0 -p lookahead_gain:=0.25`
