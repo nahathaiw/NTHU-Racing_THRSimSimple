@@ -226,3 +226,17 @@ Stopped everything, checked `ros2 node list` empty, kept the folder as `2026-11-
 **Guard added to `sweep.bash`:** it refuses to start, and stops before each config, if another driver, simulator, GUI, evaluation or
 demo is running (waits up to 10 s for the previous run to shut down). Second time this happened today (first: Step 8).
 Rule: while a sweep runs, do not open the GUI / demo. E1 re-run started.
+
+### 2026-11-19 02:21 - Step 23: E1 results: Stanley (clean re-run, `2026-11-19_0221_e1_stanley/`)
+| Config | Steering | predict | Score | Track | Max err | Failures |
+|---|---|---:|---:|---:|---:|---|
+| E0 | pure pursuit (R2G10) | 0.10 | **73.6** | 37.7 | 0.57 | none |
+| E1K2P0 | Stanley K2, paper version | 0 | 50.7 | 27.9 | 2.16 | wave x2, lane off_track |
+| E1K2 | Stanley K2 | 0.10 | 72.6 | 36.5 | 0.69 | none |
+| E1K1 | Stanley K1 | 0.10 | 71.5 | 35.4 | 0.84 | none |
+| E1K4 | Stanley K4 | 0.10 | 73.0 | 36.9 | 0.51 | none |
+| E1K2Y | Stanley K2 + yaw damping 0.05 | 0.10 | 72.4 | 36.3 | 0.74 | none |
+- E0 = 73.6 here vs 74.2 earlier: noise between sweeps about 0.6 (so compare within the same sweep).
+- Stanley without prediction is unstable at our speeds (the 0.15 s lag), like pure pursuit was: prediction is required.
+- With prediction Stanley is about 0.6 below pure pursuit; a higher K tracks better (K1 < K2 < K4). Yaw damping did not help.
+Next: E2 predictive Stanley (horizon N 3/6, decay 0.5/0.7) and K6.

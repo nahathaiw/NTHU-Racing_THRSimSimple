@@ -24,8 +24,8 @@ Status: TODO -> RUNNING -> DONE (or FAILED / SKIPPED). Filled in step by step; d
 | ID | Status | Date-time | Score | Track /40 | Time /40 | Stop /20 | Max err (m) | Failures | Result folder | Note |
 |---|---|---|---:|---:|---:|---:|---:|---|---|---|
 | E0 | DONE | 2026-11-19 01:4x / 01:52 | 74.2 | 38.2 | 16.0 | 20.0 | 0.56 / 0.51 | none | `..._p6_tracking/..._R2G10`, `..._p7_short_lookahead/..._S0` | scored 74.2 twice |
-| E1 | RUNNING (re-run) | 2026-11-19 ~02:40 | | | | | | | `..._e1_stanley/` | sweep e1: plain Stanley, Stanley + prediction, K 1/2/4, yaw damping |
-| E2 | TODO | | | | | | | | | |
+| E1 | DONE | 2026-11-19 02:21 | 73.0 (best: K4) | 36.9 | 16.1 | 20.0 | 0.51 | none (paper version without prediction: 3 off-track) | `2026-11-19_0221_e1_stanley/` | same-session E0 = 73.6. Stanley is ~0.6 below pure pursuit; needs prediction; higher K better (K1 71.5, K2 72.6, K4 73.0); yaw damping no help (72.4) |
+| E2 | RUNNING | 2026-11-19 ~02:32 | | | | | | | `..._e2_predictive_stanley/` | predictive Stanley N 3/6, decay 0.5/0.7, K4/K6 |
 | E3 | TODO | | | | | | | | | |
 | E4 | TODO | | | | | | | | | |
 | E5 | TODO | | | | | | | | | |

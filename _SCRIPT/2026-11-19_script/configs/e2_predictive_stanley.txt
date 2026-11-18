@@ -1,0 +1,7 @@
+# E2: predictive Stanley (DLR 2026 eq. 3.12-3.14). Base = R2G10 settings: lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+E0        lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+E2K6      lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=6.0
+E2K4N3    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=4.0 stanley_pred_steps:=3 stanley_pred_dt:=0.05 stanley_pred_decay:=0.7
+E2K4N6    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=4.0 stanley_pred_steps:=6 stanley_pred_dt:=0.05 stanley_pred_decay:=0.7
+E2K4N3D5  lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=4.0 stanley_pred_steps:=3 stanley_pred_dt:=0.05 stanley_pred_decay:=0.5
+E2K6N3    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=6.0 stanley_pred_steps:=3 stanley_pred_dt:=0.05 stanley_pred_decay:=0.7
