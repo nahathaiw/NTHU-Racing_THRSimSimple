@@ -1,0 +1,27 @@
+[N0] predict_time:=0.0
+   OVERALL 8.8 = track 8.8 + time 0.0 + stop 0.0 | max_cte 45.00 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:off_track, lane_change:off_track, lane_change:off_track, circle:off_track, circle:off_track
+   per path: straight 11.3 (v_eq 0.0, err 0.0)  wave 4.8 (v_eq 0.0, err 0.0)  lane_change 16.1 (v_eq 0.0, err 0.0)  circle 2.8 (v_eq 0.0, err 0.0)
+[N0] predict_time:=0.0
+   OVERALL 7.7 = track 7.7 + time 0.0 + stop 0.0 | max_cte 27.50 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:off_track, lane_change:off_track, lane_change:off_track, circle:off_track, circle:off_track
+   per path: straight 7.7 (v_eq 0.0, err 0.0)  wave 4.8 (v_eq 0.0, err 0.0)  lane_change 14.6 (v_eq 0.0, err 0.0)  circle 3.5 (v_eq 0.0, err 0.0)
+[P10] predict_time:=0.10
+   OVERALL 12.7 = track 12.7 + time 0.0 + stop 0.0 | max_cte 60.50 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:timeout, lane_change:off_track, lane_change:off_track, circle:off_track, circle:timeout
+   per path: straight 0.1 (v_eq 0.0, err 0.0)  wave 20.6 (v_eq 0.0, err 0.0)  lane_change 12.9 (v_eq 0.0, err 0.0)  circle 17.2 (v_eq 0.0, err 0.0)
+[P10] predict_time:=0.10
+   OVERALL 14.3 = track 14.3 + time 0.0 + stop 0.0 | max_cte 28.50 m | failures: straight:off_track, straight:off_track, wave:timeout, wave:off_track, lane_change:off_track, lane_change:off_track, circle:timeout, circle:off_track
+   per path: straight 4.9 (v_eq 0.0, err 0.0)  wave 19.7 (v_eq 0.0, err 0.0)  lane_change 9.1 (v_eq 0.0, err 0.0)  circle 23.4 (v_eq 0.0, err 0.0)
+[P15] predict_time:=0.15
+   OVERALL 8.2 = track 8.2 + time 0.0 + stop 0.0 | max_cte 12.63 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:off_track, lane_change:off_track, lane_change:off_track, circle:off_track, circle:off_track
+   per path: straight 8.7 (v_eq 0.0, err 0.0)  wave 17.3 (v_eq 0.0, err 0.0)  lane_change 4.4 (v_eq 0.0, err 0.0)  circle 2.5 (v_eq 0.0, err 0.0)
+[P15] predict_time:=0.15
+   OVERALL 6.6 = track 6.6 + time 0.0 + stop 0.0 | max_cte 35.00 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:off_track, lane_change:off_track, lane_change:off_track, circle:off_track, circle:off_track
+   per path: straight 0.0 (v_eq 0.0, err 0.0)  wave 19.1 (v_eq 0.0, err 0.0)  lane_change 3.8 (v_eq 0.0, err 0.0)  circle 3.5 (v_eq 0.0, err 0.0)
+[P20] predict_time:=0.20
+   OVERALL 6.6 = track 6.6 + time 0.0 + stop 0.0 | max_cte 60.00 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:off_track, lane_change:off_track, lane_change:off_track, circle:off_track, circle:off_track
+   per path: straight 0.0 (v_eq 0.0, err 0.0)  wave 7.2 (v_eq 0.0, err 0.0)  lane_change 5.2 (v_eq 0.0, err 0.0)  circle 14.1 (v_eq 0.0, err 0.0)
+[P20] predict_time:=0.20
+   OVERALL 8.5 = track 8.5 + time 0.0 + stop 0.0 | max_cte 16.98 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:off_track, lane_change:off_track, lane_change:off_track, circle:off_track, circle:off_track
+   per path: straight 10.2 (v_eq 0.0, err 0.0)  wave 7.0 (v_eq 0.0, err 0.0)  lane_change 4.2 (v_eq 0.0, err 0.0)  circle 12.6 (v_eq 0.0, err 0.0)
+[P25] predict_time:=0.25
+   OVERALL 7.9 = track 7.9 + time 0.0 + stop 0.0 | max_cte 22.00 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:off_track, lane_change:off_track, lane_change:off_track, circle:off_track, circle:off_track
+   per path: straight 7.3 (v_eq 0.0, err 0.0)  wave 7.3 (v_eq 0.0, err 0.0)  lane_change 5.0 (v_eq 0.0, err 0.0)  circle 12.1 (v_eq 0.0, err 0.0)

@@ -1,0 +1,6 @@
+# sweep p1: does predicting the pose help? (set N + predict_time)
+N0    predict_time:=0.0
+P10   predict_time:=0.10
+P15   predict_time:=0.15
+P20   predict_time:=0.20
+P25   predict_time:=0.25

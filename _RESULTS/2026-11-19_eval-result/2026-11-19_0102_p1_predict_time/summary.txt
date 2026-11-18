@@ -1,0 +1,15 @@
+[N0] predict_time:=0.0
+   OVERALL 69.8 = track 37.3 + time 12.6 + stop 20.0 | max_cte 0.55 m | failures: none
+   per path: straight 71.3 (v_eq 10.9, err 4.5)  wave 68.6 (v_eq 9.0, err 3.8)  lane_change 70.7 (v_eq 10.0, err 4.2)  circle 68.7 (v_eq 7.8, err 3.0)
+[P10] predict_time:=0.10
+   OVERALL 69.8 = track 37.0 + time 12.8 + stop 20.0 | max_cte 0.56 m | failures: none
+   per path: straight 72.6 (v_eq 11.6, err 4.7)  wave 67.0 (v_eq 9.1, err 3.9)  lane_change 70.8 (v_eq 10.0, err 4.1)  circle 69.1 (v_eq 7.8, err 2.9)
+[P15] predict_time:=0.15
+   OVERALL 69.4 = track 36.9 + time 12.5 + stop 20.0 | max_cte 0.61 m | failures: none
+   per path: straight 71.8 (v_eq 10.9, err 4.6)  wave 65.7 (v_eq 9.0, err 4.0)  lane_change 70.7 (v_eq 9.9, err 4.2)  circle 69.5 (v_eq 7.8, err 2.9)
+[P20] predict_time:=0.20
+   OVERALL 68.8 = track 36.0 + time 12.8 + stop 20.0 | max_cte 0.78 m | failures: none
+   per path: straight 72.8 (v_eq 11.6, err 4.8)  wave 64.5 (v_eq 9.1, err 3.9)  lane_change 69.0 (v_eq 10.0, err 4.3)  circle 69.1 (v_eq 7.8, err 3.0)
+[P25] predict_time:=0.25
+   OVERALL 68.3 = track 35.8 + time 12.5 + stop 20.0 | max_cte 1.11 m | failures: none
+   per path: straight 70.5 (v_eq 10.9, err 4.8)  wave 62.9 (v_eq 9.1, err 4.1)  lane_change 70.7 (v_eq 9.9, err 4.6)  circle 69.1 (v_eq 7.7, err 2.9)

@@ -73,3 +73,24 @@ Screenshot: overall 92.5 = tracking 32.5 + time 40.0 + stop 20.0, **12 runs, mea
 - Trail on the circle runs about 1 m inside the path (corner cutting at high speed) -> tracking 32.5 fits.
 Check: in his window click "? Scoring rules"; it prints `Time = 40 x min(v_eq, X) / X` with his real X. Also compare his
 `simulator/thr_sim/config/sim.yaml` (max_decel, max_accel, time_v_max) with ours (6, 20, 30).
+
+### 2026-11-19 00:49 - Step 8: Prediction added to the driver; sweep p1 (first attempt INVALID)
+Code (`8aab22c`): `predict()` steps the bicycle model forward `predict_time` s from the actual pose, speed and wheel angle;
+the wheel moves toward the last command with lag `steer_tau` 0.10 s, at most `steer_rate` 1 rad/s; plus the pose message age.
+Pure pursuit then runs from the predicted pose. `predict_time 0` = exactly set N.
+New script `_SCRIPT/2026-11-19_script/sweep.bash NAME CONFIG_FILE` (set N + overrides per line, dated folders, summary.txt).
+**First attempt invalid:** an interrupted launch left an evaluation running, so two sweeps ran at once (two drivers on one car):
+everything off-track, even N0. Folder kept as `2026-11-19_0049_p1_predict_time_INVALID-two-sweeps-at-once`. Lesson: before a
+sweep, check nothing else is running (`pgrep -af "[e]valuate|[m]y_driver"`).
+
+### 2026-11-19 ~01:05 - Step 9: Sweep p1 results (clean re-run, 2 runs per path)
+| Config | predict_time | Score | Track | Time | Max err | Wave |
+|---|---:|---:|---:|---:|---:|---:|
+| N0 | 0 (set N) | 69.8 | 37.3 | 12.6 | 0.55 | 68.6 |
+| P10 | 0.10 | 69.8 | 37.0 | 12.8 | 0.56 | 67.0 |
+| P15 | 0.15 | 69.4 | 36.9 | 12.5 | 0.61 | 65.7 |
+| P20 | 0.20 | 68.8 | 36.0 | 12.8 | 0.78 | 64.5 |
+| P25 | 0.25 | 68.3 | 35.8 | 12.5 | 1.11 | 62.9 |
+**Prediction alone does not help at set N's speeds;** more prediction makes the wave worse. Likely reason: pure pursuit already
+looks ahead (ld about 8.75 m), and predicting first moves the aim point even further ahead, so the car cuts the wave's corners.
+Prediction should matter when the car goes faster in curves. Next: sweep p2, raise lat_accel (curve speed) with and without prediction.

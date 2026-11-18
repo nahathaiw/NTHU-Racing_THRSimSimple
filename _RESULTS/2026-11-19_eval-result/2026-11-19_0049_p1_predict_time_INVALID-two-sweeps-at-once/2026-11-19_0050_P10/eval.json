@@ -1,0 +1,196 @@
+{
+  "time": "2026-11-19 00:53:06",
+  "status": "complete",
+  "planned_runs": 8,
+  "completed_runs": 8,
+  "plan": {
+    "shapes": [
+      "straight",
+      "wave",
+      "lane_change",
+      "circle"
+    ],
+    "repeats": 2
+  },
+  "overall_score": 14.26,
+  "per_path": {
+    "straight": {
+      "runs": 2,
+      "score": 4.925,
+      "tracking": 12.315,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "wave": {
+      "runs": 2,
+      "score": 19.675,
+      "tracking": 49.19499999999999,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "timeout",
+        "off_track"
+      ]
+    },
+    "lane_change": {
+      "runs": 2,
+      "score": 9.08,
+      "tracking": 22.7,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "circle": {
+      "runs": 2,
+      "score": 23.375,
+      "tracking": 58.43,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "timeout",
+        "off_track"
+      ]
+    }
+  },
+  "runs": [
+    {
+      "run": 1,
+      "shape": "straight",
+      "result": "off_track",
+      "score": 9.85,
+      "tracking": 24.63,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.3269,
+      "rms_cte": 0.4929,
+      "max_cte": 2.0134,
+      "time": 1.47
+    },
+    {
+      "run": 2,
+      "shape": "straight",
+      "result": "off_track",
+      "score": 0.0,
+      "tracking": 0.0,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.5183,
+      "rms_cte": 2.0139,
+      "max_cte": 28.5,
+      "time": 2.01
+    },
+    {
+      "run": 3,
+      "shape": "wave",
+      "result": "timeout",
+      "score": 34.28,
+      "tracking": 85.71,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 1.0,
+      "rms_cte": 0.2859,
+      "max_cte": 0.8126,
+      "time": 60.04
+    },
+    {
+      "run": 4,
+      "shape": "wave",
+      "result": "off_track",
+      "score": 5.07,
+      "tracking": 12.68,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.2929,
+      "rms_cte": 1.134,
+      "max_cte": 15.2971,
+      "time": 1.86
+    },
+    {
+      "run": 5,
+      "shape": "lane_change",
+      "result": "off_track",
+      "score": 15.23,
+      "tracking": 38.07,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.4876,
+      "rms_cte": 0.4384,
+      "max_cte": 2.0316,
+      "time": 2.46
+    },
+    {
+      "run": 6,
+      "shape": "lane_change",
+      "result": "off_track",
+      "score": 2.93,
+      "tracking": 7.33,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.1211,
+      "rms_cte": 0.7893,
+      "max_cte": 2.0856,
+      "time": 1.08
+    },
+    {
+      "run": 7,
+      "shape": "circle",
+      "result": "timeout",
+      "score": 31.72,
+      "tracking": 79.3,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 1.0,
+      "rms_cte": 0.4139,
+      "max_cte": 1.1042,
+      "time": 60.04
+    },
+    {
+      "run": 8,
+      "shape": "circle",
+      "result": "off_track",
+      "score": 15.03,
+      "tracking": 37.56,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.7926,
+      "rms_cte": 1.0521,
+      "max_cte": 18.1965,
+      "time": 5.15
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "time": "2026-11-19 00:55:16",
+  "status": "complete",
+  "planned_runs": 8,
+  "completed_runs": 8,
+  "plan": {
+    "shapes": [
+      "straight",
+      "wave",
+      "lane_change",
+      "circle"
+    ],
+    "repeats": 2
+  },
+  "overall_score": 7.94,
+  "per_path": {
+    "straight": {
+      "runs": 2,
+      "score": 7.325,
+      "tracking": 18.305,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "wave": {
+      "runs": 2,
+      "score": 7.32,
+      "tracking": 18.305,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "lane_change": {
+      "runs": 2,
+      "score": 5.02,
+      "tracking": 12.545,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "circle": {
+      "runs": 2,
+      "score": 12.1,
+      "tracking": 30.255,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    }
+  },
+  "runs": [
+    {
+      "run": 1,
+      "shape": "straight",
+      "result": "off_track",
+      "score": 14.65,
+      "tracking": 36.61,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.4608,
+      "rms_cte": 0.4107,
+      "max_cte": 2.137,
+      "time": 1.77
+    },
+    {
+      "run": 2,
+      "shape": "straight",
+      "result": "off_track",
+      "score": 0.0,
+      "tracking": 0.0,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.411,
+      "rms_cte": 2.3914,
+      "max_cte": 22.0,
+      "time": 1.67
+    },
+    {
+      "run": 3,
+      "shape": "wave",
+      "result": "off_track",
+      "score": 4.94,
+      "tracking": 12.36,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.328,
+      "rms_cte": 1.2464,
+      "max_cte": 16.7575,
+      "time": 2.01
+    },
+    {
+      "run": 4,
+      "shape": "wave",
+      "result": "off_track",
+      "score": 9.7,
+      "tracking": 24.25,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.3862,
+      "rms_cte": 0.7438,
+      "max_cte": 2.0156,
+      "time": 2.84
+    },
+    {
+      "run": 5,
+      "shape": "lane_change",
+      "result": "off_track",
+      "score": 5.36,
+      "tracking": 13.39,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.1835,
+      "rms_cte": 0.5402,
+      "max_cte": 2.0053,
+      "time": 3.23
+    },
+    {
+      "run": 6,
+      "shape": "lane_change",
+      "result": "off_track",
+      "score": 4.68,
+      "tracking": 11.7,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.2136,
+      "rms_cte": 0.9043,
+      "max_cte": 10.0,
+      "time": 1.21
+    },
+    {
+      "run": 7,
+      "shape": "circle",
+      "result": "off_track",
+      "score": 3.73,
+      "tracking": 9.33,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.1641,
+      "rms_cte": 0.863,
+      "max_cte": 2.0012,
+      "time": 2.63
+    },
+    {
+      "run": 8,
+      "shape": "circle",
+      "result": "off_track",
+      "score": 20.47,
+      "tracking": 51.18,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.6975,
+      "rms_cte": 0.5324,
+      "max_cte": 2.0312,
+      "time": 9.1
+    }
+  ]
+}
