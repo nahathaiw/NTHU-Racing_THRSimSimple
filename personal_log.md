@@ -635,3 +635,16 @@ Added two documents with Mermaid diagrams (render on GitHub):
   scoring flow, the sweep/tuning pipeline, timing table, ordering pitfalls.
 Diagram ideas suggested for the slides: pure-pursuit geometry, speed-vs-distance profile, trajectory vs path, score progression, speed-vs-tracking trade-off,
 state machine of one run, simple 3-box loop.
+
+## Where the code skeleton came from (provenance)
+
+1. **Package scaffold:** `ros2 pkg create my_driver --build-type ament_cmake --dependencies rclcpp std_msgs thr_sim_msgs` generated `package.xml`,
+   `CMakeLists.txt` and empty `src/` and `include/` folders (the maintainer line came from my git settings).
+2. **Node skeleton:** the README section "Create your driver package" provides a communication-only C++ node (subscribe `/path` with
+   transient-local QoS, `/veh_state`, `/reset`; publish `/veh_ctrl`; 20 Hz timer; zero speed until a TODO is filled). I typed it into
+   `my_driver/src/driver_node.cpp` (81 lines, step 3b) and added the README's four CMake lines (`add_executable`, `cxx_std_17`,
+   `ament_target_dependencies`, `install`).
+3. **My additions (written later):** I added `geometry_msgs` to `package.xml` and `CMakeLists.txt` (the path nodes are `geometry_msgs/Point`), then replaced the
+   `// TODO` and the empty callbacks with the controller: `on_path` (arc length, curvature), `locate`, `point_at`, pure-pursuit steering, the speed profile,
+   a `/veh_actual` subscription, 8 ROS parameters, and a throttled log line. `ARCHITECTURE.md` section 3 maps each part.
+Also: an earlier attempt (backed up in `~/Desktop/pleng/THRSimSimple_backup_2026-11-18/`) used a separate `PathController` class; it was not reused.
