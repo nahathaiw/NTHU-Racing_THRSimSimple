@@ -612,3 +612,15 @@ Added slide "Why set N scored 70.3" (deck now 19 slides).
 
 **Live demo:** `./scripts/demo_best.bash` (GUI, choose a path, click Start); `./scripts/demo_best.bash eval` (GUI evaluation, 1 run x 4 paths, ~1 minute);
 `./scripts/demo_best.bash wave` (GUI preset to a path). It starts my_driver with the final parameters and stops it when the window closes.
+
+### 2026-11-18 — Step 15: All parameters on every test slide + comparison slides (~20:46)
+
+Every result slide now shows all six parameters (cruise, lat_accel, brake_decel, stop_aim, lookahead_gain, lookahead_base):
+first run (line under table), sweep 1 (table has all six), sweep 2 / sweep 3 / sweep 4 (shared base line, each set changes only the item shown), why-best (final settings).
+New slides "Every test and its parameters" 1 of 2 (Start, B-I) and 2 of 2 (J-P) list all 18 tests with all six parameters and the score. Deck is now 21 slides.
+
+Full parameter table (cruise / lat / brake / aim / gain / base -> score):
+Start 12/3.0/3.5/1.5/0.40/2.5 -> 66.6; B 16/4.0/4.5/2.5/0.40/2.5 -> 66.7; C 20/5.0/5.0/3.0/0.40/2.5 -> 67.0; D 25/6.0/5.5/3.5/0.40/2.5 -> 68.5;
+E 30/7.0/5.5/3.5/0.40/2.5 -> 67.7; F 20/8.0/5.0/3.0/0.40/2.5 -> 68.0; G 25/6.0/5.5/3.5/0.25/2.5 -> 68.8; H 25/6.0/5.5/3.0/0.25/2.5 -> 68.9;
+I 25/6.0/5.5/3.0/0.15/2.5 -> 47.0 (failed); J 25/7.0/5.5/3.0/0.25/2.5 -> 68.7; K 25/6.0/5.8/3.0/0.25/2.5 -> 69.8; L 25/6.0/5.5/3.0/0.25/2.0 -> 67.7;
+H2 = H -> 69.4; K2 = K -> 69.5; M 25/6.0/5.8/2.5/0.25/2.5 -> 69.4; N 25/6.0/5.9/2.0/0.25/2.5 -> 70.3; O 25/6.0/5.8/2.5/0.30/2.5 -> 70.1; P 30/6.0/5.8/2.5/0.25/2.5 -> 70.1.
