@@ -648,3 +648,12 @@ state machine of one run, simple 3-box loop.
    `// TODO` and the empty callbacks with the controller: `on_path` (arc length, curvature), `locate`, `point_at`, pure-pursuit steering, the speed profile,
    a `/veh_actual` subscription, 8 ROS parameters, and a throttled log line. `ARCHITECTURE.md` section 3 maps each part.
 Also: an earlier attempt (backed up in `~/Desktop/pleng/THRSimSimple_backup_2026-11-18/`) used a separate `PathController` class; it was not reused.
+
+### 2026-11-18 — Step 17: Diagram 1, pure-pursuit geometry (~21:25)
+
+Made `docs/pure_pursuit.png` with `scripts/plot_pure_pursuit.py` (matplotlib, same formula as the code: `delta = atan(2 L sin(alpha)/ld)`).
+- **Left:** car (rear/front axle), curved path, carrot at ld = 8 m, angle alpha = 24 deg, steering delta = 14 deg, the circle the car will drive.
+- **Right:** same 1 m sideways error with ld = 8.75 m (gain 0.25 at 25 m/s) -> delta = 3.7 deg, and ld = 6.25 m (gain 0.15, set I) -> delta = 7.3 deg:
+  **the short lookahead steers 1.95x (about twice) as hard** for the same error. This explains why set I over-reacted and left the track.
+- Added to the deck as slide "Pure pursuit: what the formula means" (after the steering slide; deck now 22 slides). Note: the deck is now shared as "anyone with the link".
+- Run it again with `python3 scripts/plot_pure_pursuit.py` (writes `docs/pure_pursuit.png`).
