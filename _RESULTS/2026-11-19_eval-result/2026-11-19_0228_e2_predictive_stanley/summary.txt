@@ -1,0 +1,18 @@
+[E0] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+   OVERALL 74.0 = track 38.0 + time 16.1 + stop 20.0 | max_cte 0.59 m | failures: none
+   per path: straight 73.6 (v_eq 11.6, err 4.4)  wave 72.3 (v_eq 11.5, err 4.8)  lane_change 73.7 (v_eq 11.7, err 4.4)  circle 76.6 (v_eq 13.5, err 3.4)
+[E2K6] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=6.0
+   OVERALL 73.2 = track 37.2 + time 16.0 + stop 20.0 | max_cte 0.47 m | failures: none
+   per path: straight 74.6 (v_eq 11.6, err 4.2)  wave 71.0 (v_eq 11.4, err 4.8)  lane_change 73.8 (v_eq 11.6, err 4.5)  circle 73.6 (v_eq 13.5, err 3.9)
+[E2K4N3] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=4.0 stanley_pred_steps:=3 stanley_pred_dt:=0.05 stanley_pred_decay:=0.7
+   OVERALL 72.2 = track 36.3 + time 16.0 + stop 20.0 | max_cte 0.69 m | failures: none
+   per path: straight 73.8 (v_eq 11.5, err 4.6)  wave 68.9 (v_eq 11.4, err 5.0)  lane_change 72.6 (v_eq 11.5, err 4.6)  circle 73.6 (v_eq 13.5, err 3.9)
+[E2K4N6] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=4.0 stanley_pred_steps:=6 stanley_pred_dt:=0.05 stanley_pred_decay:=0.7
+   OVERALL 71.8 = track 35.8 + time 16.1 + stop 19.9 | max_cte 0.95 m | failures: none
+   per path: straight 74.3 (v_eq 11.6, err 4.3)  wave 67.0 (v_eq 11.5, err 5.0)  lane_change 72.0 (v_eq 11.6, err 4.5)  circle 73.8 (v_eq 13.5, err 3.6)
+[E2K4N3D5] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=4.0 stanley_pred_steps:=3 stanley_pred_dt:=0.05 stanley_pred_decay:=0.5
+   OVERALL 72.5 = track 36.6 + time 16.0 + stop 19.9 | max_cte 0.66 m | failures: none
+   per path: straight 73.9 (v_eq 11.5, err 4.2)  wave 68.8 (v_eq 11.4, err 5.1)  lane_change 73.1 (v_eq 11.6, err 4.2)  circle 74.1 (v_eq 13.5, err 3.8)
+[E2K6N3] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=6.0 stanley_pred_steps:=3 stanley_pred_dt:=0.05 stanley_pred_decay:=0.7
+   OVERALL 72.8 = track 36.7 + time 16.0 + stop 20.0 | max_cte 0.60 m | failures: none
+   per path: straight 74.2 (v_eq 11.5, err 4.3)  wave 69.6 (v_eq 11.5, err 5.0)  lane_change 73.0 (v_eq 11.6, err 4.4)  circle 74.2 (v_eq 13.5, err 3.9)

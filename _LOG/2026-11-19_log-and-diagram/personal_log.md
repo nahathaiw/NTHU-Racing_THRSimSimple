@@ -240,3 +240,17 @@ Rule: while a sweep runs, do not open the GUI / demo. E1 re-run started.
 - Stanley without prediction is unstable at our speeds (the 0.15 s lag), like pure pursuit was: prediction is required.
 - With prediction Stanley is about 0.6 below pure pursuit; a higher K tracks better (K1 < K2 < K4). Yaw damping did not help.
 Next: E2 predictive Stanley (horizon N 3/6, decay 0.5/0.7) and K6.
+
+### 2026-11-19 02:28 - Step 24: E2 results: predictive Stanley (`2026-11-19_0228_e2_predictive_stanley/`)
+| Config | Steering | Score | Track | Max err |
+|---|---|---:|---:|---:|
+| E0 | pure pursuit (R2G10) | **74.0** | 38.0 | 0.59 |
+| E2K6 | Stanley K6 | 73.2 | 37.2 | 0.47 |
+| E2K4N3 | predictive Stanley K4, 3 steps, decay 0.7 | 72.2 | 36.3 | 0.69 |
+| E2K4N6 | predictive Stanley K4, 6 steps, decay 0.7 | 71.8 | 35.8 | 0.95 |
+| E2K4N3D5 | predictive Stanley K4, 3 steps, decay 0.5 | 72.5 | 36.6 | 0.66 |
+| E2K6N3 | predictive Stanley K6, 3 steps | 72.8 | 36.7 | 0.60 |
+**Predictive Stanley made Stanley worse here** (longer horizon = worse). Likely reason: our `predict_time` already compensates the
+delay; the extra horizon averages in commands for future states, which makes the steering slower to react. This differs from the
+DLR thesis, whose base Stanley had no latency compensation. Pure pursuit + prediction stays best (74.0).
+Next: E3 (rear-axle Stanley + feed-forward) and E4 (pure pursuit + feed-forward) in one sweep.
