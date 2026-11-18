@@ -1,0 +1,9 @@
+# E5: kinematic MPC without constraints (= LQR) with steering lag state + curvature feed-forward (MAP2 / LPV-MPC / FS 2026 idea).
+# Offline check: closed loop stable for v 5-20 m/s; r 30-300 gives 3-10 deg per metre of error (pure pursuit about 4).
+# Base = R2G10 settings: lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+E0          lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+E5R30       lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=30.0  ff_time:=0.10
+E5R100      lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=100.0 ff_time:=0.10
+E5R300      lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=300.0 ff_time:=0.10
+E5R100F20   lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=100.0 ff_time:=0.20
+E5R100Q4    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=100.0 ff_time:=0.10 lqr_q_psi:=4.0

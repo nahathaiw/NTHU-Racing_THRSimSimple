@@ -283,3 +283,9 @@ Stanley so far (73.5) and within noise of pure pursuit. More feed-forward makes 
 all the time, and our curvature estimate from nodes 1 m apart plus the preview point is never exactly where the car is.
 Lesson so far: pure pursuit + our pose prediction already captures what these papers add for THIS simulator (kinematic, no tyres).
 Next: E5 LQR (running), then C-rows.
+
+### 2026-11-19 ~02:50 - Step 28: Paused for the night (user needs credits); E5 finished first
+User asked to stop and continue next session, after the latest experiment. I first stopped the queue too early (E5 part 1 cut
+off during E5R100), then restarted the 4 remaining E5 settings as `e5_lqr_part2`. E5 part 1 (`2026-11-19_0245_e5_lqr/`):
+E0 74.4 (track 38.3), E5R30 73.2 (track 37.1); `..._E5R100_INVALID-interrupted` discarded.
+Handoff for tomorrow: `_LOG/2026-11-19_log-and-diagram/NEXT_SESSION.md` (where we are, remaining work in order, sweep rules).

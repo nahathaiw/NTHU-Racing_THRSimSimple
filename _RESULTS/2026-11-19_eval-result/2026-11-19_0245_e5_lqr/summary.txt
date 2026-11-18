@@ -1,0 +1,6 @@
+[E0] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+   OVERALL 74.4 = track 38.3 + time 16.1 + stop 20.0 | max_cte 0.56 m | failures: none
+   per path: straight 74.7 (v_eq 11.6, err 4.1)  wave 72.0 (v_eq 11.5, err 4.7)  lane_change 74.0 (v_eq 11.7, err 4.3)  circle 76.8 (v_eq 13.5, err 3.6)
+[E5R30] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=30.0  ff_time:=0.10
+   OVERALL 73.2 = track 37.1 + time 16.1 + stop 20.0 | max_cte 0.57 m | failures: none
+   per path: straight 73.8 (v_eq 11.6, err 4.1)  wave 70.0 (v_eq 11.5, err 4.8)  lane_change 72.9 (v_eq 11.6, err 4.3)  circle 76.1 (v_eq 13.4, err 3.5)

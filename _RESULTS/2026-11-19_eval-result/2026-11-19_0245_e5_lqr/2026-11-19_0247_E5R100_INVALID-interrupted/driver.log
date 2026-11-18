@@ -1,0 +1,18 @@
+[INFO] [1795027680.173305502] [my_driver]: s=0.0 remaining=60.0 v_cmd=25.0 v_act=0.0 steer=-0.00
+[INFO] [1795027681.223232130] [my_driver]: s=10.9 remaining=49.1 v_cmd=24.4 v_act=20.9 steer=0.01
+[INFO] [1795027682.273154890] [my_driver]: s=33.9 remaining=26.1 v_cmd=18.0 v_act=19.1 steer=-0.01
+[INFO] [1795027683.273170740] [my_driver]: s=50.0 remaining=10.0 v_cmd=11.7 v_act=13.0 steer=-0.00
+[INFO] [1795027684.323127732] [my_driver]: s=60.2 remaining=-0.2 v_cmd=0.0 v_act=6.7 steer=-0.02
+[INFO] [1795027685.323222326] [my_driver]: s=64.0 remaining=-4.0 v_cmd=0.0 v_act=0.8 steer=-0.01
+[INFO] [1795027688.373127101] [my_driver]: s=0.0 remaining=60.0 v_cmd=25.0 v_act=0.0 steer=0.00
+[INFO] [1795027689.423068073] [my_driver]: s=11.0 remaining=49.0 v_cmd=24.4 v_act=20.9 steer=-0.00
+[INFO] [1795027690.473048641] [my_driver]: s=34.0 remaining=26.0 v_cmd=18.0 v_act=19.2 steer=-0.01
+[INFO] [1795027691.473075730] [my_driver]: s=50.1 remaining=9.9 v_cmd=11.6 v_act=13.2 steer=-0.02
+[INFO] [1795027692.523058548] [my_driver]: s=60.5 remaining=-0.5 v_cmd=0.0 v_act=6.9 steer=-0.01
+[INFO] [1795027693.573033403] [my_driver]: s=64.3 remaining=-4.3 v_cmd=0.0 v_act=0.5 steer=-0.01
+[INFO] [1795027696.572932917] [my_driver]: s=0.0 remaining=61.5 v_cmd=19.8 v_act=0.0 steer=0.17
+[INFO] [1795027697.572982585] [my_driver]: s=10.0 remaining=51.4 v_cmd=21.0 v_act=19.7 steer=-0.07
+[INFO] [1795027698.622976974] [my_driver]: s=32.2 remaining=29.3 v_cmd=19.1 v_act=20.0 steer=0.04
+[INFO] [1795027699.623005185] [my_driver]: s=49.4 remaining=12.0 v_cmd=12.6 v_act=14.2 steer=-0.05
+[INFO] [1795027700.672930429] [my_driver]: s=61.2 remaining=0.3 v_cmd=4.6 v_act=7.8 steer=0.13
+[INFO] [1795027700.831906986] [rclcpp]: signal_handler(SIGINT/SIGTERM)
