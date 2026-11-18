@@ -157,3 +157,16 @@ A25D2 has the highest time (16.0) but loses stop points: stop errors 5.0-5.2 m, 
 - stop_aim 1.5 keeps the stop inside 5 m at no time cost. New best **73.6** (Q25A15).
 - **Time 16.1/40 is at the ceiling (about 16.3).** v_eq: straight 11.6, wave 11.5, lane 11.6, circle 13.5.
   What is left: tracking 37.5 -> 40 (about 2.5 points). Next: sweep p6 on tracking (predict 0.05, gain 0.10, base 2.0, steer_tau 0.15).
+
+### 2026-11-19 ~01:55 - Step 15: Sweep p6 results: tracking (base Q25A15)
+| Config | change | Score | Track | Time | Max err | Failures |
+|---|---|---:|---:|---:|---:|---|
+| R0 | repeat of Q25A15 (73.6) | 73.5 | 37.6 | 16.0 | 0.92 | none |
+| R1P05 | predict 0.05 | 73.6 | 37.5 | 16.1 | 0.71 | none |
+| **R2G10** | gain 0.10 | **74.2** | **38.2** | 16.0 | 0.56 | none |
+| R3P05G10 | predict 0.05 + gain 0.10 | 58.7 | 31.5 | 12.2 | 2.09 | **wave off_track x2** |
+| R4B20 | base 2.0 | 74.0 | 38.0 | 16.0 | 0.65 | none |
+| R5T15 | steer_tau 0.15 | 73.6 | 37.6 | 16.0 | 0.71 | none |
+New best **74.2** (R2G10). A shorter lookahead tracks better, BUT only with enough prediction: gain 0.10 works with
+predict 0.10 and fails with predict 0.05 (R3). Same lesson as set I: prediction is what makes a short lookahead stable.
+Next: sweep p7 around R2G10 (base 2.0, gain 0.08, predict 0.12/0.15).

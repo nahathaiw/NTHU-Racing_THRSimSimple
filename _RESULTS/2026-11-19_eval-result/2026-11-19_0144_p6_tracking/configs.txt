@@ -1,0 +1,8 @@
+# sweep p6: time is now 16.1/40 (ceiling about 16.3), so the points left are in TRACKING (37.5/40).
+# base = Q25A15: lat 25, predict 0.10, gain 0.15, stop_damp 2, stop_aim 1.5
+R0      lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5
+R1P05   lat_accel:=25.0 predict_time:=0.05 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5
+R2G10   lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
+R3P05G10 lat_accel:=25.0 predict_time:=0.05 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
+R4B20   lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5 lookahead_base:=2.0
+R5T15   lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5 steer_tau:=0.15

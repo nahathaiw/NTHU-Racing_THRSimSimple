@@ -1,0 +1,18 @@
+[R0] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5
+   OVERALL 73.5 = track 37.6 + time 16.0 + stop 20.0 | max_cte 0.92 m | failures: none
+   per path: straight 73.8 (v_eq 11.5, err 4.4)  wave 70.7 (v_eq 11.4, err 4.8)  lane_change 73.6 (v_eq 11.6, err 4.2)  circle 76.0 (v_eq 13.4, err 3.5)
+[R1P05] lat_accel:=25.0 predict_time:=0.05 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5
+   OVERALL 73.6 = track 37.5 + time 16.1 + stop 20.0 | max_cte 0.71 m | failures: none
+   per path: straight 74.5 (v_eq 11.6, err 4.2)  wave 72.3 (v_eq 11.5, err 4.6)  lane_change 73.3 (v_eq 11.6, err 4.3)  circle 74.4 (v_eq 13.5, err 3.4)
+[R2G10] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
+   OVERALL 74.2 = track 38.2 + time 16.0 + stop 20.0 | max_cte 0.56 m | failures: none
+   per path: straight 74.6 (v_eq 11.6, err 4.2)  wave 71.9 (v_eq 11.5, err 4.8)  lane_change 73.8 (v_eq 11.6, err 4.3)  circle 76.6 (v_eq 13.5, err 3.5)
+[R3P05G10] lat_accel:=25.0 predict_time:=0.05 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
+   OVERALL 58.7 = track 31.5 + time 12.2 + stop 15.0 | max_cte 2.09 m | failures: wave:off_track, wave:off_track
+   per path: straight 74.0 (v_eq 11.6, err 4.3)  wave 16.7 (v_eq 0.0, err 0.0)  lane_change 72.9 (v_eq 11.6, err 4.1)  circle 71.3 (v_eq 13.4, err 3.1)
+[R4B20] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5 lookahead_base:=2.0
+   OVERALL 74.0 = track 38.0 + time 16.0 + stop 20.0 | max_cte 0.65 m | failures: none
+   per path: straight 74.4 (v_eq 11.6, err 4.3)  wave 71.6 (v_eq 11.5, err 4.8)  lane_change 73.5 (v_eq 11.6, err 4.4)  circle 76.5 (v_eq 13.4, err 3.5)
+[R5T15] lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.15 stop_damp:=2.0 stop_aim:=1.5 steer_tau:=0.15
+   OVERALL 73.6 = track 37.6 + time 16.0 + stop 20.0 | max_cte 0.71 m | failures: none
+   per path: straight 74.2 (v_eq 11.6, err 4.4)  wave 71.1 (v_eq 11.4, err 5.0)  lane_change 73.4 (v_eq 11.6, err 4.6)  circle 75.7 (v_eq 13.5, err 3.5)

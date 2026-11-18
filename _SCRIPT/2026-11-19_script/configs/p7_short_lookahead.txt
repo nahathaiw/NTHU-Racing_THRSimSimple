@@ -1,0 +1,7 @@
+# sweep p7: around R2G10 (lat 25, predict 0.10, gain 0.10, stop_damp 2, aim 1.5). Shorter lookahead + enough prediction.
+S0      lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
+S1B20   lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5 lookahead_base:=2.0
+S2G08   lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.08 stop_damp:=2.0 stop_aim:=1.5
+S3P15   lat_accel:=25.0 predict_time:=0.15 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
+S4P15G08 lat_accel:=25.0 predict_time:=0.15 lookahead_gain:=0.08 stop_damp:=2.0 stop_aim:=1.5
+S5P12   lat_accel:=25.0 predict_time:=0.12 lookahead_gain:=0.10 stop_damp:=2.0 stop_aim:=1.5
