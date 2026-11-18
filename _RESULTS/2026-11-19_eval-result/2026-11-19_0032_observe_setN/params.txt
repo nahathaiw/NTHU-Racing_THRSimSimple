@@ -1,0 +1,1 @@
+driver params: -p cruise_speed:=25.0 -p lat_accel:=6.0 -p brake_decel:=5.9 -p stop_aim:=2.0 -p lookahead_gain:=0.25
