@@ -53,3 +53,13 @@ the actual steering overshoots the command. With 0.15 s of delay, pure pursuit k
 i.e. 60 m in 2.0 s *including stopping*. Even without braking, max_accel 20 m/s^2 covers only 0.5 x 20 x 2^2 = 40 m in 2 s,
 and braking from 30 m/s at 6 m/s^2 takes 5 s and 75 m. So that result must come from a different simulator version or
 settings (max_decel, time_v_max, path_length or the time formula). To ask the senior: which commit/version, his sim.yaml, and the JSON report.
+
+### 2026-11-19 - Step 6: Checked the ceiling with the simulator's own model
+The senior believes he used the same version and says the key is to predict the route.
+`_SCRIPT/2026-11-19_script/ceiling_check.py` drives the simulator's own `BicycleModel` (same sim.yaml values) perfectly on the
+straight: full throttle, then full braking at the best point, stop inside 55-65 m. Result: peak 22.8 m/s, at rest after 4.94 s,
+**v_eq 12.15 m/s -> time 16.2/40**. 40/40 needs v_eq 30 (at rest after 2.0 s), impossible with accel 20 / brake 6 m/s^2.
+The straight has no curves, so predicting the route cannot change this number.
+Most likely explanation: a different `time_v_max` (or other scoring setting) in his run; e.g. time_v_max 12 would give 40/40 at v_eq 12.
+To settle it: ask for his JSON report (it lists `v_eq` and `time` per run).
+Predicting the route is still the right next step for tracking and curves (wave, circle).
