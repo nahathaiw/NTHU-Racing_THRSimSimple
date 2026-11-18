@@ -9,11 +9,17 @@
 //   5. (2026-11-19) Prediction: the car reacts about 0.15 s late, so steer from where the car WILL be.
 //      A small bicycle model steps the pose forward `predict_time` s, with the wheel following the last
 //      command with a delay (time constant `steer_tau`, at most `steer_rate` rad/s). predict_time 0 = off.
+//   6. (2026-11-19) Steering modes from 2025-2026 papers (param steer_mode):
+//      pp          pure pursuit (default), optional curvature feed-forward blend (ff_gain, Kapania & Gerdes 2015)
+//      stanley     Stanley at the front axle: delta = psi + atan(K e / (K_prot + v))      (DLR 2026 eq. 3.4, Hoffmann 2007)
+//                  with stanley_pred_steps > 0: predictive Stanley, weighted sum over a horizon (DLR 2026 eq. 3.12-3.14)
+//      stanley_ff  rear-axle Stanley + feed-forward atan(L kappa) at v*ff_time ahead      (DLR 2026 enhanced Stanley)
 #include <algorithm>
 #include <chrono>
 #include <cmath>
 #include <memory>
 #include <optional>
+#include <string>
 #include <vector>
 
 #include "rclcpp/rclcpp.hpp"
@@ -68,6 +74,15 @@ public:
     steer_rate_ = declare_parameter("steer_rate", 1.0);      // wheel turns at most this fast [rad/s]
     use_age_ = declare_parameter("predict_add_age", true);   // also cover the age of the pose message
     stop_damp_ = declare_parameter("stop_damp", 0.0);        // after the finish: cancel backward roll, 0 = off
+    mode_ = declare_parameter("steer_mode", std::string("pp"));  // pp | stanley | stanley_ff
+    st_k_ = declare_parameter("stanley_k", 2.0);             // gain on the sideways error [1/s]
+    st_soft_ = declare_parameter("stanley_soft", 1.0);       // K_prot: keeps the gain finite at low speed [m/s]
+    st_yaw_ = declare_parameter("stanley_yaw_damp", 0.0);    // yaw-rate damping gain (Hoffmann 2007), 0 = off
+    st_n_ = declare_parameter("stanley_pred_steps", 0);      // predictive Stanley horizon steps, 0 = plain Stanley
+    st_dt_ = declare_parameter("stanley_pred_dt", 0.05);     // [s] per predicted step
+    st_decay_ = declare_parameter("stanley_pred_decay", 0.7);  // weight of step k = decay^k (then normalised)
+    ff_time_ = declare_parameter("ff_time", 0.10);           // feed-forward point = v * ff_time ahead [s]
+    ff_gain_ = declare_parameter("ff_gain", 0.0);            // pp only: blend of feed-forward steering, 0 = off
 
     // /path is latched: transient-local so we still get it if we start late.
     auto path_qos = rclcpp::QoS(1).reliable().transient_local();
@@ -93,6 +108,7 @@ private:
     pts_.clear();
     s_.clear();
     kappa_.clear();
+    kappa_s_.clear();
     progress_ = 0;
     finish_ = msg.finish_index;
     if (msg.nodes.size() < 2 || finish_ >= msg.nodes.size()) {
@@ -109,15 +125,19 @@ private:
     // curvature at each node from the heading change over +/- k nodes
     const size_t n = pts_.size(), k = 2;
     kappa_.assign(n, 0.0);
+    kappa_s_.assign(n, 0.0);   // signed: + = path turns left
     for (size_t i = k; i + k < n; ++i) {
       const double h1 = std::atan2(pts_[i].y - pts_[i - k].y, pts_[i].x - pts_[i - k].x);
       const double h2 = std::atan2(pts_[i + k].y - pts_[i].y, pts_[i + k].x - pts_[i].x);
       const double ds = 0.5 * (s_[i + k] - s_[i - k]);
-      kappa_[i] = ds > 1e-6 ? std::fabs(wrap(h2 - h1)) / ds : 0.0;
+      kappa_s_[i] = ds > 1e-6 ? wrap(h2 - h1) / ds : 0.0;
+      kappa_[i] = std::fabs(kappa_s_[i]);
     }
     for (size_t i = 0; i < std::min(k, n); ++i) {  // copy to the ends
       kappa_[i] = kappa_[std::min(k, n - 1)];
       kappa_[n - 1 - i] = kappa_[n - 1 - std::min(k, n - 1)];
+      kappa_s_[i] = kappa_s_[std::min(k, n - 1)];
+      kappa_s_[n - 1 - i] = kappa_s_[n - 1 - std::min(k, n - 1)];
     }
   }
 
@@ -134,20 +154,92 @@ private:
   // ------------------------------------------------------------- prediction
   // Kinematic bicycle model (same as the simulator), stepped forward `horizon` seconds.
   // The wheel starts at its ACTUAL angle and moves toward the last command with a delay.
-  Pose predict(double horizon) const
+  // Move pose p (wheel angle st) forward `horizon` s at speed v while the wheel moves toward `target`.
+  void roll(Pose & p, double & st, double target, double v, double horizon) const
   {
-    Pose p{state_->x, state_->y, state_->yaw};
-    double st = steer_actual_;
-    const double v = v_actual_, dt = 0.005;
+    const double dt = 0.005;
     for (double t = 0.0; t < horizon - 1e-9; t += dt) {
       const double h = std::min(dt, horizon - t);
-      const double want = steer_tau_ > 1e-6 ? (last_steer_ - st) * h / steer_tau_ : last_steer_ - st;
+      const double want = steer_tau_ > 1e-6 ? (target - st) * h / steer_tau_ : target - st;
       st += std::clamp(want, -steer_rate_ * h, steer_rate_ * h);
       p.x += v * std::cos(p.yaw) * h;
       p.y += v * std::sin(p.yaw) * h;
       p.yaw = wrap(p.yaw + v / wheelbase_ * std::tan(st) * h);
     }
+  }
+
+  Pose predict(double horizon) const
+  {
+    Pose p{state_->x, state_->y, state_->yaw};
+    double st = steer_actual_;
+    roll(p, st, last_steer_, v_actual_, horizon);
     return p;
+  }
+
+  // ------------------------------------------------------------- path helpers for Stanley / feed-forward
+  double heading_at(double s_target, size_t from) const
+  {
+    size_t j = from;
+    while (j + 1 < pts_.size() && s_[j + 1] < s_target) {++j;}
+    if (j + 1 >= pts_.size()) {j = pts_.size() - 2;}
+    return std::atan2(pts_[j + 1].y - pts_[j].y, pts_[j + 1].x - pts_[j].x);
+  }
+
+  double kappa_at(double s_target, size_t from) const
+  {
+    size_t j = from;
+    while (j + 1 < pts_.size() && s_[j + 1] < s_target) {++j;}
+    return kappa_s_[j];
+  }
+
+  // Stanley at reference point (x, y) of a car with heading yaw: heading error + atan(K e / (K_prot + v)).
+  // e > 0 when the reference point is LEFT of the path, so then we steer right (minus).
+  double stanley_terms(double x, double y, double yaw, double v, size_t * idx = nullptr, double * s_out = nullptr)
+  {
+    const Location l = locate(x, y);
+    const size_t from = l.index > 0 ? l.index - 1 : 0;
+    const Pt q = point_at(l.s, from);
+    const double head = heading_at(l.s, from);
+    const double e = std::cos(head) * (y - q.y) - std::sin(head) * (x - q.x);
+    if (idx) {*idx = from;}
+    if (s_out) {*s_out = l.s;}
+    return wrap(head - yaw) - std::atan(st_k_ * e / (st_soft_ + std::fabs(v)));
+  }
+
+  double stanley_front(const Pose & p, double v)
+  {
+    size_t idx = 0;
+    double s = 0.0;
+    double d = stanley_terms(p.x + wheelbase_ * std::cos(p.yaw), p.y + wheelbase_ * std::sin(p.yaw), p.yaw, v, &idx, &s);
+    if (st_yaw_ > 0.0) {  // yaw-rate damping: expected (path) yaw rate minus the car's yaw rate
+      d += st_yaw_ * (v * kappa_at(s, idx) - v / wheelbase_ * std::tan(steer_actual_));
+    }
+    return std::clamp(d, -max_steer_, max_steer_);
+  }
+
+  double steer_stanley(const Pose & p0, double v)
+  {
+    if (st_n_ <= 0) {return stanley_front(p0, v);}
+    // predictive Stanley: Stanley on the current and N predicted states, weighted sum (weights decay, sum 1)
+    Pose p = p0;
+    double st = steer_actual_, sum = 0.0, wsum = 0.0, w = 1.0;
+    for (int k = 0; k <= st_n_; ++k) {
+      const double d = stanley_front(p, v);
+      sum += w * d;
+      wsum += w;
+      w *= st_decay_;
+      roll(p, st, d, v, st_dt_);
+    }
+    return std::clamp(sum / wsum, -max_steer_, max_steer_);
+  }
+
+  double steer_stanley_ff(const Pose & p, double v)
+  {
+    size_t idx = 0;
+    double s = 0.0;
+    const double fb = stanley_terms(p.x, p.y, p.yaw, v, &idx, &s);   // rear axle
+    const double ff = std::atan(wheelbase_ * kappa_at(s + std::fabs(v) * ff_time_, idx));
+    return std::clamp(ff + fb, -max_steer_, max_steer_);
   }
 
   // ------------------------------------------------------------- geometry
@@ -217,6 +309,14 @@ private:
       const Pt target = point_at(ploc.s + ld, ploc.index);
       const double alpha = wrap(std::atan2(target.y - p.y, target.x - p.x) - p.yaw);
       steer = std::clamp(std::atan2(2.0 * wheelbase_ * std::sin(alpha), ld), -max_steer_, max_steer_);
+      if (mode_ == "stanley") {
+        steer = steer_stanley(p, v_actual_);
+      } else if (mode_ == "stanley_ff") {
+        steer = steer_stanley_ff(p, v_actual_);
+      } else if (ff_gain_ > 0.0) {  // pure pursuit blended with curvature feed-forward
+        const double ff = std::atan(wheelbase_ * kappa_at(ploc.s + std::fabs(v_actual_) * ff_time_, ploc.index));
+        steer = std::clamp((1.0 - ff_gain_) * steer + ff_gain_ * ff, -max_steer_, max_steer_);
+      }
 
       // --- speed: smallest of (cruise, curve limits, braking limit), looking ahead
       double v = cruise_;
@@ -259,11 +359,14 @@ private:
 
   // ------------------------------------------------------------------ data
   std::vector<Pt> pts_;
-  std::vector<double> s_, kappa_;
+  std::vector<double> s_, kappa_, kappa_s_;
   size_t finish_ = 0, progress_ = 0;
   std::optional<VehState> state_;
   double v_actual_ = 0.0, steer_actual_ = 0.0, last_steer_ = 0.0;
   double predict_, steer_tau_, steer_rate_, stop_damp_;
+  std::string mode_;
+  double st_k_, st_soft_, st_yaw_, st_dt_, st_decay_, ff_time_, ff_gain_;
+  int st_n_;
   bool use_age_;
 
   double cruise_, a_lat_, brake_, stop_aim_, ld_base_, ld_gain_, wheelbase_, max_steer_;
