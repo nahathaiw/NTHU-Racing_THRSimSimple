@@ -202,3 +202,8 @@ Key filter: our simulator is kinematic (no tyres), so tyre/friction papers do no
 Downloaded 8 PDFs to `_paper/2025-2026/` with a README (classification, fit rating, implement order).
 Implement order: (1) predictive Stanley + feed-forward (DLR 2026), (2) kinematic MPC with steering lag (MAP2 / LPV-MPC / FS 2026),
 (3) RL-tuned lookahead (RA-L 2026).
+
+### 2026-11-19 ~02:25 - Step 20: Experiment plan for the new methods
+Plan and results table: `_LOG/2026-11-19_log-and-diagram/experiment_plan.md`. E0 baseline R2G10 (74.2); E1 Stanley; E2 predictive
+Stanley; E3 predictive Stanley + feed-forward; E4 pure pursuit + feed-forward; E5 kinematic MPC with steering lag (LQR form);
+E6 tuned MPC; E7 best + 3-run confirmation; E8 optional RL lookahead. All aim at tracking (38.2/40); filled in step by step.
