@@ -207,3 +207,15 @@ Implement order: (1) predictive Stanley + feed-forward (DLR 2026), (2) kinematic
 Plan and results table: `_LOG/2026-11-19_log-and-diagram/experiment_plan.md`. E0 baseline R2G10 (74.2); E1 Stanley; E2 predictive
 Stanley; E3 predictive Stanley + feed-forward; E4 pure pursuit + feed-forward; E5 kinematic MPC with steering lag (LQR form);
 E6 tuned MPC; E7 best + 3-run confirmation; E8 optional RL lookahead. All aim at tracking (38.2/40); filled in step by step.
+
+### 2026-11-19 ~02:35 - Step 21: Steering modes implemented (E1-E4 code), E1 sweep started
+Read the DLR 2026 thesis (`_paper/2025-2026/2026_DLR_Predictive_Stanley_Feedforward.pdf`, ch. 3) and implemented its control laws in
+`driver_node.cpp` (`66e2f07`), switchable with `steer_mode`:
+- `stanley` (eq. 3.4-3.5): delta = psi + atan(K e / (K_prot + v)) at the FRONT axle; psi = path heading - car heading, e = sideways
+  error. Optional yaw-rate damping (Hoffmann 2007): + K_yaw (v kappa - v tan(steer)/L).
+- predictive Stanley (eq. 3.12-3.14): `stanley_pred_steps` N > 0: Stanley on the current state and N predicted states (bicycle model
+  + steering lag, step `stanley_pred_dt`), weighted sum with weights decay^k normalised to 1.
+- `stanley_ff` (enhanced Stanley, sec. 3.4-3.5): Stanley at the REAR axle + feed-forward atan(L kappa) at v * ff_time ahead.
+- `pp` + `ff_gain` (Kapania & Gerdes 2015): blend pure pursuit with the feed-forward steering.
+Needed: signed path curvature `kappa_s_`, path heading at s, and `roll()` (the prediction model, reused by predictive Stanley).
+Default `steer_mode pp` = R2G10 unchanged. E1 sweep: E0 (R2G10), Stanley K2 without/with prediction, K1, K4, K2 + yaw damping.

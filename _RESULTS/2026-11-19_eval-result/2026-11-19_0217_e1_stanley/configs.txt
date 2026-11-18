@@ -1,0 +1,7 @@
+# E1: Stanley (DLR 2026 eq. 3.4 / Hoffmann 2007). Base = R2G10 speed/stop settings: lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0
+E0       lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+E1K2P0   lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.0  steer_mode:=stanley stanley_k:=2.0
+E1K2     lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=2.0
+E1K1     lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=1.0
+E1K4     lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=4.0
+E1K2Y    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=stanley stanley_k:=2.0 stanley_yaw_damp:=0.05
