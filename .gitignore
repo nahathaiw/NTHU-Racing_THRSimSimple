@@ -47,4 +47,4 @@ core
 core.[0-9]*
 
 # Downloaded papers: local only (size, publisher copyright)
-/_paper/*.pdf
+/_paper/**/*.pdf

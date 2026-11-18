@@ -1,5 +1,7 @@
 # _paper: reading list for the driverless controller
 
+**New (2025-2026) methods to implement: see [2025-2026/README.md](2025-2026/README.md).** Below: the classics.
+
 Downloaded 2026-11-19. Files are named `YEAR_Author_Topic.pdf`. **The PDFs stay on this computer only** (they are
 git-ignored: about 40 MB, and publishers' copyright does not allow re-posting them in a public repo). This README is in git,
 so anyone can download the same papers from the links below.

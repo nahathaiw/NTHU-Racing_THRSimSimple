@@ -194,3 +194,11 @@ Remaining gap to the ceiling (about 76) is tracking (38.2/40). More tuning will 
 Betz 2022, Becker 2023), each checked by reading its title page. Not found free: Hoffmann 2007 (Stanley), Kong 2015, Rajamani book.
 `_paper/README.md` has the reading order, links and what each paper means for my_driver. PDFs are git-ignored (40 MB, copyright).
 Read first: Snider 2009 (explains the sweeps), Kapania & Gerdes 2015 (feed-forward steering, the next step).
+
+### 2026-11-19 ~02:20 - Step 19: Found new (2025-2026) methods that cite the classics
+OpenAlex: 1,603 papers from 2025-2026 cite our reading list; 501 are about vehicle path tracking / racing control
+(learning-based 213, MPC 164, improved pure pursuit 133, delay compensation 46, speed profile 43).
+Key filter: our simulator is kinematic (no tyres), so tyre/friction papers do not apply; prediction + kinematic MPC + learned lookahead do.
+Downloaded 8 PDFs to `_paper/2025-2026/` with a README (classification, fit rating, implement order).
+Implement order: (1) predictive Stanley + feed-forward (DLR 2026), (2) kinematic MPC with steering lag (MAP2 / LPV-MPC / FS 2026),
+(3) RL-tuned lookahead (RA-L 2026).
