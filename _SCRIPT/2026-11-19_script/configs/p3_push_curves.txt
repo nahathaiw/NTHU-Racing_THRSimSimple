@@ -1,0 +1,7 @@
+# sweep p3: around the p2 best (lat 16, predict 0.10, gain 0.20). Faster curves, more prediction, shorter lookahead.
+A16      lat_accel:=16.0 predict_time:=0.10 lookahead_gain:=0.20
+A20      lat_accel:=20.0 predict_time:=0.10 lookahead_gain:=0.20
+A25      lat_accel:=25.0 predict_time:=0.10 lookahead_gain:=0.20
+A20P15   lat_accel:=20.0 predict_time:=0.15 lookahead_gain:=0.20
+A16G15   lat_accel:=16.0 predict_time:=0.10 lookahead_gain:=0.15
+A20P15G15 lat_accel:=20.0 predict_time:=0.15 lookahead_gain:=0.15

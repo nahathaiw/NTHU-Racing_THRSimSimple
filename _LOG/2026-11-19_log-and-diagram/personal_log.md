@@ -94,3 +94,19 @@ sweep, check nothing else is running (`pgrep -af "[e]valuate|[m]y_driver"`).
 **Prediction alone does not help at set N's speeds;** more prediction makes the wave worse. Likely reason: pure pursuit already
 looks ahead (ld about 8.75 m), and predicting first moves the aim point even further ahead, so the car cuts the wave's corners.
 Prediction should matter when the car goes faster in curves. Next: sweep p2, raise lat_accel (curve speed) with and without prediction.
+
+### 2026-11-19 ~01:15 - Step 10: Sweep p2 results: faster curves (lat_accel), with and without prediction
+| Config | lat_accel | predict | gain | Score | Track | Time | Stop | Max err | Failures |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| L9 | 9 | 0 | 0.25 | 70.4 | 36.6 | 13.8 | 20.0 | 0.86 | none |
+| L12 | 12 | 0 | 0.25 | 69.3 | 36.1 | 13.2 | 20.0 | 1.00 | none |
+| L16 | 16 | 0 | 0.25 | 64.1 | 33.6 | 13.0 | 17.5 | 2.05 | **wave off_track** |
+| L12P10 | 12 | 0.10 | 0.25 | 70.2 | 36.6 | 13.6 | 20.0 | 0.83 | none |
+| L16P10 | 16 | 0.10 | 0.25 | 71.5 | 36.6 | 14.9 | 19.9 | 1.03 | none |
+| **L16P10G** | 16 | 0.10 | 0.20 | **72.0** | 37.2 | 14.8 | 20.0 | 0.82 | none |
+**This is where prediction pays off:** at lat_accel 16 the car leaves the track on the wave WITHOUT prediction (L16), and stays
+on it WITH prediction (L16P10). Prediction makes faster curves stable, and faster curves bring time points (12.6 -> 14.8).
+With prediction a shorter lookahead (0.20) also works and tracks better. New best **72.0** (old 70.3).
+Per path now: straight 11.6 m/s (at the ceiling), wave 11.0 (ceiling 11.9), lane 11.4 (ceiling 11.4), circle 10.5 (ceiling 14.4).
+Watch: stop errors 4.6-4.7 m on straight/wave/lane, close to the 5 m limit.
+Next: sweep p3 around L16P10G (lat 20/25, predict 0.15, gain 0.15).
