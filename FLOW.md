@@ -128,12 +128,12 @@ Any result other than `stopped` (`off_track`, `overrun`, `timeout`) gives **0** 
 
 ```mermaid
 flowchart LR
-    SW["11.18.26 script/sweepN.bash<br/>list of parameter sets"] --> LOOP["for each set"]
+    SW["_SCRIPT/11.18.26 script/sweepN.bash<br/>list of parameter sets"] --> LOOP["for each set"]
     LOOP --> DR["start my_driver<br/>with --ros-args -p ..."]
     DR --> EV["evaluate.bash --headless -n 2<br/>4 paths x 2 runs"]
     EV --> JS["eval_results/sweepN/SET.json"]
     JS --> SUM["summary.txt<br/>score, track, time, stop,<br/>max error, failures"]
-    SUM --> LOG["11.18.26 log and diagram/"]
+    SUM --> LOG["_LOG/11.18.26 log and diagram/"]
     LOOP --> KILL["stop the driver"]
 ```
 

@@ -7,7 +7,7 @@
 # Needs the workspace built (colcon build) and NO other driver running.
 set -u
 pkill -f "lib/my_driver/driver" 2>/dev/null
-WS="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+WS="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 RUNS=2
 [ "${1:-}" = "-n" ] && RUNS="$2"
 

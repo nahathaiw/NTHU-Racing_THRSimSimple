@@ -7,7 +7,7 @@
 #   "./11.18.26 script/demo_best.bash" wave       # GUI already set to that path (straight|wave|lane_change|circle)
 #
 # It starts my_driver with the final parameters, opens the simulator, and stops the driver when you close the window.
-WS="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+WS="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 # system tools first: Anaconda's python breaks ROS
 export PATH="$(echo "$PATH" | tr ':' '\n' | grep -v anaconda | paste -sd:)"

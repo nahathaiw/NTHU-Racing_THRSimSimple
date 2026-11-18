@@ -1,4 +1,4 @@
-# 11.19.26 log and diagram
+# _LOG/11.19.26 log and diagram
 
 Log, timeline and diagrams for the 95-point goal (2026-11-19 onward). Times are Taiwan time (UTC+8).
 
