@@ -35,9 +35,9 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 | E0 | DONE | 2026-11-19 01:4x / 01:52 | 74.2 | 38.2 | 16.0 | 20.0 | 0.56 / 0.51 | none | `..._p6_tracking/..._R2G10`, `..._p7_short_lookahead/..._S0` | scored 74.2 twice |
 | E1 | DONE | 2026-11-19 02:21 | 73.0 (best: K4) | 36.9 | 16.1 | 20.0 | 0.51 | none (paper version without prediction: 3 off-track) | `2026-11-19_0221_e1_stanley/` | same-session E0 = 73.6. Stanley is ~0.6 below pure pursuit; needs prediction; higher K better (K1 71.5, K2 72.6, K4 73.0); yaw damping no help (72.4) |
 | E2 | DONE | 2026-11-19 02:28 | 72.8 (best: K6 N3) | 36.7 | 16.0 | 20.0 | 0.60 | none | `2026-11-19_0228_e2_predictive_stanley/` | same-session E0 = 74.0. Predictive Stanley is WORSE than plain Stanley (K4: 73.0 -> 72.2 N3 -> 71.8 N6); plain K6 73.2 is the best Stanley, still 0.8 below pure pursuit |
-| E3 | RUNNING | 2026-11-19 ~02:42 | | | | | | | `..._e3e4_feedforward/` | |
-| E4 | RUNNING | 2026-11-19 ~02:42 | | | | | | | `..._e3e4_feedforward/` | |
-| E5 | TODO | | | | | | | | | |
+| E3 | DONE | 2026-11-19 02:36 | 73.5 (best: K4 ff 0.10) | 37.5 | 16.0 | 20.0 | 0.75 | none | `2026-11-19_0236_e3e4_feedforward/` | same-session E0 = 73.9. Best Stanley variant so far (plain 73.0-73.2), within noise of pure pursuit but not above; ff 0.20 and K2 worse |
+| E4 | DONE | 2026-11-19 02:36 | 73.5 (best: blend 0.3) | 37.4 | 16.1 | 20.0 | 0.69 | none | `2026-11-19_0236_e3e4_feedforward/` | same-session E0 = 73.9. Feed-forward blend does not help pure pursuit: 0.3 -> 73.5, 0.5 -> 72.1 (wave worse) |
+| E5 | RUNNING | 2026-11-19 ~02:46 | | | | | | | `..._e5_lqr/` | LQR r 30/100/300, ff 0.2, q_psi 4 |
 | E6 | TODO | | | | | | | | | |
 | E7 | TODO | | | | | | | | | |
 | E8 | optional | | | | | | | | | |

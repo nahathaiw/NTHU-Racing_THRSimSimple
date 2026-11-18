@@ -267,3 +267,19 @@ steer' = (u - steer)/tau (the steering lag). Without constraints, MPC with a lon
 equation (value iteration, 3x3, recomputed each cycle for the current speed). Command u = atan(L kappa(ahead)) - K x, from the
 PREDICTED pose and wheel angle. Offline check (numpy): closed loop stable 5-20 m/s; r = 1 is far too aggressive (37 deg per metre
 of error), r = 30-300 gives 3-10 deg/m (pure pursuit about 4). E5 sweep: r 30/100/300, ff_time 0.2, q_psi 4.
+
+### 2026-11-19 02:36 - Step 27: E3/E4 results: feed-forward (`2026-11-19_0236_e3e4_feedforward/`)
+| Config | Steering | Score | Track | Max err | Wave | Circle |
+|---|---|---:|---:|---:|---:|---:|
+| E0 | pure pursuit (R2G10) | **73.9** | 37.9 | 0.63 | 71.6 | 76.3 |
+| E3K4F10 | rear-axle Stanley K4 + ff 0.10 s | 73.5 | 37.5 | 0.75 | 70.9 | 75.7 |
+| E3K4F20 | rear-axle Stanley K4 + ff 0.20 s | 73.2 | 37.2 | 0.92 | 69.7 | 76.0 |
+| E3K2F10 | rear-axle Stanley K2 + ff 0.10 s | 73.1 | 37.1 | 0.76 | 69.7 | 75.8 |
+| E4G3 | pure pursuit + 30 % feed-forward | 73.5 | 37.4 | 0.69 | 70.8 | 76.1 |
+| E4G5 | pure pursuit + 50 % feed-forward | 72.1 | 36.3 | 0.87 | 67.8 | 75.1 |
+| E4G3F20 | pure pursuit + 30 % ff, 0.20 s | 73.2 | 37.3 | 0.79 | 69.5 | 75.9 |
+No feed-forward variant beats plain pure pursuit + prediction. The enhanced (rear-axle) Stanley with feed-forward is the best
+Stanley so far (73.5) and within noise of pure pursuit. More feed-forward makes the WAVE worse: on the wave the curvature changes
+all the time, and our curvature estimate from nodes 1 m apart plus the preview point is never exactly where the car is.
+Lesson so far: pure pursuit + our pose prediction already captures what these papers add for THIS simulator (kinematic, no tyres).
+Next: E5 LQR (running), then C-rows.
