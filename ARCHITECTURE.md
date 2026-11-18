@@ -148,7 +148,7 @@ ros2 run my_driver driver --ros-args \
 
 ./run_sim.bash                        # simulator GUI (second terminal)
 ./evaluate.bash -n 3                  # official evaluation
-"./11.18.26 script/demo_best.bash" eval         # live demo: driver + GUI evaluation in one command
+"./_SCRIPT/11.18.26 script/demo_best.bash" eval         # live demo: driver + GUI evaluation in one command
 ./scripts/sweep4.bash                 # parameter sweep (headless)
 ```
 
