@@ -1,0 +1,196 @@
+{
+  "time": "2026-11-19 02:18:19",
+  "status": "complete",
+  "planned_runs": 8,
+  "completed_runs": 8,
+  "plan": {
+    "shapes": [
+      "straight",
+      "wave",
+      "lane_change",
+      "circle"
+    ],
+    "repeats": 2
+  },
+  "overall_score": 13.15,
+  "per_path": {
+    "straight": {
+      "runs": 2,
+      "score": 11.120000000000001,
+      "tracking": 27.8,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "wave": {
+      "runs": 2,
+      "score": 11.92,
+      "tracking": 29.799999999999997,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "lane_change": {
+      "runs": 2,
+      "score": 19.68,
+      "tracking": 49.2,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "circle": {
+      "runs": 2,
+      "score": 9.89,
+      "tracking": 24.725,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    }
+  },
+  "runs": [
+    {
+      "run": 1,
+      "shape": "straight",
+      "result": "off_track",
+      "score": 10.77,
+      "tracking": 26.93,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.3572,
+      "rms_cte": 0.4921,
+      "max_cte": 2.1077,
+      "time": 1.52
+    },
+    {
+      "run": 2,
+      "shape": "straight",
+      "result": "off_track",
+      "score": 11.47,
+      "tracking": 28.67,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.3819,
+      "rms_cte": 0.4988,
+      "max_cte": 2.0043,
+      "time": 1.57
+    },
+    {
+      "run": 3,
+      "shape": "wave",
+      "result": "off_track",
+      "score": 11.65,
+      "tracking": 29.13,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.4093,
+      "rms_cte": 0.5766,
+      "max_cte": 2.004,
+      "time": 1.71
+    },
+    {
+      "run": 4,
+      "shape": "wave",
+      "result": "off_track",
+      "score": 12.19,
+      "tracking": 30.47,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.3989,
+      "rms_cte": 0.4719,
+      "max_cte": 2.0191,
+      "time": 1.7
+    },
+    {
+      "run": 5,
+      "shape": "lane_change",
+      "result": "off_track",
+      "score": 23.3,
+      "tracking": 58.26,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 1.0,
+      "rms_cte": 0.8348,
+      "max_cte": 2.0028,
+      "time": 4.73
+    },
+    {
+      "run": 6,
+      "shape": "lane_change",
+      "result": "off_track",
+      "score": 16.06,
+      "tracking": 40.14,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.5196,
+      "rms_cte": 0.4552,
+      "max_cte": 2.021,
+      "time": 1.98
+    },
+    {
+      "run": 7,
+      "shape": "circle",
+      "result": "off_track",
+      "score": 8.13,
+      "tracking": 20.31,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.2844,
+      "rms_cte": 0.5712,
+      "max_cte": 2.0011,
+      "time": 1.88
+    },
+    {
+      "run": 8,
+      "shape": "circle",
+      "result": "off_track",
+      "score": 11.65,
+      "tracking": 29.14,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.3825,
+      "rms_cte": 0.4765,
+      "max_cte": 2.0044,
+      "time": 2.34
+    }
+  ]
+}

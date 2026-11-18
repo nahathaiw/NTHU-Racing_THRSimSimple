@@ -10,7 +10,12 @@ set -u
 WS="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SWEEP="$1"; CFG="$2"; RUNS=2
 [ "${3:-}" = "-n" ] && RUNS="$4"
-pkill -f "lib/my_driver/driver" 2>/dev/null
+# Guard: another driver or simulator (GUI demo, other sweep) would fight over the car and spoil every result.
+busy() { pgrep -f "[l]ib/my_driver/driver|[t]hr_sim/lib/thr_sim|[r]un_sim.bash|[e]valuate.bash|[d]emo_best" > /dev/null; }
+if busy; then
+  echo "ABORT: another driver/simulator is running. Close it first:"; pgrep -af "[l]ib/my_driver/driver|[t]hr_sim/lib/thr_sim|[r]un_sim.bash|[e]valuate.bash|[d]emo_best" | cut -c1-120
+  exit 1
+fi
 
 export PATH="$(echo "$PATH" | tr ':' '\n' | grep -v anaconda | paste -sd:)"
 set +u; source /opt/ros/humble/setup.bash; source "$WS/install/setup.bash"; set -u
@@ -20,6 +25,8 @@ mkdir -p "$OUT"; cp "$CFG" "$OUT/configs.txt"; : > "$OUT/summary.txt"
 BASE="cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.9 stop_aim:=2.0 lookahead_gain:=0.25"
 
 grep -v '^\s*#' "$CFG" | grep -v '^\s*$' | while read -r id over; do
+  for _ in 1 2 3 4 5 6 7 8 9 10; do busy || break; sleep 1; done   # let the last run shut down
+  if busy; then echo "ABORT before [$id]: something else is running (see above)" | tee -a "$OUT/summary.txt"; exit 1; fi
   D="$OUT/$(date +%Y-%m-%d_%H%M)_$id"; mkdir -p "$D"
   args=(); for p in $BASE $over; do args+=(-p "$p"); done   # later values win
   echo "$BASE $over" > "$D/params.txt"

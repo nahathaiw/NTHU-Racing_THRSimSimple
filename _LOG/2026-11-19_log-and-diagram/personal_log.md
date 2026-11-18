@@ -219,3 +219,10 @@ Read the DLR 2026 thesis (`_paper/2025-2026/2026_DLR_Predictive_Stanley_Feedforw
 - `pp` + `ff_gain` (Kapania & Gerdes 2015): blend pure pursuit with the feed-forward steering.
 Needed: signed path curvature `kappa_s_`, path heading at s, and `roll()` (the prediction model, reused by predictive Stanley).
 Default `steer_mode pp` = R2G10 unchanged. E1 sweep: E0 (R2G10), Stanley K2 without/with prediction, K1, K4, K2 + yaw damping.
+
+### 2026-11-19 ~02:40 - Step 22: E1 first attempt INVALID (another experiment was open) -> guard added, re-run
+The user had another experiment open during E1. Proof: E0 (= R2G10, 74.2 twice) went off-track on all 8 runs (13.2).
+Stopped everything, checked `ros2 node list` empty, kept the folder as `2026-11-19_0217_e1_stanley_INVALID-another-experiment-open`.
+**Guard added to `sweep.bash`:** it refuses to start, and stops before each config, if another driver, simulator, GUI, evaluation or
+demo is running (waits up to 10 s for the previous run to shut down). Second time this happened today (first: Step 8).
+Rule: while a sweep runs, do not open the GUI / demo. E1 re-run started.

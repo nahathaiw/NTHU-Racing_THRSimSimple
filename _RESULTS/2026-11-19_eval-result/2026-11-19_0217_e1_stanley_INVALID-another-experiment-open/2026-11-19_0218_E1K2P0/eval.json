@@ -1,0 +1,196 @@
+{
+  "time": "2026-11-19 02:20:05",
+  "status": "complete",
+  "planned_runs": 8,
+  "completed_runs": 8,
+  "plan": {
+    "shapes": [
+      "straight",
+      "wave",
+      "lane_change",
+      "circle"
+    ],
+    "repeats": 2
+  },
+  "overall_score": 21.05,
+  "per_path": {
+    "straight": {
+      "runs": 2,
+      "score": 17.095,
+      "tracking": 42.735,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "wave": {
+      "runs": 2,
+      "score": 13.805,
+      "tracking": 34.505,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "off_track",
+        "off_track"
+      ]
+    },
+    "lane_change": {
+      "runs": 2,
+      "score": 13.58,
+      "tracking": 33.945,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "timeout",
+        "off_track"
+      ]
+    },
+    "circle": {
+      "runs": 2,
+      "score": 39.735,
+      "tracking": 60.82,
+      "time_score": 13.51,
+      "v_eq": 4.0535,
+      "stop": 50.0,
+      "mean_abs_stop_err": 4.558,
+      "stopped": 1,
+      "results": [
+        "off_track",
+        "stopped"
+      ]
+    }
+  },
+  "runs": [
+    {
+      "run": 1,
+      "shape": "straight",
+      "result": "off_track",
+      "score": 15.6,
+      "tracking": 39.01,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.6209,
+      "rms_cte": 0.7436,
+      "max_cte": 2.0108,
+      "time": 2.29
+    },
+    {
+      "run": 2,
+      "shape": "straight",
+      "result": "off_track",
+      "score": 18.59,
+      "tracking": 46.46,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.725,
+      "rms_cte": 0.7183,
+      "max_cte": 2.0185,
+      "time": 2.66
+    },
+    {
+      "run": 3,
+      "shape": "wave",
+      "result": "off_track",
+      "score": 13.53,
+      "tracking": 33.81,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.4204,
+      "rms_cte": 0.3914,
+      "max_cte": 2.0783,
+      "time": 1.77
+    },
+    {
+      "run": 4,
+      "shape": "wave",
+      "result": "off_track",
+      "score": 14.08,
+      "tracking": 35.2,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.4454,
+      "rms_cte": 0.4197,
+      "max_cte": 2.0786,
+      "time": 1.85
+    },
+    {
+      "run": 5,
+      "shape": "lane_change",
+      "result": "timeout",
+      "score": 14.65,
+      "tracking": 36.62,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 1.0,
+      "rms_cte": 1.2677,
+      "max_cte": 1.9482,
+      "time": 60.05
+    },
+    {
+      "run": 6,
+      "shape": "lane_change",
+      "result": "off_track",
+      "score": 12.51,
+      "tracking": 31.27,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.4101,
+      "rms_cte": 0.4749,
+      "max_cte": 2.0969,
+      "time": 1.66
+    },
+    {
+      "run": 7,
+      "shape": "circle",
+      "result": "off_track",
+      "score": 20.27,
+      "tracking": 50.67,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": null,
+      "completion": 0.7259,
+      "rms_cte": 0.6041,
+      "max_cte": 2.0071,
+      "time": 3.96
+    },
+    {
+      "run": 8,
+      "shape": "circle",
+      "result": "stopped",
+      "score": 59.2,
+      "tracking": 70.97,
+      "time_score": 27.02,
+      "v_eq": 8.107,
+      "stop": 100.0,
+      "stop_err": 4.558,
+      "completion": 1.0,
+      "rms_cte": 0.5806,
+      "max_cte": 1.8524,
+      "time": 11.62
+    }
+  ]
+}

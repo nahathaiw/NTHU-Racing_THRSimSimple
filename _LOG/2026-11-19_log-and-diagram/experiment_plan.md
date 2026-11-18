@@ -24,7 +24,7 @@ Status: TODO -> RUNNING -> DONE (or FAILED / SKIPPED). Filled in step by step; d
 | ID | Status | Date-time | Score | Track /40 | Time /40 | Stop /20 | Max err (m) | Failures | Result folder | Note |
 |---|---|---|---:|---:|---:|---:|---:|---|---|---|
 | E0 | DONE | 2026-11-19 01:4x / 01:52 | 74.2 | 38.2 | 16.0 | 20.0 | 0.56 / 0.51 | none | `..._p6_tracking/..._R2G10`, `..._p7_short_lookahead/..._S0` | scored 74.2 twice |
-| E1 | RUNNING | 2026-11-19 ~02:35 | | | | | | | `..._e1_stanley/` | sweep e1: plain Stanley, Stanley + prediction, K 1/2/4, yaw damping |
+| E1 | RUNNING (re-run) | 2026-11-19 ~02:40 | | | | | | | `..._e1_stanley/` | sweep e1: plain Stanley, Stanley + prediction, K 1/2/4, yaw damping |
 | E2 | TODO | | | | | | | | | |
 | E3 | TODO | | | | | | | | | |
 | E4 | TODO | | | | | | | | | |

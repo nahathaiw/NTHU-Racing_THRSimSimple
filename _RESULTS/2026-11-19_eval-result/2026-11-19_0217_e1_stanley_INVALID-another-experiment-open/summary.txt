@@ -1,0 +1,6 @@
+[E0] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+   OVERALL 13.2 = track 13.2 + time 0.0 + stop 0.0 | max_cte 2.11 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:off_track, lane_change:off_track, lane_change:off_track, circle:off_track, circle:off_track
+   per path: straight 11.1 (v_eq 0.0, err 0.0)  wave 11.9 (v_eq 0.0, err 0.0)  lane_change 19.7 (v_eq 0.0, err 0.0)  circle 9.9 (v_eq 0.0, err 0.0)
+[E1K2P0] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.0  steer_mode:=stanley stanley_k:=2.0
+   OVERALL 21.1 = track 17.2 + time 1.4 + stop 2.5 | max_cte 2.10 m | failures: straight:off_track, straight:off_track, wave:off_track, wave:off_track, lane_change:timeout, lane_change:off_track, circle:off_track
+   per path: straight 17.1 (v_eq 0.0, err 0.0)  wave 13.8 (v_eq 0.0, err 0.0)  lane_change 13.6 (v_eq 0.0, err 0.0)  circle 39.7 (v_eq 4.1, err 4.6)
