@@ -1,0 +1,4 @@
+# E7: confirmation, 3 runs per path (12 runs each), official style. R2G10 (yesterday-night best) vs T40C2 vs B5 (best of C4).
+R2G10   lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+T40C2   lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.10 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=2.0
+B5      lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.10 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true

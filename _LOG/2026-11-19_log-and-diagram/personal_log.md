@@ -368,3 +368,14 @@ our profile follows a ramp. Implemented `bang_brake` (-30 until bang_release 1 m
 Full braking at the last moment gains time (16.4 -> 16.7) AND moves the stop from ~4.4 m to ~2 m past the line (much safer).
 New best **74.9 (B5)**. Realistic ceiling about 77 (40 + ~17.1 + 20): left = tracking ~1.8, time ~0.4.
 Next: E7 confirmation with 3 runs per path: R2G10 vs T40C2 vs B5.
+
+### 2026-11-19 14:27 - Step 35: E7 confirmation, 3 runs per path (`2026-11-19_1427_e7_confirm/`): B5 = 74.9 confirmed
+| Set | Score | Track | Time | Stop | Max err | Straight | Wave | Lane | Circle | Worst stop err |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| R2G10 | 74.0 | 37.9 | 16.1 | 20.0 | 0.43 | 74.3 | 72.2 | 73.6 | 75.9 | 4.6 |
+| T40C2 | 74.6 | 38.2 | 16.4 | 20.0 | 0.48 | 74.6 | 72.2 | 73.8 | 77.7 | 4.7 |
+| **B5** | **74.9** | **38.3** | **16.6** | 20.0 | 0.48 | 74.8 | 72.4 | 74.3 | 77.9 | **2.5** |
+36 runs, no failures. Order matches the 2-run sweeps, so the gains are real: **B5 is the new best (+0.9 over R2G10)**, and its stop
+is much safer (2.5 m vs 4.6 m from the 5 m limit). Updated: demo_best.bash -> B5, START_HERE day row, MORNING_SUMMARY.
+B5 = cruise 30, lat_accel 40, stop_aim 1.5, gain 0.10, predict 0.10, blend_lqr 0.3 (r 3), stop_damp 5, bang_brake.
+Next: C5 tracking round around B5 (gain 0.08/0.12, predict 0.08/0.12, blend 0.2/0.4).

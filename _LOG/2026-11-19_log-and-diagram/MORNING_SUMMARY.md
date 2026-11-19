@@ -1,6 +1,6 @@
 # Morning summary (updated after every experiment)
 
-**Last update:** 2026-11-19 ~14:10, after C1/C2. **Ceiling corrected to 77.5** (perfect driver on all 4 paths with the sim's own model; time max 17.5/40). 80/90 not reachable with official settings.
+**Last update:** 2026-11-19 14:30, after E7. **CONFIRMED BEST: B5 = 74.9** (3 runs per path; R2G10 74.0 in the same session). Realistic ceiling about 77.
 later same-session checks; noise between sweeps about 0.6).** Ceiling with official settings about 76.
 
 | ID | Method (paper) | Best score | vs same-session R2G10 | Verdict |
@@ -16,3 +16,10 @@ Details: `personal_log.md` (one step per experiment), `experiment_plan.md` (tabl
 | C1 | Stanley K8/K12 | 73.7 (K12) | 74.0 | smallest max error 0.35 m, weak on circle |
 | C2 | Pure pursuit + 30 % LQR (r3) | **74.3** | 74.0 | best so far in-session (+0.3, within noise) |
 | C3 | Time round: lat_accel 40-100, cruise 30 | running | | |
+| C3 | Faster curves (lat_accel 40, cruise 30) on C2 | 74.5 | 74.0 | circle at its ceiling (14.4 m/s) |
+| C4 | Time-optimal braking (bang_brake) + stop_damp 5 | 74.9 | 74.6 | faster AND safer stop (~2 m past the line) |
+| E7 | 3-run confirmation | **74.9 (B5)** | 74.0 | **B5 confirmed** |
+
+**B5 settings:** cruise 30, lat_accel 40, brake 5.9 (ramp, used before the bang point), stop_aim 1.5, lookahead_base 2.5,
+lookahead_gain 0.10, predict_time 0.10, steer_tau 0.10, blend_lqr 0.3 (lqr_r 3, ff_time 0.10), stop_damp 5, bang_brake true.
+Demo: `./_SCRIPT/2026-11-19_script/demo_best.bash eval`
