@@ -322,3 +322,19 @@ LQR). Next sweep: C1 Stanley K8/K12, C2 blends 0.3/0.5 with r 20 and r 3.
 Senior discussion (chat, 13:55): user says the senior used the same settings with a different algorithm. Explained the check that
 holds for any algorithm: through /veh_ctrl, accel 20 m/s^2 covers at most 40 m in 2 s, but time 40/40 on the straight needs
 60 m + stop in 2 s; and mean v_eq 22.4 with time 40/40 is impossible with time_v_max 30. Asked for his JSON / driver topics / code.
+
+### 2026-11-19 14:00 - Step 32: C1/C2 results (`2026-11-19_1400_c1c2_combine/`) + ceiling corrected to 77.5
+| Config | Steering | Score | Track | Max err | Straight | Wave | Lane | Circle |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| E0 | pure pursuit (R2G10) | 74.0 | 38.0 | 0.52 | 74.5 | 71.9 | 73.3 | 76.3 |
+| C1K8 | Stanley K8 | 73.3 | 37.4 | 0.45 | 74.6 | 71.4 | 73.6 | 73.8 |
+| C1K12 | Stanley K12 | 73.7 | 37.6 | **0.35** | 74.6 | 72.1 | **74.1** | 74.0 |
+| C2B3R20 | pp + 30 % LQR r20 | 74.0 | 37.9 | 0.67 | **74.8** | 70.8 | 73.7 | 76.5 |
+| C2B5R20 | pp + 50 % LQR r20 | 73.6 | 37.6 | 0.68 | 74.3 | 70.6 | 73.0 | 76.5 |
+| **C2B3R3** | pp + 30 % LQR r3 | **74.3** | **38.3** | 0.61 | 74.7 | 71.8 | 73.7 | **76.8** |
+| C2B5R3 | pp + 50 % LQR r3 | 74.0 | 37.9 | 0.41 | 73.5 | **72.6** | 73.6 | 76.3 |
+C2B3R3 = best in this sweep (+0.3 over E0: within noise, needs the E7 confirmation). Stanley K12: smallest max error ever, weak circle.
+**Ceiling corrected:** user asked for 80. Re-ran the perfect-driver test with the sim's own model on all 4 paths (yesterday only the
+straight, the rest estimated by hand): perfect time straight 16.3, wave 16.9, lane 16.5, circle 20.1 -> average 17.5/40 ->
+**best possible 77.5** (perfect tracking and stop). 80 not reachable. We are at 74.3 = 38.3 + 16.0 + 20.
+Remaining: tracking ~1.7 + **time ~1.5** (circle 18.0 vs 20.1, wave 15.3 vs 16.9). Next: C3 time round (lat_accel 40-100, cruise 30).
