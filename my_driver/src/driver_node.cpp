@@ -94,7 +94,7 @@ public:
     blend_lqr_ = declare_parameter("blend_lqr", 0.0);        // pp only: share of LQR steering mixed in, 0 = off
     bang_ = declare_parameter("bang_brake", false);          // brake to the finish at FULL decel (command 0) at the last moment
     bang_decel_ = declare_parameter("bang_decel", 6.0);      // decel used to find the brake point [m/s^2] (car limit 6)
-    bang_lead_ = declare_parameter("bang_lead", 0.05);       // extra brake distance per m/s (one control period) [s]
+    bang_lead_ = declare_parameter("bang_lead", 0.0);        // extra brake distance per m/s, on top of one period [s]
     bang_neg_ = declare_parameter("bang_cmd", -30.0);        // command while braking: very negative = full decel at once
     bang_release_ = declare_parameter("bang_release", 1.0);  // below this speed command 0 (do not reverse) [m/s]
 
@@ -112,7 +112,9 @@ public:
     reset_sub_ = create_subscription<std_msgs::msg::Empty>(
       "/reset", 10, [this](const std_msgs::msg::Empty &) {on_reset();});
     publisher_ = create_publisher<VehCtrl>("/veh_ctrl", 10);
-    timer_ = create_wall_timer(50ms, [this]() {control();});  // 20 Hz, always
+    const double hz = declare_parameter("control_hz", 20.0);   // control rate; 100 makes bang braking precise
+    period_ = 1.0 / std::max(1.0, hz);
+    timer_ = create_wall_timer(std::chrono::duration<double>(period_), [this]() {control();});  // always running
   }
 
 private:
@@ -411,8 +413,10 @@ private:
         if (bang_) {
           // Time-optimal: keep full speed, then command 0 once the stopping distance at full decel reaches the
           // aim point. Commanding 0 saturates the speed loop at -6 m/s^2 at once; following a ramp does not.
+          // The brake point is only checked once per control period; at full throttle the car gains ~1 m/s per
+          // 0.05 s, so at 20 Hz the stop spread is ~5 m (offline: +0.2..+5.6 m). Use control_hz 100 with bang_brake.
           const double va = std::max(0.0, v_actual_);
-          if (braking_ || remaining + stop_aim_ <= va * va / (2.0 * bang_decel_) + bang_lead_ * va) {
+          if (braking_ || remaining + stop_aim_ <= va * va / (2.0 * bang_decel_) + (bang_lead_ + period_) * va) {
             braking_ = true;
             v = 0.0;
           }
@@ -442,6 +446,7 @@ private:
     msg.velocity = velocity;
     msg.steer = steer;
     last_steer_ = steer;  // the prediction needs the command the wheel is moving toward
+    last_velocity_ = velocity;
     publisher_->publish(msg);
   }
 
@@ -456,6 +461,7 @@ private:
   double st_k_, st_soft_, st_yaw_, st_dt_, st_decay_, ff_time_, ff_gain_;
   double lqr_qe_, lqr_qpsi_, lqr_r_, lqr_dt_, blend_lqr_, bang_decel_, bang_lead_, bang_neg_, bang_release_;
   bool bang_ = false, braking_ = false;
+  double last_velocity_ = 0.0, period_ = 0.05;
   int st_n_;
   bool use_age_;
 

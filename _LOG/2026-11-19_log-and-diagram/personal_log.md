@@ -379,3 +379,20 @@ Next: E7 confirmation with 3 runs per path: R2G10 vs T40C2 vs B5.
 is much safer (2.5 m vs 4.6 m from the 5 m limit). Updated: demo_best.bash -> B5, START_HERE day row, MORNING_SUMMARY.
 B5 = cruise 30, lat_accel 40, stop_aim 1.5, gain 0.10, predict 0.10, blend_lqr 0.3 (r 3), stop_damp 5, bang_brake.
 Next: C5 tracking round around B5 (gain 0.08/0.12, predict 0.08/0.12, blend 0.2/0.4).
+
+### 2026-11-19 14:33 - Step 36: C5 tracking round around B5 (`2026-11-19_1433_c5_tracking_b5/`): two risks found
+| Config | Change | Score | Track | Note |
+|---|---|---:|---:|---|
+| B5 | base | 73.0 | 38.0 | **lane_change run stopped 7.2 m past the line** (stop 20 -> 7.6 on that run) |
+| G08 | gain 0.08 | 74.8 | 38.3 | |
+| G12 | gain 0.12 | 65.9 | 33.8 | **wave off_track after 0.88 s** (start: path heading 32 deg vs car 0 deg, full throttle) |
+| P08 | predict 0.08 | 74.7 | 38.2 | |
+| P12 | predict 0.12 | 74.1 | 37.5 | |
+| BL2 | blend 0.2 | 74.5 | 38.1 | |
+| BL4 | blend 0.4 | 74.9 | 38.3 | smallest max err 0.42 |
+No clear tracking gain (all within noise); but robustness matters more: one bad run costs ~10 points.
+**Investigation (14:42):** `observe_B5_lane_change` (6 runs) all fine (stop 1.8-2.2 m), so the overshoot is rare. Driver log of the bad
+run: braking started ~2 m/s faster than in the good runs. Cause: the brake point is checked once per control period (20 Hz); at full
+throttle the car gains ~1 m/s per period, so the decision can be one period late. Offline (40 noisy runs, sim model): 20 Hz stop
++0.2..+5.6 m (overshoots happen), deciding one tick ahead -5.5..+0.4 (short = bad for completion), **50 Hz +0.2..+3.5, 100 Hz +0.45..+2.6**.
+Fix: new param `control_hz` (default 20 = old behaviour); trigger lead = one period. C6 tests 50/100 Hz with 3 runs per path.

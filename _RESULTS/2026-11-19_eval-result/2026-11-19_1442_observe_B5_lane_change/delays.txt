@@ -1,0 +1,6 @@
+01_lane_change: steering delay 0.17 s, speed delay 0.59 s, score 74.43
+02_lane_change: steering delay 0.13 s, speed delay 0.59 s, score 73.86
+03_lane_change: steering delay 0.15 s, speed delay 0.59 s, score 73.57
+04_lane_change: steering delay 0.13 s, speed delay 0.59 s, score 73.99
+05_lane_change: steering delay 0.13 s, speed delay 0.59 s, score 73.85
+06_lane_change: steering delay 0.15 s, speed delay 0.59 s, score 73.91

@@ -31,6 +31,9 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 | C3 | Time round: much higher curve speed (lat_accel 40-100, cruise 30) on R2G10 and C2B3R3 | corrected ceiling 77.5: circle time 18.0 vs perfect 20.1, wave 15.3 vs 16.9 | DONE 14:09 | **74.5** (T40C2 = C2 blend + lat 40 + cruise 30; E0 74.0); circle v_eq 13.4 -> 14.4 = at realistic ceiling | `2026-11-19_1409_c3_time/` |
 | C4 | Time-optimal braking (`bang_brake`: -30 command, then 0) on T40C2 | realistic perfect straight 12.07 m/s vs ours 11.6; offline 11.86 | DONE 14:20 | **74.9** (B5 = bang + stop_damp 5; same-session T40C2 74.6); time 16.4 -> 16.7, stop error 4.4 -> ~2 m (safer) | `2026-11-19_1420_c4_bang_brake/` |
 
+| C5 | Tracking round around B5 (gain, predict, blend) | track 38.3/40 | DONE 14:33 | 74.9 (BL4 = blend 0.4) ties B5's E7; **found 2 risks**: B5 stopped 7.2 m once (limit 5); gain 0.12 off-track at 0.88 s on the wave | `2026-11-19_1433_c5_tracking_b5/` |
+| C6 | Control rate 50/100 Hz (precise brake point), 3 runs per path | overshoot cause = 20 Hz brake decision (offline) | RUNNING | | |
+
 ## Results (filled in as we go)
 
 | ID | Status | Date-time | Score | Track /40 | Time /40 | Stop /20 | Max err (m) | Failures | Result folder | Note |
