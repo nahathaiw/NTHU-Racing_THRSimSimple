@@ -396,3 +396,14 @@ run: braking started ~2 m/s faster than in the good runs. Cause: the brake point
 throttle the car gains ~1 m/s per period, so the decision can be one period late. Offline (40 noisy runs, sim model): 20 Hz stop
 +0.2..+5.6 m (overshoots happen), deciding one tick ahead -5.5..+0.4 (short = bad for completion), **50 Hz +0.2..+3.5, 100 Hz +0.45..+2.6**.
 Fix: new param `control_hz` (default 20 = old behaviour); trigger lead = one period. C6 tests 50/100 Hz with 3 runs per path.
+
+### 2026-11-19 14:47 - Step 37: C6 results, 3 runs per path (`2026-11-19_1447_c6_control_rate/`): B6 = final best
+| Config | Change | Score | Track | Time | Stop err range (12 runs) | Failures |
+|---|---|---:|---:|---:|---|---|
+| B5 | 20 Hz | 74.4 | 38.0 | 16.4 | 0.90-3.69 m | none |
+| H50 | 50 Hz | 74.7 | 38.1 | 16.6 | 0.34-2.87 m | none |
+| H100 | 100 Hz | 74.7 | 38.1 | 16.6 | 1.05-3.14 m | none |
+| **H100G09 = B6** | 100 Hz + gain 0.09 | **74.9** | 38.3 | 16.6 | 1.14-2.92 m | none |
+**B6 = B5 + control_hz 100 + lookahead_gain 0.09: 74.9 with every stop safely inside the zone** (48 runs, no failures).
+Faster control also helps slightly overall (+0.3). demo_best.bash, START_HERE, MORNING_SUMMARY, NEXT_SESSION updated to B6.
+Status vs ceiling: 74.9 = tracking 38.3 + time 16.6 + stop 20 against about 77 (40 + ~17.1 + 20).

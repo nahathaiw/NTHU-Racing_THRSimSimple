@@ -32,7 +32,7 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 | C4 | Time-optimal braking (`bang_brake`: -30 command, then 0) on T40C2 | realistic perfect straight 12.07 m/s vs ours 11.6; offline 11.86 | DONE 14:20 | **74.9** (B5 = bang + stop_damp 5; same-session T40C2 74.6); time 16.4 -> 16.7, stop error 4.4 -> ~2 m (safer) | `2026-11-19_1420_c4_bang_brake/` |
 
 | C5 | Tracking round around B5 (gain, predict, blend) | track 38.3/40 | DONE 14:33 | 74.9 (BL4 = blend 0.4) ties B5's E7; **found 2 risks**: B5 stopped 7.2 m once (limit 5); gain 0.12 off-track at 0.88 s on the wave | `2026-11-19_1433_c5_tracking_b5/` |
-| C6 | Control rate 50/100 Hz (precise brake point), 3 runs per path | overshoot cause = 20 Hz brake decision (offline) | RUNNING | | |
+| C6 | Control rate 50/100 Hz (precise brake point), 3 runs per path | overshoot cause = 20 Hz brake decision (offline) | DONE 14:47 | **74.9 (B6 = B5 + 100 Hz + gain 0.09)**; same session B5 74.4; all 48 runs stopped, stop err 0.3-3.7 m | `2026-11-19_1447_c6_control_rate/` |
 
 ## Results (filled in as we go)
 

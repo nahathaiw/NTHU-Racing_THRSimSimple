@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Live demo of today's best settings (set B5, 74.9/100 confirmed with 3 runs per path) with the simulator GUI.
+# Live demo of today's best settings (set B6, 74.9/100 with 3 runs per path, robust stop) with the simulator GUI.
+# B6 = B5 + control_hz 100 (precise brake point) + lookahead_gain 0.09.
 # B5 = pure pursuit + pose prediction + 30 % LQR blend, fast curves, time-optimal braking. (Previous best R2G10 = 74.0 same session.)
 #
 # Usage (from the repo folder):
@@ -20,10 +21,10 @@ source "$WS/install/setup.bash"
 pkill -f "lib/my_driver/driver" 2>/dev/null
 trap 'pkill -INT -f "lib/my_driver/driver" 2>/dev/null' EXIT
 
-echo ">>> starting my_driver with set B5 (prediction + LQR blend + bang braking)"
+echo ">>> starting my_driver with set B6 (prediction + LQR blend + bang braking, 100 Hz)"
 ros2 run my_driver driver --ros-args \
   -p cruise_speed:=30.0 -p lat_accel:=40.0 -p brake_decel:=5.9 -p stop_aim:=1.5 \
-  -p lookahead_base:=2.5 -p lookahead_gain:=0.10 \
+  -p lookahead_base:=2.5 -p lookahead_gain:=0.09 -p control_hz:=100.0 \
   -p predict_time:=0.10 -p steer_tau:=0.10 -p steer_rate:=1.0 -p stop_damp:=5.0 \
   -p blend_lqr:=0.3 -p lqr_r:=3.0 -p ff_time:=0.10 -p bang_brake:=true > /tmp/demo_driver.log 2>&1 &
 sleep 2

@@ -1,0 +1,12 @@
+[B5] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.10 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true
+   OVERALL 74.4 = track 38.0 + time 16.4 + stop 20.0 | max_cte 0.50 m | failures: none
+   per path: straight 74.3 (v_eq 11.7, err 2.3)  wave 71.5 (v_eq 11.3, err 3.5)  lane_change 74.0 (v_eq 11.8, err 1.7)  circle 77.8 (v_eq 14.4, err 1.1)
+[H50] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.10 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=50.0
+   OVERALL 74.7 = track 38.1 + time 16.6 + stop 20.0 | max_cte 0.48 m | failures: none
+   per path: straight 74.4 (v_eq 11.7, err 2.4)  wave 71.9 (v_eq 11.6, err 2.4)  lane_change 74.3 (v_eq 11.8, err 1.9)  circle 78.2 (v_eq 14.5, err 0.6)
+[H100] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.10 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+   OVERALL 74.7 = track 38.1 + time 16.6 + stop 20.0 | max_cte 0.55 m | failures: none
+   per path: straight 74.6 (v_eq 11.8, err 2.0)  wave 72.0 (v_eq 11.7, err 2.3)  lane_change 74.2 (v_eq 11.8, err 2.4)  circle 78.0 (v_eq 14.5, err 2.0)
+[H100G09] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.10 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 lookahead_gain:=0.09
+   OVERALL 74.9 = track 38.3 + time 16.6 + stop 20.0 | max_cte 0.47 m | failures: none
+   per path: straight 74.9 (v_eq 11.8, err 1.6)  wave 72.3 (v_eq 11.7, err 2.2)  lane_change 74.2 (v_eq 11.8, err 2.4)  circle 78.2 (v_eq 14.5, err 1.5)

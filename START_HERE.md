@@ -24,7 +24,7 @@ Experiments are named `YYYY-MM-DD_HHMM_<id>_<what-it-tested>` (Taiwan time).
 | Day | Goal | Result | Where |
 |---|---|---|---|
 | 2026-11-18 | Beat the demo driver (62.3) | **70.3** (set N) | `_RESULTS/2026-11-18_eval-result/`, `_LOG/2026-11-18_log-and-diagram/` |
-| 2026-11-19 | Push to the ceiling (about 77 with official settings) | **74.9** (set B5, 3-run confirmed) | `_RESULTS/2026-11-19_eval-result/`, `_LOG/2026-11-19_log-and-diagram/` |
+| 2026-11-19 | Push to the ceiling (about 77 with official settings) | **74.9** (set B6, 3-run confirmed, robust stop) | `_RESULTS/2026-11-19_eval-result/`, `_LOG/2026-11-19_log-and-diagram/` |
 
 ## Common commands
 

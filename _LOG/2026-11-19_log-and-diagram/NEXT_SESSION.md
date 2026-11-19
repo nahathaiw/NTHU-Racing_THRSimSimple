@@ -3,8 +3,9 @@
 ## Where we are
 - Goal: highest benchmark score with the **official simulator settings** (ceiling about 76; the senior's 92.5 used different
   scoring settings, see personal_log Step 7).
-- **Best: set R2G10 = pure pursuit + pose prediction**, 74.2 twice (73.6-74.4 in later same-session checks; noise about 0.6).
-  Run it: `./_SCRIPT/2026-11-19_script/demo_best.bash eval`
+- **Best (2026-11-19 14:55): set B6 = 74.9** (3 runs per path): pure pursuit + pose prediction + 30 % LQR blend, lat_accel 40,
+  cruise 30, time-optimal braking (bang_brake), stop_damp 5, control_hz 100, gain 0.09. Run it: `./_SCRIPT/2026-11-19_script/demo_best.bash eval`
+- Realistic ceiling about 77 (Step 33). Left: tracking ~1.7 (38.3/40), time ~0.5.
 - Plan + results table: `experiment_plan.md`. One-page status: `MORNING_SUMMARY.md`. Every step: `personal_log.md`.
 
 ## Done in the method plan

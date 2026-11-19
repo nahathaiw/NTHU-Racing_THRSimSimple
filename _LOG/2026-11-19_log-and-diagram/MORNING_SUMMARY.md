@@ -1,6 +1,6 @@
 # Morning summary (updated after every experiment)
 
-**Last update:** 2026-11-19 14:30, after E7. **CONFIRMED BEST: B5 = 74.9** (3 runs per path; R2G10 74.0 in the same session). Realistic ceiling about 77.
+**Last update:** 2026-11-19 14:55, after C6. **FINAL BEST: B6 = 74.9** (3 runs per path, robust: every stop 1.1-2.9 m past the line). Realistic ceiling about 77.
 later same-session checks; noise between sweeps about 0.6).** Ceiling with official settings about 76.
 
 | ID | Method (paper) | Best score | vs same-session R2G10 | Verdict |
@@ -23,3 +23,7 @@ Details: `personal_log.md` (one step per experiment), `experiment_plan.md` (tabl
 **B5 settings:** cruise 30, lat_accel 40, brake 5.9 (ramp, used before the bang point), stop_aim 1.5, lookahead_base 2.5,
 lookahead_gain 0.10, predict_time 0.10, steer_tau 0.10, blend_lqr 0.3 (lqr_r 3, ff_time 0.10), stop_damp 5, bang_brake true.
 Demo: `./_SCRIPT/2026-11-19_script/demo_best.bash eval`
+| C5 | Tracking round around B5 | 74.9 (blend 0.4) | 73.0 | found 2 risks: rare stop overshoot (7.2 m), gain 0.12 off-track at wave start |
+| C6 | Control rate 100 Hz (precise brake point) + gain 0.09, 3 runs per path | **74.9 (B6)** | 74.4 | **B6 = final: robust** |
+
+**B6 = B5 + control_hz 100 + lookahead_gain 0.09** (demo_best.bash runs B6).
