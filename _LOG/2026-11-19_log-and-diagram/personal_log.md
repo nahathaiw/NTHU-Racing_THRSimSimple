@@ -338,3 +338,20 @@ C2B3R3 = best in this sweep (+0.3 over E0: within noise, needs the E7 confirmati
 straight, the rest estimated by hand): perfect time straight 16.3, wave 16.9, lane 16.5, circle 20.1 -> average 17.5/40 ->
 **best possible 77.5** (perfect tracking and stop). 80 not reachable. We are at 74.3 = 38.3 + 16.0 + 20.
 Remaining: tracking ~1.7 + **time ~1.5** (circle 18.0 vs 20.1, wave 15.3 vs 16.9). Next: C3 time round (lat_accel 40-100, cruise 30).
+
+### 2026-11-19 14:09 - Step 33: C3 results: faster curves (`2026-11-19_1409_c3_time/`); senior's note; realistic ceiling
+| Config | Change | Score | Track | Time | Wave v_eq | Circle v_eq |
+|---|---|---:|---:|---:|---:|---:|
+| E0 | R2G10 | 74.0 | 38.0 | 16.0 | 11.5 | 13.4 |
+| T40 | lat 40, cruise 30 | 74.3 | 37.9 | 16.4 | 11.7 | 14.4 |
+| T60 | lat 60, cruise 30 | 74.3 | 37.9 | 16.4 | 11.6 | 14.5 |
+| T100 | lat 100, cruise 30 | 74.3 | 37.9 | 16.5 | 11.7 | 14.6 |
+| **T40C2** | C2 blend + lat 40, cruise 30 | **74.5** | 38.1 | 16.5 | 11.7 | 14.4 |
+| T60C2 | C2 blend + lat 60, cruise 30 | 74.3 | 38.1 | 16.5 | 11.7 | 14.6 |
+Faster curves work (no failures, prediction keeps it stable): time 16.0 -> 16.5. Above lat 40 stop errors grow (circle up to 5.2 m).
+**New best 74.5 (T40C2).** Senior's comment (user): he also needed "path prediction" to score high, consistent with our prediction.
+**Realistic ceiling** (offline, sim model, stop must be PAST the finish because stopping short lowers completion = tracking;
+time from the sim's own rest rule): straight 12.07 m/s (16.1/40), circle 14.41 (19.2/40). Our circle is AT the ceiling now.
+The straight (11.6) can still gain: a perfect driver brakes with a large negative command (speed loop saturated at -6 m/s^2 at once),
+our profile follows a ramp. Implemented `bang_brake` (-30 until bang_release 1 m/s, then 0; trigger when remaining + aim <= v^2/(2*6)
++ 0.05 v). Offline with noise: straight v_eq 11.86, stop +2.2..2.6 m. Next: C4 sweep.

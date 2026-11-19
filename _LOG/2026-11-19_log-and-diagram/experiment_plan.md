@@ -28,7 +28,8 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 |---|---|---|---|---:|---|
 | C2 | Blend pure pursuit + LQR (`blend_lqr`) | E6: LQR best on the wave, pure pursuit best on straight/circle | DONE 14:00 | **74.3** (30 % LQR r3; same-session E0 74.0, +0.3 = within noise) | `2026-11-19_1400_c1c2_combine/` |
 | C1 | Stanley K6 + tuning (K 6-10, soft, with E4 feed-forward) | E1/E2: higher K kept improving (K1 71.5 -> K6 73.2), straight 74.6 = best straight so far | DONE 14:00 | 73.7 (K12; max err 0.35 m = smallest; best wave/lane, weak circle 74.0) | `2026-11-19_1400_c1c2_combine/` |
-| C3 | Time round: much higher curve speed (lat_accel 40-100, cruise 30) on R2G10 and C2B3R3 | corrected ceiling 77.5: circle time 18.0 vs perfect 20.1, wave 15.3 vs 16.9 | RUNNING | | |
+| C3 | Time round: much higher curve speed (lat_accel 40-100, cruise 30) on R2G10 and C2B3R3 | corrected ceiling 77.5: circle time 18.0 vs perfect 20.1, wave 15.3 vs 16.9 | DONE 14:09 | **74.5** (T40C2 = C2 blend + lat 40 + cruise 30; E0 74.0); circle v_eq 13.4 -> 14.4 = at realistic ceiling | `2026-11-19_1409_c3_time/` |
+| C4 | Time-optimal braking (`bang_brake`: -30 command, then 0) on T40C2 | realistic perfect straight 12.07 m/s vs ours 11.6; offline 11.86 | RUNNING | | |
 
 ## Results (filled in as we go)
 

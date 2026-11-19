@@ -92,6 +92,11 @@ public:
     lqr_r_ = declare_parameter("lqr_r", 1.0);                // cost on steering command [1/rad^2]
     lqr_dt_ = declare_parameter("lqr_dt", 0.05);             // model step [s] (= control period)
     blend_lqr_ = declare_parameter("blend_lqr", 0.0);        // pp only: share of LQR steering mixed in, 0 = off
+    bang_ = declare_parameter("bang_brake", false);          // brake to the finish at FULL decel (command 0) at the last moment
+    bang_decel_ = declare_parameter("bang_decel", 6.0);      // decel used to find the brake point [m/s^2] (car limit 6)
+    bang_lead_ = declare_parameter("bang_lead", 0.05);       // extra brake distance per m/s (one control period) [s]
+    bang_neg_ = declare_parameter("bang_cmd", -30.0);        // command while braking: very negative = full decel at once
+    bang_release_ = declare_parameter("bang_release", 1.0);  // below this speed command 0 (do not reverse) [m/s]
 
     // /path is latched: transient-local so we still get it if we start late.
     auto path_qos = rclcpp::QoS(1).reliable().transient_local();
@@ -119,6 +124,7 @@ private:
     kappa_.clear();
     kappa_s_.clear();
     progress_ = 0;
+    braking_ = false;
     finish_ = msg.finish_index;
     if (msg.nodes.size() < 2 || finish_ >= msg.nodes.size()) {
       return;  // empty/invalid path = no task -> control() commands zero
@@ -157,6 +163,7 @@ private:
     v_actual_ = 0.0;
     steer_actual_ = 0.0;
     last_steer_ = 0.0;
+    braking_ = false;
     progress_ = 0;
   }
 
@@ -401,9 +408,22 @@ private:
           v = std::min(v, std::sqrt(vc * vc + 2.0 * brake_ * dist));
         }
         // and brake so that we stop about `stop_aim` past the finish line
-        v = std::min(v, std::sqrt(2.0 * brake_ * (remaining + stop_aim_)));
+        if (bang_) {
+          // Time-optimal: keep full speed, then command 0 once the stopping distance at full decel reaches the
+          // aim point. Commanding 0 saturates the speed loop at -6 m/s^2 at once; following a ramp does not.
+          const double va = std::max(0.0, v_actual_);
+          if (braking_ || remaining + stop_aim_ <= va * va / (2.0 * bang_decel_) + bang_lead_ * va) {
+            braking_ = true;
+            v = 0.0;
+          }
+        } else {
+          v = std::min(v, std::sqrt(2.0 * brake_ * (remaining + stop_aim_)));
+        }
       }
       velocity = std::clamp(v, 0.0, cruise_);
+      if (bang_ && braking_) {  // full braking: a large negative command keeps the speed loop saturated at -6 m/s^2
+        velocity = v_actual_ > bang_release_ ? bang_neg_ : 0.0;
+      }
       // After the finish the speed loop undershoots below 0 and the car rolls backward; the simulator only
       // calls it "stopped" after < 5 cm of movement in 1 s, so the roll costs up to 1 s. Push it back to 0.
       if (remaining <= 0.0 && stop_damp_ > 0.0 && v_actual_ < 0.0) {
@@ -434,7 +454,8 @@ private:
   double predict_, steer_tau_, steer_rate_, stop_damp_;
   std::string mode_;
   double st_k_, st_soft_, st_yaw_, st_dt_, st_decay_, ff_time_, ff_gain_;
-  double lqr_qe_, lqr_qpsi_, lqr_r_, lqr_dt_, blend_lqr_;
+  double lqr_qe_, lqr_qpsi_, lqr_r_, lqr_dt_, blend_lqr_, bang_decel_, bang_lead_, bang_neg_, bang_release_;
+  bool bang_ = false, braking_ = false;
   int st_n_;
   bool use_age_;
 

@@ -1,0 +1,9 @@
+# C3 time round. Corrected ceiling: perfect time 17.5/40 (circle 20.1, wave 16.9); we have 16.0 (circle 18.0, wave 15.3).
+# Curve speed is capped by lat_accel 25 (circle sqrt(25*15) = 19.4 m/s) and cruise 25; the sim car has no grip limit.
+# Base = R2G10: lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 ; C2 blend = blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10
+E0          lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+T40         lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 lat_accel:=40.0  cruise_speed:=30.0
+T60         lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 lat_accel:=60.0  cruise_speed:=30.0
+T100        lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 lat_accel:=100.0 cruise_speed:=30.0
+T40C2       lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 lat_accel:=40.0  cruise_speed:=30.0
+T60C2       lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 lat_accel:=60.0  cruise_speed:=30.0

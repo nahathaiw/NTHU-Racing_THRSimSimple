@@ -1,0 +1,18 @@
+[E0] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+   OVERALL 74.0 = track 38.0 + time 16.0 + stop 20.0 | max_cte 0.45 m | failures: none
+   per path: straight 74.2 (v_eq 11.5, err 4.4)  wave 72.2 (v_eq 11.5, err 4.6)  lane_change 73.5 (v_eq 11.6, err 4.3)  circle 76.2 (v_eq 13.4, err 3.5)
+[T40] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 lat_accel:=40.0  cruise_speed:=30.0
+   OVERALL 74.3 = track 37.9 + time 16.4 + stop 20.0 | max_cte 0.58 m | failures: none
+   per path: straight 74.4 (v_eq 11.5, err 4.2)  wave 71.7 (v_eq 11.7, err 4.8)  lane_change 73.7 (v_eq 11.6, err 4.2)  circle 77.5 (v_eq 14.4, err 3.9)
+[T60] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 lat_accel:=60.0  cruise_speed:=30.0
+   OVERALL 74.3 = track 37.9 + time 16.4 + stop 20.0 | max_cte 0.55 m | failures: none
+   per path: straight 74.2 (v_eq 11.5, err 4.2)  wave 72.1 (v_eq 11.6, err 4.4)  lane_change 73.7 (v_eq 11.6, err 4.5)  circle 77.1 (v_eq 14.5, err 4.6)
+[T100] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 lat_accel:=100.0 cruise_speed:=30.0
+   OVERALL 74.3 = track 37.9 + time 16.5 + stop 19.9 | max_cte 0.56 m | failures: none
+   per path: straight 74.5 (v_eq 11.6, err 4.2)  wave 72.0 (v_eq 11.7, err 4.6)  lane_change 73.7 (v_eq 11.6, err 4.4)  circle 77.0 (v_eq 14.6, err 5.0)
+[T40C2] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 lat_accel:=40.0  cruise_speed:=30.0
+   OVERALL 74.5 = track 38.1 + time 16.5 + stop 20.0 | max_cte 0.60 m | failures: none
+   per path: straight 74.3 (v_eq 11.6, err 4.1)  wave 72.2 (v_eq 11.7, err 4.9)  lane_change 74.2 (v_eq 11.6, err 4.4)  circle 77.5 (v_eq 14.4, err 4.0)
+[T60C2] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 lat_accel:=60.0  cruise_speed:=30.0
+   OVERALL 74.3 = track 38.1 + time 16.5 + stop 19.8 | max_cte 0.63 m | failures: none
+   per path: straight 74.6 (v_eq 11.5, err 4.5)  wave 72.2 (v_eq 11.7, err 4.8)  lane_change 73.9 (v_eq 11.6, err 4.6)  circle 76.6 (v_eq 14.6, err 5.2)
