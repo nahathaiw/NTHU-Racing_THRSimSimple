@@ -355,3 +355,16 @@ time from the sim's own rest rule): straight 12.07 m/s (16.1/40), circle 14.41 (
 The straight (11.6) can still gain: a perfect driver brakes with a large negative command (speed loop saturated at -6 m/s^2 at once),
 our profile follows a ramp. Implemented `bang_brake` (-30 until bang_release 1 m/s, then 0; trigger when remaining + aim <= v^2/(2*6)
 + 0.05 v). Offline with noise: straight v_eq 11.86, stop +2.2..2.6 m. Next: C4 sweep.
+
+### 2026-11-19 14:20 - Step 34: C4 results: time-optimal braking (`2026-11-19_1420_c4_bang_brake/`, base T40C2)
+| Config | Change | Score | Track | Time | Straight v_eq | Worst stop err |
+|---|---|---:|---:|---:|---:|---:|
+| T40C2 | base (ramp braking) | 74.6 | 38.2 | 16.4 | 11.5 | 4.4 |
+| B1 | bang_brake | 74.5 | 37.9 | 16.6 | 11.8 | 2.3 |
+| B2 | bang, aim 0.5 | 74.7 | 38.1 | 16.6 | 11.7 | 2.3 |
+| B3 | bang, release 0.5 | 74.4 | 38.2 | 16.1 | 11.7 | 3.4 (wave slower: roll back) |
+| B4 | bang, decel 5.8 | 74.7 | 38.0 | 16.7 | 11.7 | 2.5 |
+| **B5** | bang + stop_damp 5 | **74.9** | 38.2 | **16.7** | 11.7 | 2.5 |
+Full braking at the last moment gains time (16.4 -> 16.7) AND moves the stop from ~4.4 m to ~2 m past the line (much safer).
+New best **74.9 (B5)**. Realistic ceiling about 77 (40 + ~17.1 + 20): left = tracking ~1.8, time ~0.4.
+Next: E7 confirmation with 3 runs per path: R2G10 vs T40C2 vs B5.

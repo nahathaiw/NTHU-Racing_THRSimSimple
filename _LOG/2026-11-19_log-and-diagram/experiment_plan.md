@@ -29,7 +29,7 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 | C2 | Blend pure pursuit + LQR (`blend_lqr`) | E6: LQR best on the wave, pure pursuit best on straight/circle | DONE 14:00 | **74.3** (30 % LQR r3; same-session E0 74.0, +0.3 = within noise) | `2026-11-19_1400_c1c2_combine/` |
 | C1 | Stanley K6 + tuning (K 6-10, soft, with E4 feed-forward) | E1/E2: higher K kept improving (K1 71.5 -> K6 73.2), straight 74.6 = best straight so far | DONE 14:00 | 73.7 (K12; max err 0.35 m = smallest; best wave/lane, weak circle 74.0) | `2026-11-19_1400_c1c2_combine/` |
 | C3 | Time round: much higher curve speed (lat_accel 40-100, cruise 30) on R2G10 and C2B3R3 | corrected ceiling 77.5: circle time 18.0 vs perfect 20.1, wave 15.3 vs 16.9 | DONE 14:09 | **74.5** (T40C2 = C2 blend + lat 40 + cruise 30; E0 74.0); circle v_eq 13.4 -> 14.4 = at realistic ceiling | `2026-11-19_1409_c3_time/` |
-| C4 | Time-optimal braking (`bang_brake`: -30 command, then 0) on T40C2 | realistic perfect straight 12.07 m/s vs ours 11.6; offline 11.86 | RUNNING | | |
+| C4 | Time-optimal braking (`bang_brake`: -30 command, then 0) on T40C2 | realistic perfect straight 12.07 m/s vs ours 11.6; offline 11.86 | DONE 14:20 | **74.9** (B5 = bang + stop_damp 5; same-session T40C2 74.6); time 16.4 -> 16.7, stop error 4.4 -> ~2 m (safer) | `2026-11-19_1420_c4_bang_brake/` |
 
 ## Results (filled in as we go)
 
@@ -42,5 +42,5 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 | E4 | DONE | 2026-11-19 02:36 | 73.5 (best: blend 0.3) | 37.4 | 16.1 | 20.0 | 0.69 | none | `2026-11-19_0236_e3e4_feedforward/` | same-session E0 = 73.9. Feed-forward blend does not help pure pursuit: 0.3 -> 73.5, 0.5 -> 72.1 (wave worse) |
 | E5 | DONE | 2026-11-19 02:45 + 02:48 | 73.2 (best: r=30) | 37.1 | 16.1 | 20.0 | 0.57 | none | `2026-11-19_0245_e5_lqr/`, `2026-11-19_0248_e5_lqr_part2/` | same-session E0 = 74.4. Lower r (stronger steering) is better: r30 73.2, r100 71.5, r300 69.3; ff 0.2 worse (70.2); q_psi 4 slightly better (71.8 vs 71.5). Trend not finished: try r 3-10 in E6 |
 | E6 | DONE | 2026-11-19 13:52 | 73.7 (best: r=20) | 37.6 | 16.0 | 20.0 | 0.53 | none | `2026-11-19_1352_e6_lqr_tuning/` | same-session E0 = 73.9: LQR r20 within noise of pure pursuit (best r 20-30; r10 72.2, r3 73.0). LQR r3/r10 have the BEST WAVE of any method (72.6/72.1 vs 71.4) but worse straight/circle. steer_tau 0.15 in the model hurts (70.8) |
-| E7 | TODO | | | | | | | | | |
+| E7 | RUNNING | 2026-11-19 ~14:30 | | | | | | | `..._e7_confirm/` | 3 runs per path: R2G10 vs T40C2 vs B5 |
 | E8 | optional | | | | | | | | | |
