@@ -29,7 +29,7 @@ ros2 run my_driver driver --ros-args \
   -p cruise_speed:=30.0 -p lat_accel:=40.0 -p brake_decel:=5.9 -p stop_aim:=1.5 \
   -p lookahead_base:=2.5 -p lookahead_gain:=0.09 -p control_hz:=100.0 \
   -p predict_time:=0.10 -p steer_tau:=0.10 -p steer_rate:=1.0 -p stop_damp:=5.0 \
-  -p blend_lqr:=0.3 -p lqr_r:=3.0 -p ff_time:=0.10 -p bang_brake:=true \\
+  -p blend_lqr:=0.3 -p lqr_r:=3.0 -p ff_time:=0.10 -p bang_brake:=true \
   -p ilc_apply:=true -p ilc_file:="$WS/_SCRIPT/2026-11-19_script/best_F15_ilc_table.txt" > /tmp/demo_driver.log 2>&1 &
 sleep 2
 
