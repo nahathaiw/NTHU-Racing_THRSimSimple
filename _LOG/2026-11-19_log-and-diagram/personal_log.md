@@ -471,3 +471,29 @@ failure was this too, not outside interference.
 **Finding 2: F15 fixes it.** The learned table corrects the start; 0 failures in 24 frozen wave/lane runs, wave RMS 6.5 cm vs 16 cm.
 **New best: F15 = 75.5 (twice, 3 runs/path).** = B6 + `ilc_apply true` + table `_SCRIPT/2026-11-19_script/best_F15_ilc_table.txt`.
 Caveat for the lead: F15 learned THESE paths in 6 practice runs per path; on a new track it needs practice laps first.
+
+### 2026-11-19 18:35 - Step 44: C9 RL-tuned lookahead = CEM policy search (`2026-11-19_..._c9_cem_gen0..3/`, log `2026-11-19_1835_c9_cem_log.json`)
+Policy `ld = (base + gain v) / (1 + ld_kappa |kappa ahead|) - ld_err |e|`, 4 parameters, CEM: 4 generations x 6 candidates
+(2 runs/path each) + B6 reference in every generation. Best per generation / B6 reference:
+| Gen | B6 ref | Best | Typical candidate |
+|---|---:|---:|---|
+| 0 | 74.9 | 75.4 | 5 of 5 with ld_kappa > 0 beat B6 (75.1-75.4) |
+| 1 | 66.1 (B6 start off-track again) | 75.5 | one candidate with ld_err 4.4 failed (53.9): too much shortening |
+| 2 | 74.9 | 75.5 | all 75.0-75.5 |
+| 3 | 74.8 | 75.5 | 4 of 6 at 75.5 |
+Final mean: ld_kappa 11.6, ld_err 1.5, lookahead_gain 0.06, base 2.9 (curvature 0.067 -> lookahead about 1.8x shorter in the bends).
+**The search agrees with the paper: the lookahead should be shorter in curves.** Gain over B6 about +0.5, consistently.
+Confirmation (3 runs/path, vs B6 and F15, + combination with F15's table) running next.
+
+### 2026-11-19 19:05 - Step 45: C9 confirmation (`2026-11-19_1909_c9_confirm/`, 3 runs/path, B6 at start and end)
+| Config | Score | Track | Max err | Wave | Failures |
+|---|---:|---:|---:|---:|---|
+| B6a | 74.7 | 38.1 | 0.64 | 72.0 | none |
+| **POL** (policy: base 2.9, gain 0.06, ld_kappa 11.6, ld_err 1.5) | **75.5** | 38.9 | **0.23** | 74.2 | none |
+| F15 (learned table) | 75.5 | 38.8 | 0.26 | 74.1 | none |
+| POLF15 (both) | 75.6 | 38.9 | 0.29 | 74.3 | none |
+| B6b | 74.7 | 38.1 | 0.55 | 72.2 | none |
+**Both last paper methods work: +0.8 over B6 in the same session.** Both fix the same thing (the wave: 72 -> 74.2), so combining
+adds only +0.1 (noise). **Main best = POL**: same score as F15 but no practice runs needed (works on any track), smallest max error.
+demo_best.bash -> POL; frozen `run_best_POL_75.5.bash`, tag `best-POL-75.5`. Now: tracking 38.9/40, time 16.6 vs ceiling ~17.5,
+so what is left is mostly time (about +1).

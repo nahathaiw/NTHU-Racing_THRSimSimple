@@ -1,0 +1,15 @@
+[B6a] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+   OVERALL 74.7 = track 38.1 + time 16.6 + stop 20.0 | max_cte 0.64 m | failures: none
+   per path: straight 74.8 (v_eq 11.8, err 1.7)  wave 72.0 (v_eq 11.6, err 2.8)  lane_change 73.9 (v_eq 11.8, err 3.0)  circle 78.1 (v_eq 14.5, err 1.6)
+[POL] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5
+   OVERALL 75.5 = track 38.9 + time 16.6 + stop 20.0 | max_cte 0.23 m | failures: none
+   per path: straight 74.6 (v_eq 11.7, err 3.1)  wave 74.2 (v_eq 11.7, err 1.8)  lane_change 74.8 (v_eq 11.9, err 2.1)  circle 78.3 (v_eq 14.5, err 1.9)
+[F15] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_SCRIPT/2026-11-19_script/best_F15_ilc_table.txt
+   OVERALL 75.5 = track 38.8 + time 16.7 + stop 20.0 | max_cte 0.26 m | failures: none
+   per path: straight 74.7 (v_eq 11.8, err 1.2)  wave 74.1 (v_eq 11.7, err 1.8)  lane_change 74.8 (v_eq 11.9, err 1.6)  circle 78.2 (v_eq 14.6, err 1.3)
+[POLF15] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_SCRIPT/2026-11-19_script/best_F15_ilc_table.txt
+   OVERALL 75.6 = track 38.9 + time 16.6 + stop 20.0 | max_cte 0.29 m | failures: none
+   per path: straight 74.8 (v_eq 11.8, err 1.9)  wave 74.3 (v_eq 11.7, err 1.5)  lane_change 74.9 (v_eq 11.8, err 2.3)  circle 78.2 (v_eq 14.5, err 1.4)
+[B6b] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+   OVERALL 74.7 = track 38.1 + time 16.6 + stop 20.0 | max_cte 0.55 m | failures: none
+   per path: straight 74.9 (v_eq 11.8, err 1.8)  wave 72.2 (v_eq 11.7, err 2.2)  lane_change 74.1 (v_eq 11.8, err 2.0)  circle 77.8 (v_eq 14.5, err 1.8)

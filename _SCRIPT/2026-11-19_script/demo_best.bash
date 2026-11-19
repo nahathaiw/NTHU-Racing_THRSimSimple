@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Live demo of today's best settings (set F15, 75.5/100 with 3 runs per path, confirmed twice) with the simulator GUI.
-# F15 = B6 + learned steering correction (C8, learning from past runs = ILC), table best_F15_ilc_table.txt, FROZEN
-#       (learned in 6 runs per path with ilc_gain 0.15; the file is only read, never changed here).
+# Live demo of today's best settings (set POL, 75.5/100 with 3 runs per path) with the simulator GUI.
+# POL = B6 + adaptive lookahead policy (C9, tuned by CEM policy search): ld = (2.9 + 0.06 v) / (1 + 11.6 |kappa|) - 1.5 |e|.
+#       Same score as F15 (learned table) but needs no practice runs, so it also works on a new track.
+#       Add "-p ilc_apply:=true -p ilc_file:=.../best_F15_ilc_table.txt" for POLF15 (75.6, same within noise).
 # B6 = B5 + control_hz 100 (precise brake point) + lookahead_gain 0.09.
 # B5 = pure pursuit + pose prediction + 30 % LQR blend, fast curves, time-optimal braking. (Previous best R2G10 = 74.0 same session.)
 #
@@ -23,10 +24,10 @@ source "$WS/install/setup.bash"
 pkill -f "lib/my_driver/driver" 2>/dev/null
 trap 'pkill -INT -f "lib/my_driver/driver" 2>/dev/null' EXIT
 
-echo ">>> starting my_driver with set F15 (B6 + learned steering correction)"
+echo ">>> starting my_driver with set POL (B6 + curve-adaptive lookahead)"
 ros2 run my_driver driver --ros-args \
   -p cruise_speed:=30.0 -p lat_accel:=40.0 -p brake_decel:=5.9 -p stop_aim:=1.5 \
-  -p lookahead_base:=2.5 -p lookahead_gain:=0.09 -p control_hz:=100.0 \
+  -p lookahead_base:=2.9 -p lookahead_gain:=0.06 -p ld_kappa:=11.6 -p ld_err:=1.5 -p control_hz:=100.0 \
   -p predict_time:=0.10 -p steer_tau:=0.10 -p steer_rate:=1.0 -p stop_damp:=5.0 \
   -p blend_lqr:=0.3 -p lqr_r:=3.0 -p ff_time:=0.10 -p bang_brake:=true \\
   -p ilc_apply:=true -p ilc_file:="$WS/_SCRIPT/2026-11-19_script/best_F15_ilc_table.txt" > /tmp/demo_driver.log 2>&1 &

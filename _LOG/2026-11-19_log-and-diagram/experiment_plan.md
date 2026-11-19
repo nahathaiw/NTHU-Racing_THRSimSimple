@@ -36,7 +36,7 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 
 | C7 | Prediction with the sim's real PI steering loop (`steer_model pi`) | system-identification papers; plots show wheel overshoot the lag model ignores | DONE 15:08 | worse: best 74.5 (predict 0.08) vs B6 75.0 same session; predict 0.10 -> wave off-track | `2026-11-19_1508_c7_pi_model/` |
 | C8 | Learning from past runs = ILC (FS Driverless 2026 / MAP2 model-error learning); learn 6 runs/path, then frozen | paths repeat, only noise random; wave error 16 cm is repeatable | DONE 18:40 | **75.5 (F15, twice)** vs B6 74.9 same session; wave error 17 -> 6.5 cm; fixes B6's rare start off-track | `2026-11-19_1801_c8_ilc_learn/`, `_1819_c8_ilc_frozen/`, `c8_ilc_confirm/` |
-| C9 | Adaptive lookahead policy tuned by CEM policy search (RA-L 2026 RL lookahead) | lookahead should shrink in curves / when off the path | RUNNING | | `c9_cem_gen*` |
+| C9 | Adaptive lookahead policy tuned by CEM policy search (RA-L 2026 RL lookahead) | lookahead should shrink in curves / when off the path | DONE 19:05 | **75.5 (POL)**, POLF15 75.6; B6 74.7 same session; max err 0.23 m | `2026-11-19_1835_c9_cem_log.json`, `2026-11-19_1909_c9_confirm/` |
 
 ## Results (filled in as we go)
 

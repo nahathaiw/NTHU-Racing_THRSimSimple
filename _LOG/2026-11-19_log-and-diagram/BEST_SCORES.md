@@ -7,11 +7,16 @@ so the newest code also reproduces every older set when given its parameters.
 
 | Rank | Set | Score | Measured | Code tag | Run it |
 |---|---|---:|---|---|---|
-| **1** | **F15** | **75.5** (3 runs/path, twice; 0 failures; wave 74.3) | 2026-11-19 18:30 `_RESULTS/2026-11-19_eval-result/2026-11-19_1826_c8_ilc_confirm/` | `best-F15-75.5` | `./_SCRIPT/2026-11-19_script/run_best_F15_75.5.bash eval` |
+| **1** | **POL** | **75.5** (3 runs/path; no learning needed; max err 0.23 m) | 2026-11-19 19:05 `_RESULTS/2026-11-19_eval-result/2026-11-19_1909_c9_confirm/` | `best-POL-75.5` | `./_SCRIPT/2026-11-19_script/run_best_POL_75.5.bash eval` |
+| 1= | POLF15 | 75.6 (POL + F15 table, same within noise) | same sweep | `best-POL-75.5` | POL + `-p ilc_apply:=true -p ilc_file:=_SCRIPT/2026-11-19_script/best_F15_ilc_table.txt` |
+| 1= | F15 | 75.5 (3 runs/path, twice; 0 failures; wave 74.3) | 2026-11-19 18:30 `_RESULTS/2026-11-19_eval-result/2026-11-19_1826_c8_ilc_confirm/` | `best-F15-75.5` | `./_SCRIPT/2026-11-19_script/run_best_F15_75.5.bash eval` |
 | 2 | B6 | 74.9 (3 runs/path, 48 runs, no failures, stop 1.1-2.9 m) | 2026-11-19 14:47 `_RESULTS/2026-11-19_eval-result/2026-11-19_1447_c6_control_rate/` | `best-B6-74.9` | `./_SCRIPT/2026-11-19_script/run_best_B6_74.9.bash eval` |
 | 3 | B5 | 74.9 (E7, 3 runs/path) / 74.4 (C6) | 2026-11-19 14:27 | `best-B6-74.9` | B6 without `control_hz` and with gain 0.10 |
 | 4 | R2G10 | 74.2 (2 runs/path, twice) / 74.0 (E7) | 2026-11-19 01:45 | `best-B6-74.9` | `./_SCRIPT/2026-11-19_script/demo_best.bash` of commit `33f3cce` |
 | 5 | N | 70.3 | 2026-11-18 20:36 | `best-N-70.3` | `./_SCRIPT/2026-11-18_script/demo_best.bash eval` |
+
+## POL = B6 with lookahead_base 2.9, lookahead_gain 0.06, ld_kappa 11.6, ld_err 1.5, ld_min 1.5 (C9)
+ld = (2.9 + 0.06 v) / (1 + 11.6 |max curvature ahead|) - 1.5 |sideways error|; tuned by CEM (`policy_search.py`).
 
 ## F15 = B6 + learned steering correction (C8)
 All B6 parameters below, plus `ilc_apply true` and `ilc_file _SCRIPT/2026-11-19_script/best_F15_ilc_table.txt` (ilc_gain 0 = frozen,

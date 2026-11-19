@@ -1,0 +1,21 @@
+[B6REF] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+   OVERALL 66.1 = track 34.0 + time 14.6 + stop 17.5 | max_cte 2.02 m | failures: lane_change:off_track
+   per path: straight 74.6 (v_eq 11.7, err 3.0)  wave 72.3 (v_eq 11.7, err 2.5)  lane_change 39.1 (v_eq 5.9, err 2.0)  circle 78.2 (v_eq 14.5, err 1.8)
+[G1P0] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ld_kappa:=6.6008 ld_err:=2.0069 lookahead_gain:=0.0910 lookahead_base:=2.6048
+   OVERALL 75.5 = track 38.9 + time 16.6 + stop 20.0 | max_cte 0.25 m | failures: none
+   per path: straight 75.0 (v_eq 11.7, err 2.5)  wave 73.8 (v_eq 11.7, err 1.9)  lane_change 74.5 (v_eq 11.8, err 2.5)  circle 78.5 (v_eq 14.5, err 1.3)
+[G1P1] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ld_kappa:=6.5427 ld_err:=1.6273 lookahead_gain:=0.1157 lookahead_base:=2.7446
+   OVERALL 75.2 = track 38.6 + time 16.6 + stop 20.0 | max_cte 0.29 m | failures: none
+   per path: straight 74.8 (v_eq 11.7, err 3.0)  wave 73.4 (v_eq 11.8, err 1.7)  lane_change 74.2 (v_eq 11.7, err 3.1)  circle 78.4 (v_eq 14.5, err 1.2)
+[G1P2] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ld_kappa:=2.1614 ld_err:=1.2924 lookahead_gain:=0.0927 lookahead_base:=2.6455
+   OVERALL 75.0 = track 38.5 + time 16.5 + stop 20.0 | max_cte 0.47 m | failures: none
+   per path: straight 75.1 (v_eq 11.8, err 2.0)  wave 72.7 (v_eq 11.7, err 2.6)  lane_change 74.3 (v_eq 11.7, err 3.0)  circle 77.9 (v_eq 14.4, err 2.0)
+[G1P3] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ld_kappa:=8.4745 ld_err:=4.3846 lookahead_gain:=0.1116 lookahead_base:=2.3656
+   OVERALL 53.9 = track 27.7 + time 13.6 + stop 12.5 | max_cte 2.08 m | failures: wave:off_track, lane_change:off_track
+   per path: straight 58.4 (v_eq 14.7, err 16.6)  wave 38.8 (v_eq 5.9, err 1.3)  lane_change 39.7 (v_eq 6.0, err 1.0)  circle 78.6 (v_eq 14.4, err 2.5)
+[G1P4] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ld_kappa:=2.1206 ld_err:=0.8129 lookahead_gain:=0.1437 lookahead_base:=2.5009
+   OVERALL 74.6 = track 37.9 + time 16.7 + stop 20.0 | max_cte 0.47 m | failures: none
+   per path: straight 74.7 (v_eq 11.7, err 2.3)  wave 72.0 (v_eq 11.9, err 1.6)  lane_change 73.5 (v_eq 11.8, err 2.0)  circle 78.1 (v_eq 14.5, err 1.6)
+[G1P5] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ld_kappa:=10.6799 ld_err:=1.2219 lookahead_gain:=0.0612 lookahead_base:=2.9414
+   OVERALL 75.4 = track 38.8 + time 16.7 + stop 20.0 | max_cte 0.20 m | failures: none
+   per path: straight 74.6 (v_eq 11.9, err 1.3)  wave 74.3 (v_eq 11.8, err 1.6)  lane_change 74.6 (v_eq 11.9, err 2.1)  circle 78.3 (v_eq 14.5, err 1.4)
