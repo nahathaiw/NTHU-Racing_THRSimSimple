@@ -29,3 +29,4 @@ Demo: `./_SCRIPT/2026-11-19_script/demo_best.bash eval`
 | C6 | Control rate 100 Hz (precise brake point) + gain 0.09, 3 runs per path | **74.9 (B6)** | 74.4 | **B6 = final: robust** |
 
 **B6 = B5 + control_hz 100 + lookahead_gain 0.09** (demo_best.bash runs B6).
+| C7 | Predict with the sim's real PI steering loop | 74.5 | 75.0 | worse; B6 stays best (75.0 again in this sweep) |

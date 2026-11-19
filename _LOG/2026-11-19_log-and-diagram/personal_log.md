@@ -418,3 +418,17 @@ RL lookahead (RA-L 2026), constrained MPC. Not applicable: tyre/friction papers 
 (0.10 s); the sim uses a PI loop with zeta 0.28 (overshoots). New `steer_model pi`: roll() runs the same PI law
 (rate = clamp(kp e + ki int e, +-1 rad/s), anti-windup), and the driver keeps its own copy of the PI integral, updated every tick from
 command vs actual steering. C7 sweep: B6 vs pi model with predict 0.08/0.10/0.12/0.15 and gain 0.10.
+
+### 2026-11-19 15:08 - Step 39: C7 results: real PI steering model in the prediction (`2026-11-19_1508_c7_pi_model/`)
+| Config | Model | predict | Score | Track | Max err | Failures |
+|---|---|---:|---:|---:|---:|---|
+| **B6** | lag 0.10 s | 0.10 | **75.0** | 38.4 | 0.41 | none |
+| S10 | PI | 0.10 | 65.4 | 33.2 | 2.11 | **wave off_track** |
+| S08 | PI | 0.08 | 74.5 | 38.0 | 0.45 | none |
+| S12 | PI | 0.12 | 73.4 | 36.8 | 0.69 | none |
+| S15 | PI | 0.15 | 72.8 | 36.3 | 0.86 | none |
+| S10G10 | PI, gain 0.10 | 0.10 | 73.3 | 36.8 | 0.55 | none |
+**The "exact" model made it worse.** Possible reasons (not measured): (1) our copy of the PI integral drifts, because the measured
+steering includes the simulator's noise, so the predicted wheel angle is off; (2) everything else (gain 0.09, blend, predict 0.10) was
+tuned together with the lag model, so the simple model may already absorb the overshoot. Lesson: a more detailed model only helps
+if its hidden state is known; the simple lag model is more robust here. B6 = 75.0 in this sweep (consistent). B6 stays the best.

@@ -34,7 +34,7 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 | C5 | Tracking round around B5 (gain, predict, blend) | track 38.3/40 | DONE 14:33 | 74.9 (BL4 = blend 0.4) ties B5's E7; **found 2 risks**: B5 stopped 7.2 m once (limit 5); gain 0.12 off-track at 0.88 s on the wave | `2026-11-19_1433_c5_tracking_b5/` |
 | C6 | Control rate 50/100 Hz (precise brake point), 3 runs per path | overshoot cause = 20 Hz brake decision (offline) | DONE 14:47 | **74.9 (B6 = B5 + 100 Hz + gain 0.09)**; same session B5 74.4; all 48 runs stopped, stop err 0.3-3.7 m | `2026-11-19_1447_c6_control_rate/` |
 
-| C7 | Prediction with the sim's real PI steering loop (`steer_model pi`) | system-identification papers; plots show wheel overshoot the lag model ignores | RUNNING | | |
+| C7 | Prediction with the sim's real PI steering loop (`steer_model pi`) | system-identification papers; plots show wheel overshoot the lag model ignores | DONE 15:08 | worse: best 74.5 (predict 0.08) vs B6 75.0 same session; predict 0.10 -> wave off-track | `2026-11-19_1508_c7_pi_model/` |
 
 ## Results (filled in as we go)
 

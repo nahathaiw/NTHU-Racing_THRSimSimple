@@ -1,0 +1,8 @@
+# C7: predict with the simulator's REAL steering loop (PI, kp 4, ki 50, rate 1 rad/s; from sim.yaml) instead of a first-order lag.
+# Idea from on-track system identification (RA-L 2025) / learned model correction (MAP2, FS Driverless 2026). Base = B6: lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+B6        lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+S10       lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 steer_model:=pi
+S08       lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 steer_model:=pi predict_time:=0.08
+S12       lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 steer_model:=pi predict_time:=0.12
+S15       lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 steer_model:=pi predict_time:=0.15
+S10G10    lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 steer_model:=pi lookahead_gain:=0.10
