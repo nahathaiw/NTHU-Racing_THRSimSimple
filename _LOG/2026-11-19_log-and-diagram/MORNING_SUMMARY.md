@@ -1,5 +1,7 @@
 # Morning summary (updated after every experiment)
 
+**Best scores and how to run them again: [BEST_SCORES.md](BEST_SCORES.md)** (frozen script `_SCRIPT/2026-11-19_script/run_best_B6_74.9.bash`, git tag `best-B6-74.9`).
+
 **Last update:** 2026-11-19 14:55, after C6. **FINAL BEST: B6 = 74.9** (3 runs per path, robust: every stop 1.1-2.9 m past the line). Realistic ceiling about 77.
 later same-session checks; noise between sweeps about 0.6).** Ceiling with official settings about 76.
 
