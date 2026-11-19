@@ -1,0 +1,5 @@
+# C8 step 3: confirm the frozen learned tables. B6 at start AND end (the B6 run in c8_ilc_frozen was disturbed). -n 3.
+B6a     lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+F15     lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/ilc_tables/L15.txt
+F15D3   lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/ilc_tables/L15D3.txt
+B6b     lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0

@@ -21,6 +21,8 @@
 #include <algorithm>
 #include <chrono>
 #include <cmath>
+#include <cstdio>
+#include <map>
 #include <memory>
 #include <optional>
 #include <string>
@@ -100,6 +102,21 @@ public:
     bang_lead_ = declare_parameter("bang_lead", 0.0);        // extra brake distance per m/s, on top of one period [s]
     bang_neg_ = declare_parameter("bang_cmd", -30.0);        // command while braking: very negative = full decel at once
     bang_release_ = declare_parameter("bang_release", 1.0);  // below this speed command 0 (do not reverse) [m/s]
+    // C8 (2026-11-19) learning from past runs = iterative learning control (ILC; FS Driverless 2026 / MAP2 idea of
+    // learning the model error). The paths are the same every run, only the noise is random, so the repeatable
+    // part of the sideways error can be learned: after each run, corr(s) -= ilc_gain * error(s + ilc_lead).
+    ilc_gain_ = declare_parameter("ilc_gain", 0.0);          // learning rate [rad/m], 0 = do not learn
+    ilc_apply_ = declare_parameter("ilc_apply", false);      // add the learned correction to the steering
+    ilc_lead_ = declare_parameter("ilc_lead", 1.5);          // correction at s fixes the error this far later [m]
+    ilc_smooth_ = declare_parameter("ilc_smooth", 2);        // moving-average half width [bins] (Q-filter)
+    ilc_max_ = declare_parameter("ilc_max", 0.1);            // largest correction [rad]
+    ilc_file_ = declare_parameter("ilc_file", std::string(""));  // load at start / save after each run, "" = memory only
+    // C9 (2026-11-19) adaptive lookahead policy (RA-L 2026 RL-tuned lookahead, here tuned by policy search):
+    //   ld = (base + gain v) / (1 + ld_kappa |kappa ahead|) - ld_err |e|,  at least ld_min.   0, 0 = plain.
+    ld_kappa_ = declare_parameter("ld_kappa", 0.0);          // shorten the lookahead in curves [m]
+    ld_err_ = declare_parameter("ld_err", 0.0);              // shorten the lookahead when off the path [m/m]
+    ld_min_ = declare_parameter("ld_min", 1.5);              // [m]
+    if (!ilc_file_.empty()) {ilc_load();}
 
     // /path is latched: transient-local so we still get it if we start late.
     auto path_qos = rclcpp::QoS(1).reliable().transient_local();
@@ -124,6 +141,7 @@ private:
   // ---------------------------------------------------------------- callbacks
   void on_path(const RefPath & msg)
   {
+    ilc_end_run();
     pts_.clear();
     s_.clear();
     kappa_.clear();
@@ -159,11 +177,104 @@ private:
       kappa_s_[i] = kappa_s_[std::min(k, n - 1)];
       kappa_s_[n - 1 - i] = kappa_s_[n - 1 - std::min(k, n - 1)];
     }
+    // path key for the learned table: same shape -> same key
+    char key[96];
+    std::snprintf(key, sizeof(key), "%zu_%zu_%.1f_%.1f", n, finish_, pts_.back().x, pts_.back().y);
+    ilc_key_ = key;
+  }
+
+  // ---------------------------------------------------------------- C8 learning from past runs (ILC)
+  static constexpr double kBin = 0.5;   // [m] one table cell
+  bool ilc_on() const {return ilc_gain_ > 0.0 || ilc_apply_;}
+
+  void ilc_end_run()   // called when a run ends (reset / new path): learn from the error of the run that just ended
+  {
+    if (!ilc_on() || ilc_key_.empty()) {return;}
+    size_t seen = 0;
+    for (int c : ilc_cnt_) {seen += c > 0;}
+    if (ilc_gain_ > 0.0 && seen > 20) {
+      auto & corr = ilc_[ilc_key_];
+      corr.resize(ilc_sum_.size(), 0.0);
+      const int lead = static_cast<int>(std::lround(ilc_lead_ / kBin));
+      std::vector<double> next = corr;
+      for (size_t b = 0; b < corr.size(); ++b) {
+        const size_t j = b + lead;
+        if (j < ilc_cnt_.size() && ilc_cnt_[j] > 0) {next[b] -= ilc_gain_ * ilc_sum_[j] / ilc_cnt_[j];}
+      }
+      const int w = ilc_smooth_;
+      for (size_t b = 0; b < corr.size(); ++b) {   // Q-filter: smooth so noise does not get learned in
+        double s = 0.0;
+        int c = 0;
+        for (int d = -w; d <= w; ++d) {
+          const long k = static_cast<long>(b) + d;
+          if (k >= 0 && k < static_cast<long>(next.size())) {s += next[k]; ++c;}
+        }
+        corr[b] = std::clamp(s / c, -ilc_max_, ilc_max_);
+      }
+      if (!ilc_file_.empty()) {ilc_save();}
+      RCLCPP_INFO(get_logger(), "ILC: learned from run on %s (%zu cells)", ilc_key_.c_str(), seen);
+    }
+    std::fill(ilc_sum_.begin(), ilc_sum_.end(), 0.0);
+    std::fill(ilc_cnt_.begin(), ilc_cnt_.end(), 0);
+  }
+
+  void ilc_record(double s, double e)
+  {
+    if (s < 0.0) {return;}
+    const size_t b = static_cast<size_t>(s / kBin);
+    if (b >= ilc_sum_.size()) {ilc_sum_.resize(b + 1, 0.0); ilc_cnt_.resize(b + 1, 0);}
+    ilc_sum_[b] += e;
+    ilc_cnt_[b] += 1;
+  }
+
+  double ilc_corr(double s) const
+  {
+    const auto it = ilc_.find(ilc_key_);
+    if (it == ilc_.end() || s < 0.0) {return 0.0;}
+    const size_t b = static_cast<size_t>(s / kBin);
+    return b < it->second.size() ? it->second[b] : 0.0;
+  }
+
+  void ilc_save() const
+  {
+    FILE * f = std::fopen(ilc_file_.c_str(), "w");
+    if (!f) {return;}
+    for (const auto & [k, v] : ilc_) {
+      std::fprintf(f, "%s %zu", k.c_str(), v.size());
+      for (double x : v) {std::fprintf(f, " %.5f", x);}
+      std::fprintf(f, "\n");
+    }
+    std::fclose(f);
+  }
+
+  void ilc_load()
+  {
+    FILE * f = std::fopen(ilc_file_.c_str(), "r");
+    if (!f) {return;}
+    char key[96];
+    size_t n = 0;
+    while (std::fscanf(f, "%95s %zu", key, &n) == 2) {
+      std::vector<double> v(n);
+      for (auto & x : v) {if (std::fscanf(f, "%lf", &x) != 1) {x = 0.0;}}
+      ilc_[key] = v;
+    }
+    std::fclose(f);
+    RCLCPP_INFO(get_logger(), "ILC: loaded %zu path tables from %s", ilc_.size(), ilc_file_.c_str());
+  }
+
+  // signed sideways error of point (x, y) from the path, + = left of the path
+  double side_error(double x, double y, const Location & l) const
+  {
+    const size_t from = l.index > 0 ? l.index - 1 : 0;
+    const Pt q = point_at(l.s, from);
+    const double head = heading_at(l.s, from);
+    return std::cos(head) * (y - q.y) - std::sin(head) * (x - q.x);
   }
 
   void on_reset()
   {
     // Forget progress and feedback, KEEP the path (/path and /reset can arrive in any order).
+    ilc_end_run();
     state_.reset();
     v_actual_ = 0.0;
     steer_actual_ = 0.0;
@@ -396,7 +507,13 @@ private:
       double st_pred = steer_actual_;
       const Pose p = horizon > 0.0 ? predict(horizon, &st_pred) : Pose{state_->x, state_->y, state_->yaw};
       const Location ploc = horizon > 0.0 ? locate(p.x, p.y) : loc;
-      const double ld = std::clamp(ld_base_ + ld_gain_ * std::fabs(v_actual_), ld_base_, 15.0);
+      double ld = std::clamp(ld_base_ + ld_gain_ * std::fabs(v_actual_), ld_base_, 15.0);
+      if (ld_kappa_ > 0.0 || ld_err_ > 0.0) {   // C9 adaptive lookahead policy
+        double kmax = 0.0;
+        for (size_t j = ploc.index; j < pts_.size() && s_[j] <= ploc.s + ld; ++j) {kmax = std::max(kmax, kappa_[j]);}
+        ld = ld / (1.0 + ld_kappa_ * kmax) - ld_err_ * std::fabs(side_error(p.x, p.y, ploc));
+        ld = std::clamp(ld, ld_min_, 15.0);
+      }
       const Pt target = point_at(ploc.s + ld, ploc.index);
       const double alpha = wrap(std::atan2(target.y - p.y, target.x - p.x) - p.yaw);
       steer = std::clamp(std::atan2(2.0 * wheelbase_ * std::sin(alpha), ld), -max_steer_, max_steer_);
@@ -412,6 +529,10 @@ private:
       } else if (ff_gain_ > 0.0) {  // pure pursuit blended with curvature feed-forward
         const double ff = std::atan(wheelbase_ * kappa_at(ploc.s + std::fabs(v_actual_) * ff_time_, ploc.index));
         steer = std::clamp((1.0 - ff_gain_) * steer + ff_gain_ * ff, -max_steer_, max_steer_);
+      }
+      if (ilc_on() && remaining > 0.0) {   // C8: record the error where the car IS, add the learned correction
+        ilc_record(loc.s, side_error(state_->x, state_->y, loc));
+        if (ilc_apply_) {steer = std::clamp(steer + ilc_corr(ploc.s), -max_steer_, max_steer_);}
       }
 
       // --- speed: smallest of (cruise, curve limits, braking limit), looking ahead
@@ -484,6 +605,13 @@ private:
   bool steer_pi_ = false;
   int st_n_;
   bool use_age_;
+  double ilc_gain_, ilc_lead_, ilc_max_, ld_kappa_, ld_err_, ld_min_;
+  bool ilc_apply_;
+  int ilc_smooth_;
+  std::string ilc_file_, ilc_key_;
+  std::map<std::string, std::vector<double>> ilc_;   // learned steering correction per path, per 0.5 m
+  std::vector<double> ilc_sum_;                      // this run: sum of sideways error per 0.5 m
+  std::vector<int> ilc_cnt_;
 
   double cruise_, a_lat_, brake_, stop_aim_, ld_base_, ld_gain_, wheelbase_, max_steer_;
 

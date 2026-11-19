@@ -1,0 +1,56 @@
+Evaluating straight,wave,lane_change,circle x 3 run(s); driver expected on ROS_DOMAIN_ID=0
+[INFO] [launch]: All log files can be found below /home/sigma/.ros/log/2026-11-19-18-28-25-313597-sigma-2551539
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [vehicle_sim-1]: process started with pid [2551541]
+[INFO] [sim_ctrl-2]: process started with pid [2551543]
+[vehicle_sim-1] [INFO] [1795084105.607795391] [vehicle_sim]: Vehicle sim ready (L=2.5 m, dt=0.01 s, init=(0.0, 0.0, 0.0))
+[sim_ctrl-2] [INFO] [1795084105.673017210] [sim_ctrl]: Path 'wave', 61.5 m to the finish. Evaluating ['straight', 'wave', 'lane_change', 'circle'] x 3 run(s) once vehicle_sim and a driver are up.
+[sim_ctrl-2] [INFO] [1795084105.759596581] [sim_ctrl]: === Evaluation: 12 runs over ['straight', 'wave', 'lane_change', 'circle'] ===
+[sim_ctrl-2] [INFO] [1795084105.763023920] [sim_ctrl]: === Run 1/12 on 'straight': reset sent ===
+[vehicle_sim-1] [INFO] [1795084105.763561874] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084111.815262620] [sim_ctrl]: Run 1 finished: stopped | score 75.1/100 | tracking 39.2/40 | time 15.8/40 (v_eq 11.88 m/s) | stop 20.0/20 (err +1.53 m) | completion 100.0% | RMS cte 0.039 m | time 5.05 s
+[sim_ctrl-2] [INFO] [1795084113.860000825] [sim_ctrl]: === Run 2/12 on 'straight': reset sent ===
+[vehicle_sim-1] [INFO] [1795084113.860246521] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084119.935240768] [sim_ctrl]: Run 2 finished: stopped | score 75.0/100 | tracking 39.2/40 | time 15.8/40 (v_eq 11.83 m/s) | stop 20.0/20 (err +1.41 m) | completion 100.0% | RMS cte 0.039 m | time 5.07 s
+[sim_ctrl-2] [INFO] [1795084121.960038153] [sim_ctrl]: === Run 3/12 on 'straight': reset sent ===
+[vehicle_sim-1] [INFO] [1795084121.960215799] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084128.055124851] [sim_ctrl]: Run 3 finished: stopped | score 74.6/100 | tracking 38.8/40 | time 15.8/40 (v_eq 11.83 m/s) | stop 20.0/20 (err +1.46 m) | completion 100.0% | RMS cte 0.060 m | time 5.07 s
+[sim_ctrl-2] [INFO] [1795084130.061661911] [sim_ctrl]: === Run 4/12 on 'wave': reset sent ===
+[vehicle_sim-1] [INFO] [1795084130.062386974] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084136.335093025] [sim_ctrl]: Run 4 finished: stopped | score 74.3/100 | tracking 38.7/40 | time 15.6/40 (v_eq 11.70 m/s) | stop 20.0/20 (err +2.08 m) | completion 100.0% | RMS cte 0.067 m | time 5.25 s
+[sim_ctrl-2] [INFO] [1795084138.361760958] [sim_ctrl]: === Run 5/12 on 'wave': reset sent ===
+[vehicle_sim-1] [INFO] [1795084138.362088132] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084144.655224396] [sim_ctrl]: Run 5 finished: stopped | score 74.2/100 | tracking 38.7/40 | time 15.5/40 (v_eq 11.62 m/s) | stop 20.0/20 (err +1.95 m) | completion 100.0% | RMS cte 0.063 m | time 5.29 s
+[sim_ctrl-2] [INFO] [1795084146.660269835] [sim_ctrl]: === Run 6/12 on 'wave': reset sent ===
+[vehicle_sim-1] [INFO] [1795084146.660519542] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084152.915433474] [sim_ctrl]: Run 6 finished: stopped | score 74.3/100 | tracking 38.7/40 | time 15.6/40 (v_eq 11.70 m/s) | stop 20.0/20 (err +1.76 m) | completion 100.0% | RMS cte 0.066 m | time 5.25 s
+[sim_ctrl-2] [INFO] [1795084154.961865088] [sim_ctrl]: === Run 7/12 on 'lane_change': reset sent ===
+[vehicle_sim-1] [INFO] [1795084154.962290576] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084161.035241625] [sim_ctrl]: Run 7 finished: stopped | score 74.7/100 | tracking 38.8/40 | time 15.9/40 (v_eq 11.93 m/s) | stop 20.0/20 (err +1.07 m) | completion 100.0% | RMS cte 0.058 m | time 5.07 s
+[sim_ctrl-2] [INFO] [1795084163.059988100] [sim_ctrl]: === Run 8/12 on 'lane_change': reset sent ===
+[vehicle_sim-1] [INFO] [1795084163.060290752] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084169.135177914] [sim_ctrl]: Run 8 finished: stopped | score 75.0/100 | tracking 39.0/40 | time 16.0/40 (v_eq 11.97 m/s) | stop 20.0/20 (err +0.91 m) | completion 100.0% | RMS cte 0.049 m | time 5.05 s
+[sim_ctrl-2] [INFO] [1795084171.160178060] [sim_ctrl]: === Run 9/12 on 'lane_change': reset sent ===
+[vehicle_sim-1] [INFO] [1795084171.160345312] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084177.215117334] [sim_ctrl]: Run 9 finished: stopped | score 74.9/100 | tracking 39.0/40 | time 16.0/40 (v_eq 11.97 m/s) | stop 20.0/20 (err +0.80 m) | completion 100.0% | RMS cte 0.051 m | time 5.05 s
+[vehicle_sim-1] [INFO] [1795084179.262253970] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084179.262463333] [sim_ctrl]: === Run 10/12 on 'circle': reset sent ===
+[sim_ctrl-2] [INFO] [1795084186.735196830] [sim_ctrl]: Run 10 finished: stopped | score 77.9/100 | tracking 38.5/40 | time 19.4/40 (v_eq 14.57 m/s) | stop 20.0/20 (err +1.15 m) | completion 100.0% | RMS cte 0.077 m | time 6.47 s
+[sim_ctrl-2] [INFO] [1795084188.759993822] [sim_ctrl]: === Run 11/12 on 'circle': reset sent ===
+[vehicle_sim-1] [INFO] [1795084188.760385527] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084196.295462258] [sim_ctrl]: Run 11 finished: stopped | score 77.9/100 | tracking 38.7/40 | time 19.2/40 (v_eq 14.43 m/s) | stop 20.0/20 (err +1.88 m) | completion 100.0% | RMS cte 0.064 m | time 6.53 s
+[sim_ctrl-2] [INFO] [1795084198.310168287] [sim_ctrl]: === Run 12/12 on 'circle': reset sent ===
+[vehicle_sim-1] [INFO] [1795084198.310318347] [vehicle_sim]: Reset received: vehicle back at initial pose
+[sim_ctrl-2] [INFO] [1795084205.795163268] [sim_ctrl]: Run 12 finished: stopped | score 78.1/100 | tracking 38.6/40 | time 19.4/40 (v_eq 14.58 m/s) | stop 20.0/20 (err +0.66 m) | completion 100.0% | RMS cte 0.069 m | time 6.46 s
+[sim_ctrl-2] [INFO] [1795084205.796493705] [sim_ctrl]: Evaluation finished: no task published, driver should stop.
+[sim_ctrl-2] [INFO] [1795084205.797747101] [sim_ctrl]: === Evaluation results ===
+[sim_ctrl-2] path         runs score/100  track/40  time/40  stop/20   v_eq |stop err|  results
+[sim_ctrl-2] straight        3      74.9      39.1     15.8     20.0  11.85     1.47 m  stopped, stopped, stopped
+[sim_ctrl-2] wave            3      74.3      38.7     15.6     20.0  11.67     1.93 m  stopped, stopped, stopped
+[sim_ctrl-2] lane_change     3      74.9      38.9     15.9     20.0  11.96     0.93 m  stopped, stopped, stopped
+[sim_ctrl-2] circle          3      78.0      38.6     19.4     20.0  14.52     1.23 m  stopped, stopped, stopped
+[sim_ctrl-2] OVERALL        12      75.5
+[sim_ctrl-2] [INFO] [1795084206.464283514] [sim_ctrl]: Results written to /home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/2026-11-19_1826_c8_ilc_confirm/2026-11-19_1828_F15/eval.json and /home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/2026-11-19_1826_c8_ilc_confirm/2026-11-19_1828_F15/eval.png
+[INFO] [sim_ctrl-2]: process has finished cleanly [pid 2551543]
+[INFO] [vehicle_sim-1]: sending signal 'SIGINT' to process[vehicle_sim-1]
+[INFO] [vehicle_sim-1]: process has finished cleanly [pid 2551541]

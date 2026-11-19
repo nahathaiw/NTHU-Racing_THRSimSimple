@@ -432,3 +432,42 @@ command vs actual steering. C7 sweep: B6 vs pi model with predict 0.08/0.10/0.12
 steering includes the simulator's noise, so the predicted wheel angle is off; (2) everything else (gain 0.09, blend, predict 0.10) was
 tuned together with the lag model, so the simple model may already absorb the overshoot. Lesson: a more detailed model only helps
 if its hidden state is known; the simple lag model is more robust here. B6 = 75.0 in this sweep (consistent). B6 stays the best.
+
+### 2026-11-19 ~17:50 - Step 40: The two last paper methods: C8 learning from past runs (ILC), C9 RL-tuned lookahead
+User: "try the two more methods". Both built into the driver, default OFF (B6 unchanged).
+- **C8 learning from past runs = iterative learning control** (idea: FS Driverless 2026 / MAP2 learn the model error). The paths are
+  the same every run (only the noise is random), so the repeatable part of the sideways error can be learned. Every 0.5 m the
+  driver records the sideways error; after a run: `corr(s) -= ilc_gain * error(s + ilc_lead)`, smoothed (+-2 cells) so noise is not
+  learned, at most 0.1 rad. Params `ilc_gain` (0 = no learning), `ilc_apply`, `ilc_lead` 1.5 m, `ilc_smooth`, `ilc_max`, `ilc_file`
+  (table per path, loaded at start, saved after each learning run). Helper: `learning_curve.py` (error per run number + plot).
+- **C9 adaptive lookahead policy** (RA-L 2026 RL lookahead): `ld = (base + gain v) / (1 + ld_kappa |kappa ahead|) - ld_err |e|`,
+  at least `ld_min`. Tuned by `policy_search.py` = CEM (cross-entropy method, simplest RL policy search) on the real simulator.
+
+### 2026-11-19 18:01 - Step 41: C8 step 1, learning (`2026-11-19_1801_c8_ilc_learn/`, 6 runs per path, learning after each run)
+| Config | ilc_gain | Score (incl. unlearned run 1) | Wave RMS error run 1 -> 6 [cm] |
+|---|---:|---:|---|
+| B6 | - | 74.8 | 16.5 18.1 18.7 19.6 16.2 19.1 (no change) |
+| L05 | 0.05 | 74.9 | 17.1 14.1 15.3 11.6 10.8 12.9 |
+| L15 | 0.15 | 75.0 | 17.9 16.4 11.0 9.4 9.0 **7.4** |
+| L30 | 0.30 | 75.1 | 16.7 12.0 8.8 10.5 8.3 9.0 (circle gets worse: learns noise) |
+| L15D3 | 0.15, lead 3 m | 75.0 | 17.0 12.1 9.4 9.9 6.4 9.5 |
+**It learns:** wave error 17 -> 7-9 cm. Straight and circle do not improve: their error is random noise, nothing to learn.
+Plot: `learning_curve.png` in the sweep folder.
+
+### 2026-11-19 18:19 - Step 42: C8 step 2, learned tables FROZEN (no more learning) (`2026-11-19_1819_c8_ilc_frozen/`, 3 runs/path)
+F15 (table of L15) **75.5** (track 38.9, max err 0.28 m), F15D3 75.2, F30 74.9. B6 here: 57.9 (wave + lane off-track in 4 runs).
+First thought: disturbed by something outside; folder labelled `_SUSPECT-disturbed-runs`. Step 43 shows the real cause.
+
+### 2026-11-19 18:30 - Step 43: C8 step 3, confirmation (`2026-11-19_1826_c8_ilc_confirm/`, B6 at start AND end, 3 runs/path)
+| Config | Score | Track | Max err | Wave | Lane | Failures |
+|---|---:|---:|---:|---:|---:|---|
+| B6a (start) | 74.9 | 38.3 | 0.47 | 72.5 | 74.1 | none |
+| **F15** | **75.5** | 38.8 | **0.31** | **74.3** | **74.9** | none |
+| F15D3 | 75.2 | 38.6 | 0.35 | 73.5 | 74.9 | none |
+| B6b (end) | 63.2 | 32.5 | 2.01 | 49.1 | 50.8 | wave + lane off-track |
+**Finding 1: B6 has a rare start failure.** All B6 failures are in the first ~1 s of wave / lane change (t 0.9-1.1 s), accelerating
+hard into the first bend (wave starts at heading 32 deg). Today about 3 of 36 wave+lane runs; earlier 0 of 48 (luck). The 18:19 B6
+failure was this too, not outside interference.
+**Finding 2: F15 fixes it.** The learned table corrects the start; 0 failures in 24 frozen wave/lane runs, wave RMS 6.5 cm vs 16 cm.
+**New best: F15 = 75.5 (twice, 3 runs/path).** = B6 + `ilc_apply true` + table `_SCRIPT/2026-11-19_script/best_F15_ilc_table.txt`.
+Caveat for the lead: F15 learned THESE paths in 6 practice runs per path; on a new track it needs practice laps first.

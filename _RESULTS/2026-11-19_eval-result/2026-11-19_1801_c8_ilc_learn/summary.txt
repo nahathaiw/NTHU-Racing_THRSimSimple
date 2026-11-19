@@ -1,0 +1,15 @@
+[B6] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+   OVERALL 74.8 = track 38.1 + time 16.6 + stop 20.0 | max_cte 0.60 m | failures: none
+   per path: straight 75.0 (v_eq 11.8, err 1.5)  wave 72.0 (v_eq 11.7, err 2.3)  lane_change 74.1 (v_eq 11.8, err 2.6)  circle 77.9 (v_eq 14.5, err 1.6)
+[L05] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_gain:=0.05 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/ilc_tables/L05.txt
+   OVERALL 74.9 = track 38.3 + time 16.6 + stop 20.0 | max_cte 0.52 m | failures: none
+   per path: straight 74.7 (v_eq 11.8, err 2.0)  wave 72.9 (v_eq 11.7, err 2.1)  lane_change 74.1 (v_eq 11.8, err 2.6)  circle 77.9 (v_eq 14.5, err 1.6)
+[L15] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_gain:=0.15 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/ilc_tables/L15.txt
+   OVERALL 75.0 = track 38.4 + time 16.6 + stop 20.0 | max_cte 0.55 m | failures: none
+   per path: straight 74.8 (v_eq 11.8, err 1.5)  wave 73.2 (v_eq 11.7, err 1.9)  lane_change 74.4 (v_eq 11.8, err 2.6)  circle 77.6 (v_eq 14.5, err 1.7)
+[L30] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_gain:=0.30 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/ilc_tables/L30.txt
+   OVERALL 75.1 = track 38.5 + time 16.6 + stop 20.0 | max_cte 0.42 m | failures: none
+   per path: straight 74.9 (v_eq 11.8, err 2.1)  wave 73.4 (v_eq 11.7, err 2.1)  lane_change 74.5 (v_eq 11.9, err 2.2)  circle 77.5 (v_eq 14.5, err 1.5)
+[L15D3] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_gain:=0.15 ilc_apply:=true ilc_lead:=3.0 ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/ilc_tables/L15D3.txt
+   OVERALL 75.0 = track 38.5 + time 16.5 + stop 20.0 | max_cte 0.46 m | failures: none
+   per path: straight 74.4 (v_eq 11.7, err 2.4)  wave 73.4 (v_eq 11.6, err 2.5)  lane_change 74.1 (v_eq 11.7, err 2.9)  circle 78.2 (v_eq 14.5, err 1.2)

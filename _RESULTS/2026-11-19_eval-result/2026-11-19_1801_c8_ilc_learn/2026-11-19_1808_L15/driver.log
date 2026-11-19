@@ -1,0 +1,198 @@
+[INFO] [1795082886.739603189] [my_driver]: s=0.0 remaining=60.0 v_cmd=30.0 v_act=0.0 steer=0.00
+[INFO] [1795082887.739737917] [my_driver]: s=10.1 remaining=49.9 v_cmd=30.0 v_act=20.0 steer=-0.03
+[INFO] [1795082888.749710540] [my_driver]: s=31.8 remaining=28.2 v_cmd=-30.0 v_act=19.3 steer=-0.00
+[INFO] [1795082889.759686062] [my_driver]: s=48.3 remaining=11.7 v_cmd=-30.0 v_act=13.2 steer=-0.02
+[INFO] [1795082890.769705854] [my_driver]: s=58.2 remaining=1.8 v_cmd=-30.0 v_act=7.0 steer=-0.03
+[INFO] [1795082891.779583511] [my_driver]: s=62.3 remaining=-2.3 v_cmd=0.0 v_act=0.9 steer=0.00
+[INFO] [1795082892.789582395] [my_driver]: s=62.3 remaining=-2.3 v_cmd=0.0 v_act=-0.0 steer=-0.00
+[INFO] [1795082892.839147956] [my_driver]: ILC: learned from run on 161_120_80.0_0.0 (120 cells)
+[INFO] [1795082894.889605675] [my_driver]: s=0.0 remaining=60.0 v_cmd=30.0 v_act=0.0 steer=-0.00
+[INFO] [1795082895.899583830] [my_driver]: s=10.3 remaining=49.7 v_cmd=30.0 v_act=20.1 steer=0.04
+[INFO] [1795082896.909564325] [my_driver]: s=31.8 remaining=28.2 v_cmd=-30.0 v_act=19.0 steer=0.02
+[INFO] [1795082897.919530179] [my_driver]: s=47.9 remaining=12.1 v_cmd=-30.0 v_act=12.8 steer=-0.03
+[INFO] [1795082898.929508480] [my_driver]: s=57.7 remaining=2.3 v_cmd=-30.0 v_act=6.6 steer=0.00
+[INFO] [1795082899.939491965] [my_driver]: s=61.4 remaining=-1.4 v_cmd=0.0 v_act=0.6 steer=-0.01
+[INFO] [1795082900.939233797] [my_driver]: ILC: learned from run on 161_120_80.0_0.0 (120 cells)
+[INFO] [1795082902.989460754] [my_driver]: s=0.0 remaining=60.0 v_cmd=30.0 v_act=0.0 steer=-0.01
+[INFO] [1795082903.999437170] [my_driver]: s=10.3 remaining=49.7 v_cmd=30.0 v_act=20.5 steer=-0.01
+[INFO] [1795082905.009403019] [my_driver]: s=31.8 remaining=28.2 v_cmd=-30.0 v_act=18.9 steer=0.03
+[INFO] [1795082906.019390086] [my_driver]: s=48.0 remaining=12.0 v_cmd=-30.0 v_act=12.6 steer=0.03
+[INFO] [1795082907.029310860] [my_driver]: s=57.6 remaining=2.4 v_cmd=-30.0 v_act=6.7 steer=-0.01
+[INFO] [1795082908.029345232] [my_driver]: s=61.4 remaining=-1.4 v_cmd=0.0 v_act=0.9 steer=-0.00
+[INFO] [1795082909.039241345] [my_driver]: s=61.5 remaining=-1.5 v_cmd=0.0 v_act=-0.0 steer=-0.00
+[INFO] [1795082909.078950782] [my_driver]: ILC: learned from run on 161_120_80.0_0.0 (120 cells)
+[INFO] [1795082911.089222283] [my_driver]: s=0.0 remaining=60.0 v_cmd=30.0 v_act=0.0 steer=-0.01
+[INFO] [1795082912.089226179] [my_driver]: s=9.9 remaining=50.1 v_cmd=30.0 v_act=19.8 steer=0.03
+[INFO] [1795082913.099256467] [my_driver]: s=31.7 remaining=28.3 v_cmd=-30.0 v_act=19.0 steer=0.05
+[INFO] [1795082914.109192415] [my_driver]: s=47.5 remaining=12.5 v_cmd=-30.0 v_act=12.9 steer=-0.02
+[INFO] [1795082915.109201250] [my_driver]: s=57.3 remaining=2.7 v_cmd=-30.0 v_act=6.8 steer=0.03
+[INFO] [1795082916.119176920] [my_driver]: s=61.1 remaining=-1.1 v_cmd=0.0 v_act=0.8 steer=0.00
+[INFO] [1795082917.129167921] [my_driver]: s=61.2 remaining=-1.2 v_cmd=0.0 v_act=-0.0 steer=0.00
+[INFO] [1795082917.159635765] [my_driver]: ILC: learned from run on 161_120_80.0_0.0 (120 cells)
+[INFO] [1795082919.189134582] [my_driver]: s=0.0 remaining=60.0 v_cmd=30.0 v_act=0.0 steer=-0.01
+[INFO] [1795082920.189326909] [my_driver]: s=9.9 remaining=50.1 v_cmd=30.0 v_act=19.9 steer=-0.05
+[INFO] [1795082921.199040818] [my_driver]: s=31.8 remaining=28.2 v_cmd=-30.0 v_act=18.9 steer=-0.00
+[INFO] [1795082922.199067486] [my_driver]: s=47.6 remaining=12.4 v_cmd=-30.0 v_act=12.9 steer=0.01
+[INFO] [1795082923.208978705] [my_driver]: s=57.4 remaining=2.6 v_cmd=-30.0 v_act=6.9 steer=-0.02
+[INFO] [1795082924.209026127] [my_driver]: s=61.2 remaining=-1.2 v_cmd=0.0 v_act=0.9 steer=0.01
+[INFO] [1795082925.219009891] [my_driver]: s=61.3 remaining=-1.3 v_cmd=0.0 v_act=-0.0 steer=0.01
+[INFO] [1795082925.259510465] [my_driver]: ILC: learned from run on 161_120_80.0_0.0 (120 cells)
+[INFO] [1795082927.288988621] [my_driver]: s=0.0 remaining=60.0 v_cmd=30.0 v_act=0.0 steer=-0.01
+[INFO] [1795082928.298872555] [my_driver]: s=10.3 remaining=49.7 v_cmd=30.0 v_act=20.1 steer=-0.01
+[INFO] [1795082929.308886827] [my_driver]: s=31.8 remaining=28.2 v_cmd=-30.0 v_act=19.0 steer=-0.01
+[INFO] [1795082930.308917405] [my_driver]: s=47.6 remaining=12.4 v_cmd=-30.0 v_act=12.8 steer=0.05
+[INFO] [1795082931.318915571] [my_driver]: s=57.5 remaining=2.5 v_cmd=-30.0 v_act=6.8 steer=0.02
+[INFO] [1795082932.319027792] [my_driver]: s=61.3 remaining=-1.3 v_cmd=0.0 v_act=0.8 steer=0.00
+[INFO] [1795082933.328801702] [my_driver]: s=61.3 remaining=-1.3 v_cmd=0.0 v_act=-0.0 steer=0.00
+[INFO] [1795082933.379359191] [my_driver]: ILC: learned from run on 161_120_80.0_0.0 (120 cells)
+[INFO] [1795082935.388839673] [my_driver]: s=0.0 remaining=61.5 v_cmd=25.1 v_act=0.0 steer=0.17
+[INFO] [1795082936.398755835] [my_driver]: s=10.3 remaining=51.2 v_cmd=25.9 v_act=20.3 steer=-0.15
+[INFO] [1795082937.398791808] [my_driver]: s=32.2 remaining=29.3 v_cmd=-30.0 v_act=19.1 steer=0.15
+[INFO] [1795082938.408688764] [my_driver]: s=48.4 remaining=13.1 v_cmd=-30.0 v_act=13.1 steer=-0.12
+[INFO] [1795082939.408743403] [my_driver]: s=58.4 remaining=3.1 v_cmd=-30.0 v_act=7.0 steer=0.08
+[INFO] [1795082940.418653718] [my_driver]: s=62.5 remaining=-1.0 v_cmd=-30.0 v_act=1.0 steer=0.16
+[INFO] [1795082941.418694113] [my_driver]: s=62.6 remaining=-1.2 v_cmd=0.0 v_act=0.0 steer=0.15
+[INFO] [1795082941.559290401] [my_driver]: ILC: learned from run on 161_120_80.0_2.3 (123 cells)
+[INFO] [1795082943.588672807] [my_driver]: s=0.0 remaining=61.5 v_cmd=25.1 v_act=0.0 steer=0.17
+[INFO] [1795082944.598648187] [my_driver]: s=10.3 remaining=51.1 v_cmd=25.9 v_act=20.1 steer=-0.16
+[INFO] [1795082945.608668660] [my_driver]: s=32.2 remaining=29.2 v_cmd=-30.0 v_act=19.0 steer=0.13
+[INFO] [1795082946.618533816] [my_driver]: s=48.9 remaining=12.6 v_cmd=-30.0 v_act=13.1 steer=-0.11
+[INFO] [1795082947.618586173] [my_driver]: s=59.0 remaining=2.5 v_cmd=-30.0 v_act=7.4 steer=0.15
+[INFO] [1795082948.628558433] [my_driver]: s=63.2 remaining=-1.7 v_cmd=-30.0 v_act=1.1 steer=0.19
+[INFO] [1795082949.638568337] [my_driver]: s=63.4 remaining=-1.9 v_cmd=0.0 v_act=0.0 steer=0.19
+[INFO] [1795082949.859083052] [my_driver]: ILC: learned from run on 161_120_80.0_2.3 (123 cells)
+[INFO] [1795082951.888527139] [my_driver]: s=0.0 remaining=61.5 v_cmd=25.1 v_act=0.0 steer=0.17
+[INFO] [1795082952.898504512] [my_driver]: s=10.4 remaining=51.1 v_cmd=25.8 v_act=20.3 steer=-0.17
+[INFO] [1795082953.898506182] [my_driver]: s=32.3 remaining=29.2 v_cmd=-30.0 v_act=19.4 steer=0.06
+[INFO] [1795082954.908457571] [my_driver]: s=48.7 remaining=12.8 v_cmd=-30.0 v_act=13.4 steer=-0.08
+[INFO] [1795082955.918442483] [my_driver]: s=59.1 remaining=2.4 v_cmd=-30.0 v_act=7.2 steer=0.14
+[INFO] [1795082956.928334008] [my_driver]: s=63.3 remaining=-1.8 v_cmd=-30.0 v_act=1.3 steer=0.14
+[INFO] [1795082957.928343875] [my_driver]: s=63.5 remaining=-2.0 v_cmd=0.0 v_act=0.0 steer=0.15
+[INFO] [1795082958.159142312] [my_driver]: ILC: learned from run on 161_120_80.0_2.3 (123 cells)
+[INFO] [1795082960.188444976] [my_driver]: s=0.0 remaining=61.5 v_cmd=25.1 v_act=0.0 steer=0.16
+[INFO] [1795082961.198275706] [my_driver]: s=10.3 remaining=51.1 v_cmd=25.9 v_act=20.3 steer=-0.12
+[INFO] [1795082962.198325505] [my_driver]: s=32.4 remaining=29.1 v_cmd=-30.0 v_act=19.5 steer=0.04
+[INFO] [1795082963.208312724] [my_driver]: s=48.7 remaining=12.7 v_cmd=-30.0 v_act=13.4 steer=-0.16
+[INFO] [1795082964.218297058] [my_driver]: s=59.2 remaining=2.3 v_cmd=-30.0 v_act=7.0 steer=0.10
+[INFO] [1795082965.228180212] [my_driver]: s=63.4 remaining=-2.0 v_cmd=-30.0 v_act=1.2 steer=0.13
+[INFO] [1795082966.238150757] [my_driver]: s=63.6 remaining=-2.2 v_cmd=0.0 v_act=0.0 steer=0.12
+[INFO] [1795082966.458944865] [my_driver]: ILC: learned from run on 161_120_80.0_2.3 (123 cells)
+[INFO] [1795082968.488134946] [my_driver]: s=0.0 remaining=61.5 v_cmd=25.1 v_act=0.0 steer=0.16
+[INFO] [1795082969.498129741] [my_driver]: s=10.3 remaining=51.1 v_cmd=25.9 v_act=20.1 steer=-0.12
+[INFO] [1795082970.508157426] [my_driver]: s=32.3 remaining=29.2 v_cmd=-30.0 v_act=19.5 steer=0.10
+[INFO] [1795082971.518053461] [my_driver]: s=48.8 remaining=12.6 v_cmd=-30.0 v_act=13.1 steer=-0.15
+[INFO] [1795082972.518118375] [my_driver]: s=59.0 remaining=2.4 v_cmd=-30.0 v_act=7.2 steer=0.13
+[INFO] [1795082973.528085535] [my_driver]: s=63.3 remaining=-1.8 v_cmd=-30.0 v_act=1.4 steer=0.13
+[INFO] [1795082974.538073055] [my_driver]: s=63.5 remaining=-2.0 v_cmd=0.0 v_act=0.0 steer=0.14
+[INFO] [1795082974.759092191] [my_driver]: ILC: learned from run on 161_120_80.0_2.3 (123 cells)
+[INFO] [1795082976.788036023] [my_driver]: s=0.0 remaining=61.5 v_cmd=25.1 v_act=0.0 steer=0.15
+[INFO] [1795082977.798014252] [my_driver]: s=10.3 remaining=51.1 v_cmd=25.9 v_act=20.2 steer=-0.13
+[INFO] [1795082978.807917616] [my_driver]: s=32.2 remaining=29.2 v_cmd=-30.0 v_act=19.3 steer=0.14
+[INFO] [1795082979.807984563] [my_driver]: s=48.7 remaining=12.8 v_cmd=-30.0 v_act=13.5 steer=-0.11
+[INFO] [1795082980.817909830] [my_driver]: s=59.2 remaining=2.2 v_cmd=-30.0 v_act=7.3 steer=0.15
+[INFO] [1795082981.817924274] [my_driver]: s=63.4 remaining=-1.9 v_cmd=-30.0 v_act=1.2 steer=0.15
+[INFO] [1795082982.827842554] [my_driver]: s=63.6 remaining=-2.1 v_cmd=0.0 v_act=0.0 steer=0.15
+[INFO] [1795082983.060986310] [my_driver]: ILC: learned from run on 161_120_80.0_2.3 (123 cells)
+[INFO] [1795082985.087957214] [my_driver]: s=0.0 remaining=60.5 v_cmd=30.0 v_act=0.0 steer=0.00
+[INFO] [1795082986.097779408] [my_driver]: s=10.3 remaining=50.2 v_cmd=30.0 v_act=20.1 steer=0.06
+[INFO] [1795082987.107833115] [my_driver]: s=32.0 remaining=28.5 v_cmd=-30.0 v_act=19.4 steer=0.01
+[INFO] [1795082988.117746159] [my_driver]: s=48.7 remaining=11.8 v_cmd=-30.0 v_act=13.3 steer=0.01
+[INFO] [1795082989.127791020] [my_driver]: s=59.0 remaining=1.5 v_cmd=-30.0 v_act=7.4 steer=-0.01
+[INFO] [1795082990.137693459] [my_driver]: s=63.3 remaining=-2.8 v_cmd=-30.0 v_act=1.2 steer=-0.02
+[INFO] [1795082991.147751152] [my_driver]: s=63.4 remaining=-2.9 v_cmd=0.0 v_act=-0.0 steer=-0.02
+[INFO] [1795082991.239226386] [my_driver]: ILC: learned from run on 161_120_80.0_4.0 (121 cells)
+[INFO] [1795082993.287671551] [my_driver]: s=0.0 remaining=60.5 v_cmd=30.0 v_act=0.0 steer=0.00
+[INFO] [1795082994.287705210] [my_driver]: s=9.9 remaining=50.6 v_cmd=30.0 v_act=19.8 steer=0.02
+[INFO] [1795082995.297613014] [my_driver]: s=32.3 remaining=28.2 v_cmd=-30.0 v_act=19.4 steer=-0.04
+[INFO] [1795082996.307584533] [my_driver]: s=48.7 remaining=11.8 v_cmd=-30.0 v_act=13.4 steer=-0.00
+[INFO] [1795082997.317559962] [my_driver]: s=59.2 remaining=1.3 v_cmd=-30.0 v_act=7.2 steer=-0.00
+[INFO] [1795082998.327626428] [my_driver]: s=63.4 remaining=-2.9 v_cmd=-30.0 v_act=1.3 steer=0.02
+[INFO] [1795082999.337487085] [my_driver]: s=63.5 remaining=-3.0 v_cmd=0.0 v_act=-0.0 steer=0.01
+[INFO] [1795082999.459382222] [my_driver]: ILC: learned from run on 161_120_80.0_4.0 (121 cells)
+[INFO] [1795083001.487529549] [my_driver]: s=0.0 remaining=60.5 v_cmd=30.0 v_act=0.0 steer=0.00
+[INFO] [1795083002.497483798] [my_driver]: s=10.3 remaining=50.1 v_cmd=30.0 v_act=20.2 steer=-0.01
+[INFO] [1795083003.507528269] [my_driver]: s=32.3 remaining=28.2 v_cmd=-30.0 v_act=19.4 steer=0.01
+[INFO] [1795083004.517445898] [my_driver]: s=49.0 remaining=11.5 v_cmd=-30.0 v_act=13.2 steer=0.02
+[INFO] [1795083005.527499287] [my_driver]: s=59.3 remaining=1.2 v_cmd=-30.0 v_act=7.2 steer=0.04
+[INFO] [1795083006.537396387] [my_driver]: s=63.6 remaining=-3.1 v_cmd=-30.0 v_act=1.2 steer=0.02
+[INFO] [1795083007.547457882] [my_driver]: s=63.7 remaining=-3.3 v_cmd=0.0 v_act=-0.0 steer=0.02
+[INFO] [1795083007.639409632] [my_driver]: ILC: learned from run on 161_120_80.0_4.0 (121 cells)
+[INFO] [1795083009.687430047] [my_driver]: s=0.0 remaining=60.5 v_cmd=30.0 v_act=0.0 steer=0.00
+[INFO] [1795083010.697339709] [my_driver]: s=10.3 remaining=50.2 v_cmd=30.0 v_act=20.3 steer=0.01
+[INFO] [1795083011.707387724] [my_driver]: s=31.8 remaining=28.7 v_cmd=-30.0 v_act=18.8 steer=0.01
+[INFO] [1795083012.717280846] [my_driver]: s=47.9 remaining=12.5 v_cmd=-30.0 v_act=12.9 steer=-0.02
+[INFO] [1795083013.727345808] [my_driver]: s=57.6 remaining=2.9 v_cmd=-30.0 v_act=6.8 steer=0.01
+[INFO] [1795083014.737239664] [my_driver]: s=61.3 remaining=-0.8 v_cmd=0.0 v_act=0.6 steer=-0.05
+[INFO] [1795083015.747262690] [my_driver]: s=61.3 remaining=-0.9 v_cmd=0.0 v_act=-0.0 steer=-0.05
+[INFO] [1795083015.759315773] [my_driver]: ILC: learned from run on 161_120_80.0_4.0 (121 cells)
+[INFO] [1795083017.787222537] [my_driver]: s=0.0 remaining=60.5 v_cmd=30.0 v_act=0.0 steer=0.00
+[INFO] [1795083018.787257725] [my_driver]: s=9.8 remaining=50.6 v_cmd=30.0 v_act=19.8 steer=0.01
+[INFO] [1795083019.797141316] [my_driver]: s=32.1 remaining=28.4 v_cmd=-30.0 v_act=19.2 steer=0.00
+[INFO] [1795083020.807112285] [my_driver]: s=48.4 remaining=12.1 v_cmd=-30.0 v_act=13.3 steer=0.01
+[INFO] [1795083021.807136960] [my_driver]: s=58.8 remaining=1.7 v_cmd=-30.0 v_act=7.6 steer=-0.01
+[INFO] [1795083022.807179845] [my_driver]: s=63.2 remaining=-2.7 v_cmd=-30.0 v_act=1.4 steer=-0.02
+[INFO] [1795083023.817050241] [my_driver]: s=63.4 remaining=-2.9 v_cmd=0.0 v_act=-0.0 steer=-0.02
+[INFO] [1795083023.959537038] [my_driver]: ILC: learned from run on 161_120_80.0_4.0 (121 cells)
+[INFO] [1795083025.987039383] [my_driver]: s=0.0 remaining=60.5 v_cmd=30.0 v_act=0.0 steer=0.00
+[INFO] [1795083026.987090723] [my_driver]: s=9.8 remaining=50.7 v_cmd=30.0 v_act=19.6 steer=-0.03
+[INFO] [1795083027.996983244] [my_driver]: s=32.1 remaining=28.4 v_cmd=-30.0 v_act=19.5 steer=-0.05
+[INFO] [1795083029.007064538] [my_driver]: s=48.4 remaining=12.0 v_cmd=-30.0 v_act=13.3 steer=0.03
+[INFO] [1795083030.016931875] [my_driver]: s=58.9 remaining=1.5 v_cmd=-30.0 v_act=7.3 steer=-0.03
+[INFO] [1795083031.016934321] [my_driver]: s=63.2 remaining=-2.7 v_cmd=-30.0 v_act=1.3 steer=-0.02
+[INFO] [1795083032.026975219] [my_driver]: s=63.3 remaining=-2.9 v_cmd=0.0 v_act=-0.0 steer=-0.02
+[INFO] [1795083032.139482209] [my_driver]: ILC: learned from run on 161_120_80.0_4.0 (121 cells)
+[INFO] [1795083034.186872872] [my_driver]: s=0.0 remaining=94.2 v_cmd=24.5 v_act=0.0 steer=0.18
+[INFO] [1795083035.186878576] [my_driver]: s=9.9 remaining=84.4 v_cmd=24.5 v_act=19.6 steer=0.11
+[INFO] [1795083036.186907447] [my_driver]: s=33.9 remaining=60.4 v_cmd=24.5 v_act=24.6 steer=0.31
+[INFO] [1795083037.196814615] [my_driver]: s=58.3 remaining=36.0 v_cmd=-30.0 v_act=21.3 steer=0.08
+[INFO] [1795083038.206863501] [my_driver]: s=76.7 remaining=17.5 v_cmd=-30.0 v_act=15.5 steer=0.16
+[INFO] [1795083039.216762984] [my_driver]: s=89.3 remaining=5.0 v_cmd=-30.0 v_act=9.2 steer=0.15
+[INFO] [1795083040.216806159] [my_driver]: s=95.4 remaining=-1.1 v_cmd=-30.0 v_act=3.4 steer=0.17
+[INFO] [1795083041.226797558] [my_driver]: s=96.3 remaining=-2.1 v_cmd=0.0 v_act=-0.0 steer=0.17
+[INFO] [1795083041.699439328] [my_driver]: ILC: learned from run on 229_188_14.6_11.5 (189 cells)
+[INFO] [1795083043.736710924] [my_driver]: s=0.0 remaining=94.2 v_cmd=24.5 v_act=0.0 steer=0.17
+[INFO] [1795083044.746754468] [my_driver]: s=10.2 remaining=84.0 v_cmd=24.5 v_act=20.1 steer=0.12
+[INFO] [1795083045.756624956] [my_driver]: s=34.8 remaining=59.4 v_cmd=24.5 v_act=24.7 steer=0.06
+[INFO] [1795083046.766704879] [my_driver]: s=58.6 remaining=35.6 v_cmd=-30.0 v_act=21.2 steer=0.14
+[INFO] [1795083047.776587726] [my_driver]: s=77.2 remaining=17.1 v_cmd=-30.0 v_act=15.2 steer=0.10
+[INFO] [1795083048.786659923] [my_driver]: s=89.2 remaining=5.0 v_cmd=-30.0 v_act=9.1 steer=0.18
+[INFO] [1795083049.796508689] [my_driver]: s=95.4 remaining=-1.1 v_cmd=-30.0 v_act=3.2 steer=0.15
+[INFO] [1795083050.806611119] [my_driver]: s=96.2 remaining=-2.0 v_cmd=0.0 v_act=-0.0 steer=0.13
+[INFO] [1795083051.259596330] [my_driver]: ILC: learned from run on 229_188_14.6_11.5 (189 cells)
+[INFO] [1795083053.286585607] [my_driver]: s=0.0 remaining=94.2 v_cmd=24.5 v_act=0.0 steer=0.17
+[INFO] [1795083054.296542246] [my_driver]: s=9.8 remaining=84.4 v_cmd=24.5 v_act=19.7 steer=0.07
+[INFO] [1795083055.306541471] [my_driver]: s=34.2 remaining=60.0 v_cmd=24.5 v_act=24.7 steer=0.25
+[INFO] [1795083056.316434536] [my_driver]: s=57.6 remaining=36.6 v_cmd=-30.0 v_act=21.3 steer=0.09
+[INFO] [1795083057.316526309] [my_driver]: s=75.7 remaining=18.5 v_cmd=-30.0 v_act=15.3 steer=0.18
+[INFO] [1795083058.326487625] [my_driver]: s=88.2 remaining=6.0 v_cmd=-30.0 v_act=9.4 steer=0.19
+[INFO] [1795083059.336493756] [my_driver]: s=94.4 remaining=-0.1 v_cmd=-30.0 v_act=3.2 steer=0.17
+[INFO] [1795083060.346449447] [my_driver]: s=95.3 remaining=-1.0 v_cmd=0.0 v_act=-0.0 steer=0.17
+[INFO] [1795083060.819627578] [my_driver]: ILC: learned from run on 229_188_14.6_11.5 (189 cells)
+[INFO] [1795083062.836339856] [my_driver]: s=0.0 remaining=94.2 v_cmd=24.5 v_act=0.0 steer=0.16
+[INFO] [1795083063.836417320] [my_driver]: s=9.8 remaining=84.5 v_cmd=24.5 v_act=19.4 steer=0.17
+[INFO] [1795083064.846384296] [my_driver]: s=34.1 remaining=60.1 v_cmd=24.5 v_act=24.6 steer=0.26
+[INFO] [1795083065.846448674] [my_driver]: s=57.8 remaining=36.4 v_cmd=-30.0 v_act=21.5 steer=0.29
+[INFO] [1795083066.856540740] [my_driver]: s=76.2 remaining=18.1 v_cmd=-30.0 v_act=15.5 steer=0.17
+[INFO] [1795083067.866266588] [my_driver]: s=88.7 remaining=5.5 v_cmd=-30.0 v_act=9.3 steer=0.16
+[INFO] [1795083068.866288884] [my_driver]: s=95.1 remaining=-0.9 v_cmd=-30.0 v_act=3.2 steer=0.16
+[INFO] [1795083069.876270969] [my_driver]: s=96.1 remaining=-1.8 v_cmd=0.0 v_act=-0.0 steer=0.17
+[INFO] [1795083070.359435096] [my_driver]: ILC: learned from run on 229_188_14.6_11.5 (189 cells)
+[INFO] [1795083072.386235494] [my_driver]: s=0.0 remaining=94.2 v_cmd=24.5 v_act=0.0 steer=0.16
+[INFO] [1795083073.396226787] [my_driver]: s=9.9 remaining=84.4 v_cmd=24.5 v_act=19.6 steer=0.14
+[INFO] [1795083074.406182696] [my_driver]: s=34.1 remaining=60.1 v_cmd=24.5 v_act=24.6 steer=0.29
+[INFO] [1795083075.416157939] [my_driver]: s=57.7 remaining=36.6 v_cmd=-30.0 v_act=21.3 steer=0.12
+[INFO] [1795083076.426136471] [my_driver]: s=76.0 remaining=18.2 v_cmd=-30.0 v_act=15.1 steer=0.18
+[INFO] [1795083077.436128656] [my_driver]: s=88.1 remaining=6.1 v_cmd=-30.0 v_act=9.2 steer=0.18
+[INFO] [1795083078.436158828] [my_driver]: s=94.3 remaining=-0.1 v_cmd=-30.0 v_act=3.1 steer=0.19
+[INFO] [1795083079.446068584] [my_driver]: s=95.2 remaining=-1.0 v_cmd=0.0 v_act=-0.0 steer=0.19
+[INFO] [1795083079.899589756] [my_driver]: ILC: learned from run on 229_188_14.6_11.5 (189 cells)
+[INFO] [1795083081.936092249] [my_driver]: s=0.0 remaining=94.2 v_cmd=24.5 v_act=0.0 steer=0.16
+[INFO] [1795083082.946015397] [my_driver]: s=10.1 remaining=84.2 v_cmd=24.5 v_act=19.9 steer=0.11
+[INFO] [1795083083.955998527] [my_driver]: s=34.1 remaining=60.1 v_cmd=24.5 v_act=24.7 steer=-0.03
+[INFO] [1795083084.965916695] [my_driver]: s=58.2 remaining=36.0 v_cmd=-30.0 v_act=21.5 steer=0.26
+[INFO] [1795083085.965956032] [my_driver]: s=76.6 remaining=17.6 v_cmd=-30.0 v_act=15.4 steer=0.23
+[INFO] [1795083086.975928576] [my_driver]: s=89.1 remaining=5.2 v_cmd=-30.0 v_act=9.3 steer=0.10
+[INFO] [1795083087.985940070] [my_driver]: s=95.6 remaining=-1.3 v_cmd=-30.0 v_act=3.4 steer=0.15
+[INFO] [1795083088.995890219] [my_driver]: s=96.5 remaining=-2.3 v_cmd=0.0 v_act=-0.0 steer=0.16
+[INFO] [1795083089.499338592] [my_driver]: ILC: learned from run on 229_188_14.6_11.5 (189 cells)
+[INFO] [1795083090.601179518] [rclcpp]: signal_handler(SIGINT/SIGTERM)

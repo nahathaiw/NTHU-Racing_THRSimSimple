@@ -35,6 +35,8 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 | C6 | Control rate 50/100 Hz (precise brake point), 3 runs per path | overshoot cause = 20 Hz brake decision (offline) | DONE 14:47 | **74.9 (B6 = B5 + 100 Hz + gain 0.09)**; same session B5 74.4; all 48 runs stopped, stop err 0.3-3.7 m | `2026-11-19_1447_c6_control_rate/` |
 
 | C7 | Prediction with the sim's real PI steering loop (`steer_model pi`) | system-identification papers; plots show wheel overshoot the lag model ignores | DONE 15:08 | worse: best 74.5 (predict 0.08) vs B6 75.0 same session; predict 0.10 -> wave off-track | `2026-11-19_1508_c7_pi_model/` |
+| C8 | Learning from past runs = ILC (FS Driverless 2026 / MAP2 model-error learning); learn 6 runs/path, then frozen | paths repeat, only noise random; wave error 16 cm is repeatable | DONE 18:40 | **75.5 (F15, twice)** vs B6 74.9 same session; wave error 17 -> 6.5 cm; fixes B6's rare start off-track | `2026-11-19_1801_c8_ilc_learn/`, `_1819_c8_ilc_frozen/`, `c8_ilc_confirm/` |
+| C9 | Adaptive lookahead policy tuned by CEM policy search (RA-L 2026 RL lookahead) | lookahead should shrink in curves / when off the path | RUNNING | | `c9_cem_gen*` |
 
 ## Results (filled in as we go)
 

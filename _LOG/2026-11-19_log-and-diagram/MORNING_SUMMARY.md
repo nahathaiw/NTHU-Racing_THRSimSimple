@@ -1,6 +1,6 @@
 # Morning summary (updated after every experiment)
 
-**Best scores and how to run them again: [BEST_SCORES.md](BEST_SCORES.md)** (frozen script `_SCRIPT/2026-11-19_script/run_best_B6_74.9.bash`, git tag `best-B6-74.9`).
+**Best scores and how to run them again: [BEST_SCORES.md](BEST_SCORES.md)** (frozen script `_SCRIPT/2026-11-19_script/run_best_F15_75.5.bash`, git tag `best-F15-75.5`; previous `run_best_B6_74.9.bash`, tag `best-B6-74.9`).
 
 **Last update:** 2026-11-19 14:55, after C6. **FINAL BEST: B6 = 74.9** (3 runs per path, robust: every stop 1.1-2.9 m past the line). Realistic ceiling about 77.
 later same-session checks; noise between sweeps about 0.6).** Ceiling with official settings about 76.
@@ -30,3 +30,6 @@ Demo: `./_SCRIPT/2026-11-19_script/demo_best.bash eval`
 
 **B6 = B5 + control_hz 100 + lookahead_gain 0.09** (demo_best.bash runs B6).
 | C7 | Predict with the sim's real PI steering loop | 74.5 | 75.0 | worse; B6 stays best (75.0 again in this sweep) |
+| C8 | Learning from past runs (ILC; FS Driverless 2026 / MAP2): learn 6 runs/path, then frozen | **75.5 (F15, twice)** | 74.9 | **NEW BEST** (wave 72.5 -> 74.3, fixes B6's rare start off-track) |
+
+**Update 2026-11-19 18:40: NEW BEST F15 = 75.5** = B6 + learned steering table (demo_best.bash now runs F15). Caveat: learned on these paths.

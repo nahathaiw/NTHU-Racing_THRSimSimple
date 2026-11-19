@@ -1,0 +1,13 @@
+[B6] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+   OVERALL 57.9 = track 29.7 + time 14.9 + stop 13.3 | max_cte 2.03 m | failures: wave:off_track, lane_change:off_track
+   per path: straight 63.7 (v_eq 13.6, err 12.4)  wave 38.8 (v_eq 8.6, err 9.4)  lane_change 51.0 (v_eq 7.9, err 2.0)  circle 78.1 (v_eq 14.5, err 1.2)
+[F15] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/ilc_tables/L15.txt
+   OVERALL 75.5 = track 38.9 + time 16.6 + stop 20.0 | max_cte 0.28 m | failures: none
+   per path: straight 74.8 (v_eq 11.8, err 2.4)  wave 74.2 (v_eq 11.7, err 1.8)  lane_change 74.9 (v_eq 11.8, err 1.9)  circle 78.0 (v_eq 14.6, err 1.4)
+[F30] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/ilc_tables/L30.txt
+   OVERALL 74.9 = track 38.4 + time 16.5 + stop 20.0 | max_cte 0.33 m | failures: none
+   per path: straight 74.1 (v_eq 11.6, err 3.3)  wave 73.7 (v_eq 11.5, err 3.1)  lane_change 74.3 (v_eq 11.8, err 2.3)  circle 77.3 (v_eq 14.5, err 1.2)
+[F15D3] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_gain:=0.09 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 ilc_apply:=true ilc_file:=/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-19_eval-result/ilc_tables/L15D3.txt
+   OVERALL 75.2 = track 38.8 + time 16.5 + stop 20.0 | max_cte 0.37 m | failures: none
+   per path: straight 74.6 (v_eq 11.7, err 3.3)  wave 73.8 (v_eq 11.6, err 2.7)  lane_change 74.3 (v_eq 11.7, err 3.3)  circle 78.2 (v_eq 14.5, err 1.5)
+NOTE: B6 here had 4 bad runs in one ~2-min window (runs 2,5,6,8); B6 scored 74.8-75.0 everywhere else. Treated as disturbed; see c8_ilc_confirm.
