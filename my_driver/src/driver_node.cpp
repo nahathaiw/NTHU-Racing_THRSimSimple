@@ -91,6 +91,7 @@ public:
     lqr_qpsi_ = declare_parameter("lqr_q_psi", 1.0);         // cost on heading error [1/rad^2]
     lqr_r_ = declare_parameter("lqr_r", 1.0);                // cost on steering command [1/rad^2]
     lqr_dt_ = declare_parameter("lqr_dt", 0.05);             // model step [s] (= control period)
+    blend_lqr_ = declare_parameter("blend_lqr", 0.0);        // pp only: share of LQR steering mixed in, 0 = off
 
     // /path is latched: transient-local so we still get it if we start late.
     auto path_qos = rclcpp::QoS(1).reliable().transient_local();
@@ -377,6 +378,9 @@ private:
         steer = steer_stanley_ff(p, v_actual_);
       } else if (mode_ == "lqr") {
         steer = steer_lqr(p, st_pred, v_actual_);
+      } else if (blend_lqr_ > 0.0) {  // combination: pure pursuit (good straight/circle) + LQR (good wave)
+        steer = std::clamp((1.0 - blend_lqr_) * steer + blend_lqr_ * steer_lqr(p, st_pred, v_actual_),
+            -max_steer_, max_steer_);
       } else if (ff_gain_ > 0.0) {  // pure pursuit blended with curvature feed-forward
         const double ff = std::atan(wheelbase_ * kappa_at(ploc.s + std::fabs(v_actual_) * ff_time_, ploc.index));
         steer = std::clamp((1.0 - ff_gain_) * steer + ff_gain_ * ff, -max_steer_, max_steer_);
@@ -430,7 +434,7 @@ private:
   double predict_, steer_tau_, steer_rate_, stop_damp_;
   std::string mode_;
   double st_k_, st_soft_, st_yaw_, st_dt_, st_decay_, ff_time_, ff_gain_;
-  double lqr_qe_, lqr_qpsi_, lqr_r_, lqr_dt_;
+  double lqr_qe_, lqr_qpsi_, lqr_r_, lqr_dt_, blend_lqr_;
   int st_n_;
   bool use_age_;
 

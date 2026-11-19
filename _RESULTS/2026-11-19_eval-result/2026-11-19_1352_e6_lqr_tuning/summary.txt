@@ -1,0 +1,18 @@
+[E0] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+   OVERALL 73.9 = track 37.8 + time 16.1 + stop 20.0 | max_cte 0.70 m | failures: none
+   per path: straight 74.4 (v_eq 11.6, err 4.3)  wave 71.4 (v_eq 11.5, err 4.7)  lane_change 73.8 (v_eq 11.7, err 4.2)  circle 76.0 (v_eq 13.5, err 3.4)
+[E6R20] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=20.0 ff_time:=0.10
+   OVERALL 73.7 = track 37.6 + time 16.0 + stop 20.0 | max_cte 0.53 m | failures: none
+   per path: straight 74.0 (v_eq 11.6, err 4.4)  wave 70.9 (v_eq 11.5, err 4.6)  lane_change 74.1 (v_eq 11.6, err 4.3)  circle 75.7 (v_eq 13.5, err 3.4)
+[E6R10] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=10.0 ff_time:=0.10
+   OVERALL 72.2 = track 36.2 + time 16.0 + stop 20.0 | max_cte 0.82 m | failures: none
+   per path: straight 70.9 (v_eq 11.5, err 4.2)  wave 72.1 (v_eq 11.5, err 4.5)  lane_change 71.6 (v_eq 11.5, err 4.5)  circle 74.0 (v_eq 13.5, err 3.7)
+[E6R3] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=3.0  ff_time:=0.10
+   OVERALL 73.0 = track 37.0 + time 16.0 + stop 20.0 | max_cte 0.65 m | failures: none
+   per path: straight 72.3 (v_eq 11.5, err 4.0)  wave 72.6 (v_eq 11.5, err 4.2)  lane_change 73.5 (v_eq 11.6, err 4.2)  circle 73.6 (v_eq 13.4, err 3.4)
+[E6R10Q4] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=10.0 ff_time:=0.10 lqr_q_psi:=4.0
+   OVERALL 72.9 = track 36.9 + time 16.0 + stop 20.0 | max_cte 0.58 m | failures: none
+   per path: straight 72.9 (v_eq 11.5, err 4.2)  wave 71.7 (v_eq 11.5, err 4.6)  lane_change 72.8 (v_eq 11.6, err 4.5)  circle 74.4 (v_eq 13.4, err 3.7)
+[E6R10T15] lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=10.0 ff_time:=0.10 steer_tau:=0.15
+   OVERALL 70.8 = track 34.8 + time 16.0 + stop 20.0 | max_cte 0.90 m | failures: none
+   per path: straight 71.4 (v_eq 11.5, err 4.3)  wave 69.8 (v_eq 11.5, err 4.7)  lane_change 71.0 (v_eq 11.6, err 4.4)  circle 71.1 (v_eq 13.4, err 3.1)

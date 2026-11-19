@@ -306,3 +306,19 @@ All of today's methods stay below pure pursuit + prediction so far. Paused here 
 ### 2026-11-19 13:52 - Step 30: Session resumed; E6 LQR tuning started
 Resumed from `NEXT_SESSION.md`. E6 continues the E5 trend (smaller r = stronger steering = better): r 20/10/3, r10 + q_psi 4,
 r10 + steer_tau 0.15 (shared with the prediction). Offline check at 12 m/s: r20 11, r10 16, r3 27 deg per metre, all stable.
+
+### 2026-11-19 13:52 - Step 31: E6 results: LQR tuning (`2026-11-19_1352_e6_lqr_tuning/`)
+| Config | Change | Score | Track | Max err | Straight | Wave | Circle |
+|---|---|---:|---:|---:|---:|---:|---:|
+| E0 | pure pursuit (R2G10) | **73.9** | 37.8 | 0.70 | 74.4 | 71.4 | 76.0 |
+| E6R20 | LQR r 20 | 73.7 | 37.6 | 0.53 | 74.0 | 70.9 | 75.7 |
+| E6R10 | LQR r 10 | 72.2 | 36.2 | 0.82 | 70.9 | 72.1 | 74.0 |
+| E6R3 | LQR r 3 | 73.0 | 37.0 | 0.65 | 72.3 | **72.6** | 73.6 |
+| E6R10Q4 | r 10, q_psi 4 | 72.9 | 36.9 | 0.58 | 72.9 | 71.7 | 74.4 |
+| E6R10T15 | r 10, steer_tau 0.15 | 70.8 | 34.8 | 0.90 | 71.4 | 69.8 | 71.1 |
+LQR's best is r 20-30 (73.7, within noise of pure pursuit 73.9, smallest max error 0.53 m). Strong LQR (r 3-10) gives the best
+WAVE of any method so far but loses on the straight and circle. -> by the rule: combine. Added `blend_lqr` (pure pursuit mixed with
+LQR). Next sweep: C1 Stanley K8/K12, C2 blends 0.3/0.5 with r 20 and r 3.
+Senior discussion (chat, 13:55): user says the senior used the same settings with a different algorithm. Explained the check that
+holds for any algorithm: through /veh_ctrl, accel 20 m/s^2 covers at most 40 m in 2 s, but time 40/40 on the straight needs
+60 m + stop in 2 s; and mean v_eq 22.4 with time 40/40 is impossible with time_v_max 30. Asked for his JSON / driver topics / code.
