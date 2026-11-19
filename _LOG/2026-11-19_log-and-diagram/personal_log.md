@@ -407,3 +407,14 @@ Fix: new param `control_hz` (default 20 = old behaviour); trigger lead = one per
 **B6 = B5 + control_hz 100 + lookahead_gain 0.09: 74.9 with every stop safely inside the zone** (48 runs, no failures).
 Faster control also helps slightly overall (+0.3). demo_best.bash, START_HERE, MORNING_SUMMARY, NEXT_SESSION updated to B6.
 Status vs ceiling: 74.9 = tracking 38.3 + time 16.6 + stop 20 against about 77 (40 + ~17.1 + 20).
+
+### 2026-11-19 ~15:05 - Step 38: Best-score snapshot; which paper methods are tested; C7 real steering model
+**Snapshot:** `BEST_SCORES.md` (every best set: score, all parameters, results folder, how to rerun), frozen script
+`_SCRIPT/2026-11-19_script/run_best_B6_74.9.bash`, git tags `best-B6-74.9` and `best-N-70.3` (pushed).
+**Tested so far:** pure pursuit, Stanley, predictive Stanley, feed-forward (enhanced Stanley, pp + ff), kinematic MPC as LQR (+ blend),
+time-optimal speed profile / braking. **Not yet:** learning the model error (MAP2 / FS 2026), system identification (RA-L 2025),
+RL lookahead (RA-L 2026), constrained MPC. Not applicable: tyre/friction papers (LLA-MPC, tyre sys-ID).
+**Chosen next (user: "the one that helps"):** predict with the simulator's real steering loop. Our prediction used a first-order lag
+(0.10 s); the sim uses a PI loop with zeta 0.28 (overshoots). New `steer_model pi`: roll() runs the same PI law
+(rate = clamp(kp e + ki int e, +-1 rad/s), anti-windup), and the driver keeps its own copy of the PI integral, updated every tick from
+command vs actual steering. C7 sweep: B6 vs pi model with predict 0.08/0.10/0.12/0.15 and gain 0.10.

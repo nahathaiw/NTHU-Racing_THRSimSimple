@@ -77,6 +77,9 @@ public:
     steer_tau_ = declare_parameter("steer_tau", 0.10);       // wheel follows the command with this lag [s]
     steer_rate_ = declare_parameter("steer_rate", 1.0);      // wheel turns at most this fast [rad/s]
     use_age_ = declare_parameter("predict_add_age", true);   // also cover the age of the pose message
+    steer_pi_ = declare_parameter("steer_model", std::string("lag")) == "pi";  // lag | pi (the sim's real PI loop)
+    st_kp_ = declare_parameter("steer_kp", 4.0);             // sim.yaml steer loop (zeta 0.28, wn 7.1 rad/s)
+    st_ki_ = declare_parameter("steer_ki", 50.0);
     stop_damp_ = declare_parameter("stop_damp", 0.0);        // after the finish: cancel backward roll, 0 = off
     mode_ = declare_parameter("steer_mode", std::string("pp"));  // pp | stanley | stanley_ff
     st_k_ = declare_parameter("stanley_k", 2.0);             // gain on the sideways error [1/s]
@@ -166,6 +169,7 @@ private:
     steer_actual_ = 0.0;
     last_steer_ = 0.0;
     braking_ = false;
+    pi_int_ = 0.0;
     progress_ = 0;
   }
 
@@ -176,10 +180,20 @@ private:
   void roll(Pose & p, double & st, double target, double v, double horizon) const
   {
     const double dt = 0.005;
+    double integ = pi_int_;   // copy of the estimated PI integral state
     for (double t = 0.0; t < horizon - 1e-9; t += dt) {
       const double h = std::min(dt, horizon - t);
-      const double want = steer_tau_ > 1e-6 ? (target - st) * h / steer_tau_ : target - st;
-      st += std::clamp(want, -steer_rate_ * h, steer_rate_ * h);
+      if (steer_pi_) {        // same law as the simulator: rate = clamp(kp e + ki int e), anti-windup
+        const double e = target - st;
+        const double ni = integ + e * h;
+        const double u = st_kp_ * e + st_ki_ * ni;
+        const double rate = std::clamp(u, -steer_rate_, steer_rate_);
+        if (rate == u) {integ = ni;}
+        st += rate * h;
+      } else {
+        const double want = steer_tau_ > 1e-6 ? (target - st) * h / steer_tau_ : target - st;
+        st += std::clamp(want, -steer_rate_ * h, steer_rate_ * h);
+      }
       p.x += v * std::cos(p.yaw) * h;
       p.y += v * std::sin(p.yaw) * h;
       p.yaw = wrap(p.yaw + v / wheelbase_ * std::tan(st) * h);
@@ -374,6 +388,11 @@ private:
         const double age = (now() - rclcpp::Time(state_->header.stamp)).seconds();
         horizon += std::clamp(age, 0.0, 0.1);
       }
+      if (steer_pi_) {        // keep our copy of the sim's PI integral in step with the real loop
+        const double e = last_steer_ - steer_actual_;
+        const double ni = pi_int_ + e * period_;
+        if (std::fabs(st_kp_ * e + st_ki_ * ni) <= steer_rate_) {pi_int_ = ni;}
+      }
       double st_pred = steer_actual_;
       const Pose p = horizon > 0.0 ? predict(horizon, &st_pred) : Pose{state_->x, state_->y, state_->yaw};
       const Location ploc = horizon > 0.0 ? locate(p.x, p.y) : loc;
@@ -461,7 +480,8 @@ private:
   double st_k_, st_soft_, st_yaw_, st_dt_, st_decay_, ff_time_, ff_gain_;
   double lqr_qe_, lqr_qpsi_, lqr_r_, lqr_dt_, blend_lqr_, bang_decel_, bang_lead_, bang_neg_, bang_release_;
   bool bang_ = false, braking_ = false;
-  double last_velocity_ = 0.0, period_ = 0.05;
+  double last_velocity_ = 0.0, period_ = 0.05, pi_int_ = 0.0, st_kp_, st_ki_;
+  bool steer_pi_ = false;
   int st_n_;
   bool use_age_;
 
