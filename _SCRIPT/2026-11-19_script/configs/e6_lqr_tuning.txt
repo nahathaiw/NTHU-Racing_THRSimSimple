@@ -1,0 +1,8 @@
+# E6: LQR tuning. E5 trend: smaller r (stronger steering) better, r30 73.2 > r100 71.5 > r300 69.3. Offline (v 12): r20 11 deg/m,
+# r10 16 deg/m, r3 27 deg/m, all stable. steer_tau is shared by the prediction and the LQR model. Base = R2G10: lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+E0          lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10
+E6R20       lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=20.0 ff_time:=0.10
+E6R10       lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=10.0 ff_time:=0.10
+E6R3        lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=3.0  ff_time:=0.10
+E6R10Q4     lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=10.0 ff_time:=0.10 lqr_q_psi:=4.0
+E6R10T15    lat_accel:=25.0 stop_aim:=1.5 lookahead_gain:=0.10 stop_damp:=2.0 predict_time:=0.10 steer_mode:=lqr lqr_r:=10.0 ff_time:=0.10 steer_tau:=0.15

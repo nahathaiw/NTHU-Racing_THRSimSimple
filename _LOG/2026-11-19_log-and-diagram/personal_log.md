@@ -302,3 +302,7 @@ Handoff for tomorrow: `_LOG/2026-11-19_log-and-diagram/NEXT_SESSION.md` (where w
 No failures. **The smaller r (stronger steering), the better, and the trend has not stopped at r = 30**, so E5 is not finished:
 next session E6 tries r 3/10/20 (+ q_psi 4). LQR at r 30 (73.2) is about 1 point below pure pursuit, the same gap as Stanley.
 All of today's methods stay below pure pursuit + prediction so far. Paused here for the night; plan in `NEXT_SESSION.md`.
+
+### 2026-11-19 13:52 - Step 30: Session resumed; E6 LQR tuning started
+Resumed from `NEXT_SESSION.md`. E6 continues the E5 trend (smaller r = stronger steering = better): r 20/10/3, r10 + q_psi 4,
+r10 + steer_tau 0.15 (shared with the prediction). Offline check at 12 m/s: r20 11, r10 16, r3 27 deg per metre, all stable.

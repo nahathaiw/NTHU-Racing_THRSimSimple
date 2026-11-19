@@ -38,6 +38,6 @@ we try them **combined** (C-rows). Candidate C-rows are added below as results c
 | E3 | DONE | 2026-11-19 02:36 | 73.5 (best: K4 ff 0.10) | 37.5 | 16.0 | 20.0 | 0.75 | none | `2026-11-19_0236_e3e4_feedforward/` | same-session E0 = 73.9. Best Stanley variant so far (plain 73.0-73.2), within noise of pure pursuit but not above; ff 0.20 and K2 worse |
 | E4 | DONE | 2026-11-19 02:36 | 73.5 (best: blend 0.3) | 37.4 | 16.1 | 20.0 | 0.69 | none | `2026-11-19_0236_e3e4_feedforward/` | same-session E0 = 73.9. Feed-forward blend does not help pure pursuit: 0.3 -> 73.5, 0.5 -> 72.1 (wave worse) |
 | E5 | DONE | 2026-11-19 02:45 + 02:48 | 73.2 (best: r=30) | 37.1 | 16.1 | 20.0 | 0.57 | none | `2026-11-19_0245_e5_lqr/`, `2026-11-19_0248_e5_lqr_part2/` | same-session E0 = 74.4. Lower r (stronger steering) is better: r30 73.2, r100 71.5, r300 69.3; ff 0.2 worse (70.2); q_psi 4 slightly better (71.8 vs 71.5). Trend not finished: try r 3-10 in E6 |
-| E6 | NEXT | | | | | | | | | LQR tuning: r 3/10/20, with q_psi 4, steer_tau in model 0.10-0.15 |
+| E6 | RUNNING | 2026-11-19 ~13:52 | | | | | | | `..._e6_lqr_tuning/` | LQR r 20/10/3, r10 + q_psi 4, r10 + steer_tau 0.15 |
 | E7 | TODO | | | | | | | | | |
 | E8 | optional | | | | | | | | | |
