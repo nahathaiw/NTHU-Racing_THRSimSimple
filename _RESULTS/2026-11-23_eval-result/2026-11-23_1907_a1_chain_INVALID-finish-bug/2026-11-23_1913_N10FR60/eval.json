@@ -1,0 +1,196 @@
+{
+  "time": "2026-11-23 19:14:56",
+  "status": "complete",
+  "planned_runs": 8,
+  "completed_runs": 8,
+  "plan": {
+    "shapes": [
+      "straight",
+      "wave",
+      "lane_change",
+      "circle"
+    ],
+    "repeats": 2
+  },
+  "overall_score": 42.87,
+  "per_path": {
+    "straight": {
+      "runs": 2,
+      "score": 52.765,
+      "tracking": 97.50999999999999,
+      "time_score": 34.41,
+      "v_eq": 10.323,
+      "stop": 0.0,
+      "mean_abs_stop_err": 18.875,
+      "stopped": 2,
+      "results": [
+        "stopped",
+        "stopped"
+      ]
+    },
+    "wave": {
+      "runs": 2,
+      "score": 36.33,
+      "tracking": 90.83,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "overrun",
+        "overrun"
+      ]
+    },
+    "lane_change": {
+      "runs": 2,
+      "score": 45.05,
+      "tracking": 95.515,
+      "time_score": 17.115,
+      "v_eq": 5.135,
+      "stop": 0.0,
+      "mean_abs_stop_err": 18.277,
+      "stopped": 1,
+      "results": [
+        "overrun",
+        "stopped"
+      ]
+    },
+    "circle": {
+      "runs": 2,
+      "score": 37.34,
+      "tracking": 93.35499999999999,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "mean_abs_stop_err": null,
+      "stopped": 0,
+      "results": [
+        "overrun",
+        "overrun"
+      ]
+    }
+  },
+  "runs": [
+    {
+      "run": 1,
+      "shape": "straight",
+      "result": "stopped",
+      "score": 52.57,
+      "tracking": 97.1,
+      "time_score": 34.34,
+      "v_eq": 10.301,
+      "stop": 0.0,
+      "stop_err": 18.866,
+      "completion": 1.0,
+      "rms_cte": 0.058,
+      "max_cte": 0.1916,
+      "time": 5.82
+    },
+    {
+      "run": 2,
+      "shape": "straight",
+      "result": "stopped",
+      "score": 52.96,
+      "tracking": 97.92,
+      "time_score": 34.48,
+      "v_eq": 10.345,
+      "stop": 0.0,
+      "stop_err": 18.884,
+      "completion": 1.0,
+      "rms_cte": 0.0417,
+      "max_cte": 0.1089,
+      "time": 5.8
+    },
+    {
+      "run": 3,
+      "shape": "wave",
+      "result": "overrun",
+      "score": 35.57,
+      "tracking": 88.94,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": 19.935,
+      "completion": 1.0,
+      "rms_cte": 0.2213,
+      "max_cte": 0.4104,
+      "time": 7.59
+    },
+    {
+      "run": 4,
+      "shape": "wave",
+      "result": "overrun",
+      "score": 37.09,
+      "tracking": 92.72,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": 20.057,
+      "completion": 1.0,
+      "rms_cte": 0.1455,
+      "max_cte": 0.3344,
+      "time": 4.61
+    },
+    {
+      "run": 5,
+      "shape": "lane_change",
+      "result": "overrun",
+      "score": 38.13,
+      "tracking": 95.33,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": 19.569,
+      "completion": 1.0,
+      "rms_cte": 0.0934,
+      "max_cte": 0.341,
+      "time": 5.32
+    },
+    {
+      "run": 6,
+      "shape": "lane_change",
+      "result": "stopped",
+      "score": 51.97,
+      "tracking": 95.7,
+      "time_score": 34.23,
+      "v_eq": 10.27,
+      "stop": 0.0,
+      "stop_err": 18.277,
+      "completion": 1.0,
+      "rms_cte": 0.086,
+      "max_cte": 0.2678,
+      "time": 5.89
+    },
+    {
+      "run": 7,
+      "shape": "circle",
+      "result": "overrun",
+      "score": 36.94,
+      "tracking": 92.35,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": 19.552,
+      "completion": 1.0,
+      "rms_cte": 0.153,
+      "max_cte": 0.3421,
+      "time": 6.15
+    },
+    {
+      "run": 8,
+      "shape": "circle",
+      "result": "overrun",
+      "score": 37.74,
+      "tracking": 94.36,
+      "time_score": 0.0,
+      "v_eq": 0.0,
+      "stop": 0.0,
+      "stop_err": 19.69,
+      "completion": 1.0,
+      "rms_cte": 0.1129,
+      "max_cte": 0.2723,
+      "time": 6.31
+    }
+  ]
+}

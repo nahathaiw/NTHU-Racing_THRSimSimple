@@ -1,0 +1,4 @@
+[CH15] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0
+   OVERALL 41.4 = track 37.9 + time 3.5 + stop 0.0 | max_cte 0.40 m | failures: straight:overrun, wave:overrun, circle:overrun
+   per path: straight 38.8 (v_eq 0.0, err 0.0)  wave 36.9 (v_eq 0.0, err 0.0)  lane_change 52.4 (v_eq 10.6, err 18.3)  circle 37.5 (v_eq 0.0, err 0.0)
+   rms err [cm]: stra 6  wave 15  lane 9  circ 12

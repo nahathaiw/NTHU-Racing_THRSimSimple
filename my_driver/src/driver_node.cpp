@@ -117,6 +117,8 @@ public:
     ld_err_ = declare_parameter("ld_err", 0.0);              // shorten the lookahead when off the path [m/m]
     ld_min_ = declare_parameter("ld_min", 1.5);              // [m]
     if (!ilc_file_.empty()) {ilc_load();}
+    // 2026-11-23 full chain: the path is re-planned from cones (FSGPathPlan) several times per second, remap /path.
+    replan_ = declare_parameter("replan", false);
 
     // /path is latched: transient-local so we still get it if we start late.
     auto path_qos = rclcpp::QoS(1).reliable().transient_local();
@@ -141,13 +143,13 @@ private:
   // ---------------------------------------------------------------- callbacks
   void on_path(const RefPath & msg)
   {
-    ilc_end_run();
+    if (!replan_) {ilc_end_run();}
     pts_.clear();
     s_.clear();
     kappa_.clear();
     kappa_s_.clear();
     progress_ = 0;
-    braking_ = false;
+    if (!replan_) {braking_ = false;}   // re-planned path (10 Hz): keep braking once started; /reset still clears it
     finish_ = msg.finish_index;
     if (msg.nodes.size() < 2 || finish_ >= msg.nodes.size()) {
       return;  // empty/invalid path = no task -> control() commands zero
@@ -606,7 +608,7 @@ private:
   int st_n_;
   bool use_age_;
   double ilc_gain_, ilc_lead_, ilc_max_, ld_kappa_, ld_err_, ld_min_;
-  bool ilc_apply_;
+  bool ilc_apply_, replan_ = false;
   int ilc_smooth_;
   std::string ilc_file_, ilc_key_;
   std::map<std::string, std::vector<double>> ilc_;   // learned steering correction per path, per 0.5 m

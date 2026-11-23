@@ -1,0 +1,5 @@
+# A3: circle finish fix (finish at straight-line distance until the plan reaches it). Same settings as A2 that had circle problems.
+TRUE     lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 chain:=off
+FR60     lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=60
+R30FR60  lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.range:=30 pl.finish_range:=60
+N10FR60  lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=60 pl.noise:=0.10

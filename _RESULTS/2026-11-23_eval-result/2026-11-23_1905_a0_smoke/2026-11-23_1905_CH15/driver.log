@@ -1,0 +1,25 @@
+[INFO] [1795431960.513163259] [my_driver]: s=0.0 remaining=59.5 v_cmd=30.0 v_act=0.0 steer=0.00
+[INFO] [1795431961.513220466] [my_driver]: s=0.4 remaining=59.1 v_cmd=30.0 v_act=20.0 steer=-0.06
+[INFO] [1795431962.523163653] [my_driver]: s=0.5 remaining=59.5 v_cmd=-30.0 v_act=23.4 steer=0.11
+[INFO] [1795431963.523238204] [my_driver]: s=0.3 remaining=5.2 v_cmd=-30.0 v_act=17.3 steer=-0.01
+[INFO] [1795431964.533118744] [my_driver]: s=0.5 remaining=-0.5 v_cmd=-30.0 v_act=11.1 steer=0.02
+[INFO] [1795431965.543166510] [my_driver]: s=0.2 remaining=59.8 v_cmd=-30.0 v_act=5.2 steer=-0.00
+[INFO] [1795431968.213149278] [my_driver]: s=0.0 remaining=59.5 v_cmd=28.9 v_act=0.0 steer=0.17
+[INFO] [1795431969.223138489] [my_driver]: s=0.4 remaining=59.6 v_cmd=23.1 v_act=19.9 steer=-0.14
+[INFO] [1795431970.233191418] [my_driver]: s=1.0 remaining=58.5 v_cmd=30.0 v_act=25.2 steer=-0.08
+[INFO] [1795431971.243046013] [my_driver]: s=0.8 remaining=3.2 v_cmd=-30.0 v_act=20.5 steer=0.28
+[INFO] [1795431972.243049787] [my_driver]: s=0.6 remaining=-0.6 v_cmd=-30.0 v_act=14.7 steer=-0.13
+[INFO] [1795431974.703013169] [my_driver]: s=0.0 remaining=59.5 v_cmd=30.0 v_act=0.0 steer=-0.00
+[INFO] [1795431975.703030783] [my_driver]: s=1.9 remaining=58.1 v_cmd=30.0 v_act=19.9 steer=-0.00
+[INFO] [1795431976.713004502] [my_driver]: s=0.5 remaining=59.0 v_cmd=-30.0 v_act=23.1 steer=-0.13
+[INFO] [1795431977.723032368] [my_driver]: s=0.3 remaining=5.7 v_cmd=-30.0 v_act=16.9 steer=0.05
+[INFO] [1795431978.723049374] [my_driver]: s=0.2 remaining=-0.2 v_cmd=-30.0 v_act=11.2 steer=-0.02
+[INFO] [1795431979.732978944] [my_driver]: s=0.2 remaining=59.8 v_cmd=-30.0 v_act=4.9 steer=0.03
+[INFO] [1795431980.743061585] [my_driver]: s=0.0 remaining=60.0 v_cmd=0.0 v_act=-0.0 steer=0.00
+[INFO] [1795431983.512958812] [my_driver]: s=0.0 remaining=59.5 v_cmd=25.3 v_act=0.0 steer=0.26
+[INFO] [1795431984.512999899] [my_driver]: s=0.4 remaining=59.1 v_cmd=25.4 v_act=20.0 steer=0.05
+[INFO] [1795431985.523134283] [my_driver]: s=0.5 remaining=59.5 v_cmd=23.3 v_act=23.7 steer=0.07
+[INFO] [1795431986.532989530] [my_driver]: s=0.9 remaining=58.6 v_cmd=22.9 v_act=23.1 steer=0.41
+[INFO] [1795431987.542918014] [my_driver]: s=0.9 remaining=58.6 v_cmd=23.5 v_act=23.4 steer=-0.10
+[INFO] [1795431988.553018172] [my_driver]: s=1.1 remaining=-1.1 v_cmd=-30.0 v_act=17.8 steer=0.31
+[INFO] [1795431990.820263336] [rclcpp]: signal_handler(SIGINT/SIGTERM)

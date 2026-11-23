@@ -27,3 +27,38 @@ slow part (pure Python, every point x every cone). (4) The "confidence" is a pro
 1e-6..1e-14: only useful relative, not as a probability. (5) MARGIN 2.5 m assumes a 5 m track; FSG minimum is 3 m, so on narrow tracks
 MARGIN must be set to half the width.
 Plots: `fsg_tracks.png` (random FSG tracks), `thrsim_paths.png` (our 4 paths as cones).
+
+### 2026-11-23 ~19:00 - Step 3: Plan A, the full chain in the simulator
+User chose A. Chain: simulator `/path` (true) -> `cone_planner_node.py` (makes cones, gives FSGPathPlan only the cones the car SEES:
+within `range` 15 m and +-50 deg, re-plans at 10 Hz from the car pose, spline-resampled to 0.5 m) -> `/planned_path` -> our driver
+(`-r /path:=/planned_path -p replan:=true`, never sees the true path) -> car. The scorer still uses the TRUE path.
+- Driver: new param `replan` (default false): a new path every 0.1 s must not clear the braking latch (and no ILC).
+- Planner MARGIN = width/2 (FSGPathPlan's 2.5 m fits our 5 m cone track). Planning time about 3.5 ms.
+- Runner: `_SCRIPT/2026-11-23_script/sweep_chain.bash` (`pl.x:=v` = planner option, `chain:=off` = true-path baseline).
+
+### 2026-11-23 19:05 - Step 4: smoke test + A1 (`2026-11-23_1905_a0_smoke/`, `2026-11-23_1907_a1_chain/`)
+**Steering through the chain works:** RMS sideways error 5-17 cm, close to the true-path runs (2-14 cm); max 0.3-0.4 m.
+**Stopping failed** (overrun or 18 m past): the finish was only taken after 20 m of driving (circle guard), when the car was already at
+23 m/s and ~25 m before the line (needs ~45 m). Also a bug: 15 m past the finish it was "forgotten" and the car drove on.
+Only FR15C14 (finish seen at 15 m, top speed 14 m/s) stopped every time: **72.2** vs TRUE 75.2.
+**Fixes:** "passed" latches until the next run (and needs the finish within 5 m); the finish is known as soon as it is > 2 m in front
+and within `finish_range`, matched to the nearest planned point within 10 m (beyond the seen cones the plan is a straight guess);
+a teleport back to the start is not counted as driven distance. A1 stop results are invalid (bug); A2 = rerun.
+Lesson: with cones seen only 15 m ahead, the car may only go as fast as it can stop in what it sees: v <= sqrt(2 * 6 * 15) = 13.4 m/s.
+
+### 2026-11-23 19:20 - Step 5: A2 after the finish fix (`2026-11-23_..._a2_chain_fixed/`, 2 runs/path)
+TRUE 75.2 | FR60 68.8 (circle stops 16 m late) | FR30 50.4 (overrun: finish seen at 30 m, car too fast to stop) | FR15C14 72.2 |
+**R30FR60 74.5** | N10FR60 68.7 (circle 13 m late). Straight / wave / lane change now stop at the line.
+Circle cause: beyond the seen cones the plan is a straight guess, so it only passes near the finish when the car is close.
+
+### 2026-11-23 19:35 - Step 6: A3 circle fix (`2026-11-23_..._a3_circle_fix/`, 2 runs/path)
+Fix: if the finish is known but the plan does not reach it (< 3 m), put the finish at the STRAIGHT-LINE distance (never longer than
+the real distance along the track, so the car brakes a little early, never late).
+| Config | Score | Failures | Circle |
+|---|---:|---|---:|
+| TRUE (POL, true path) | 75.5 | none | 78.2 |
+| **FR60** (cones 15 m, finish known) | **74.3** | none | 76.3 (was 54.6) |
+| R30FR60 (cones 30 m) | 74.3 | none | 75.8 |
+| N10FR60 (+10 cm cone noise) | 74.2 | none | 76.0 |
+**The full chain works: cones -> FSGPathPlan -> POL = 74.3, only 1.2 below driving on the true path.** Cone noise of 10 cm costs ~0.1.
+What is lost: wave 74.2 -> 71.7 (plan error ~15 cm) and circle 78.2 -> 76.3 (slower: v_eq 14.5 -> 14.0, plan only sees 15 m).

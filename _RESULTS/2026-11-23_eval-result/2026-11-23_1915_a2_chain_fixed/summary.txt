@@ -1,0 +1,24 @@
+[TRUE] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 chain:=off
+   OVERALL 75.2 = track 38.7 + time 16.6 + stop 20.0 | max_cte 0.32 m | failures: none
+   per path: straight 74.5 (v_eq 11.8, err 2.4)  wave 74.2 (v_eq 11.6, err 2.6)  lane_change 74.5 (v_eq 11.9, err 2.0)  circle 77.8 (v_eq 14.5, err 1.0)
+   rms err [cm]: stra 5  stra 7  wave 6  wave 6  lane 7  lane 6  circ 9  circ 8
+[FR60] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=60
+   OVERALL 68.8 = track 38.0 + time 15.8 + stop 15.0 | max_cte 0.36 m | failures: none
+   per path: straight 74.7 (v_eq 11.8, err 1.4)  wave 71.8 (v_eq 11.3, err 0.6)  lane_change 74.2 (v_eq 11.7, err 2.1)  circle 54.6 (v_eq 12.7, err 16.0)
+   rms err [cm]: stra 4  stra 5  wave 17  wave 15  lane 6  lane 7  circ 11  circ 12
+[FR30] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=30
+   OVERALL 50.4 = track 37.6 + time 12.8 + stop 0.0 | max_cte 0.37 m | failures: lane_change:overrun
+   per path: straight 52.2 (v_eq 10.3, err 19.1)  wave 49.8 (v_eq 10.0, err 19.0)  lane_change 44.7 (v_eq 5.2, err 18.5)  circle 54.8 (v_eq 13.1, err 13.1)
+   rms err [cm]: stra 9  stra 6  wave 19  wave 17  lane 10  lane 12  circ 14  circ 12
+[FR15C14] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=15 cruise_speed:=14.0
+   OVERALL 72.2 = track 38.2 + time 13.9 + stop 20.0 | max_cte 0.27 m | failures: none
+   per path: straight 72.4 (v_eq 10.1, err 2.0)  wave 70.8 (v_eq 10.2, err 2.2)  lane_change 72.2 (v_eq 10.2, err 2.2)  circle 73.3 (v_eq 11.3, err 1.5)
+   rms err [cm]: stra 5  stra 6  wave 14  wave 13  lane 8  lane 6  circ 9  circ 9
+[R30FR60] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.range:=30 pl.finish_range:=60
+   OVERALL 74.5 = track 38.2 + time 16.3 + stop 20.0 | max_cte 0.31 m | failures: none
+   per path: straight 74.6 (v_eq 11.7, err 2.3)  wave 72.9 (v_eq 11.5, err 0.2)  lane_change 74.1 (v_eq 11.7, err 1.9)  circle 76.4 (v_eq 13.9, err 3.7)
+   rms err [cm]: stra 4  stra 6  wave 13  wave 12  lane 7  lane 8  circ 10  circ 11
+[N10FR60] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=60 pl.noise:=0.10
+   OVERALL 68.7 = track 38.0 + time 15.6 + stop 15.0 | max_cte 0.33 m | failures: none
+   per path: straight 74.5 (v_eq 11.6, err 2.4)  wave 71.3 (v_eq 10.7, err 0.2)  lane_change 73.9 (v_eq 11.7, err 1.9)  circle 55.0 (v_eq 12.9, err 13.2)
+   rms err [cm]: stra 5  stra 4  wave 14  wave 14  lane 7  lane 11  circ 11  circ 12
