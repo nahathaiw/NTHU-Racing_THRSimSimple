@@ -1,0 +1,9 @@
+[TRUE] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 chain:=off
+   OVERALL 75.4 = track 38.8 + time 16.5 + stop 20.0 | max_cte 0.22 m | failures: none
+   per path: straight 74.6 (v_eq 11.6, err 3.4)  wave 74.4 (v_eq 11.8, err 2.0)  lane_change 74.5 (v_eq 11.7, err 3.4)  circle 78.1 (v_eq 14.5, err 1.7)
+   rms err [cm]: stra 4  stra 5  wave 7  wave 6  lane 5  lane 6  circ 7  circ 6
+[FR60] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=60
+   OVERALL 74.5 = track 38.3 + time 16.2 + stop 20.0 | max_cte 0.33 m | failures: none
+   per path: straight 74.6 (v_eq 11.6, err 2.3)  wave 72.3 (v_eq 11.2, err 2.1)  lane_change 74.2 (v_eq 11.7, err 2.0)  circle 76.9 (v_eq 14.1, err 1.9)
+   rms err [cm]: stra 5  stra 3  wave 13  wave 13  lane 6  lane 8  circ 10  circ 9
+NOTE: stopped after FR60; SAFE15 driver crashed (sight_dist:=15 is int, must be 15.0). Rest re-run in b1b_rest.

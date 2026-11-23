@@ -1,0 +1,23 @@
+[INFO] [1795435774.644065719] [cone_planner]: cone planner: range 30.0 m, fov 100.0 deg, width 5.0 m, spacing 4.0 m, noise 0.0 m, 10.0 Hz, step 1.5 m, memory 0, blend 0.0
+[INFO] [1795435790.534488676] [cone_planner]: 100 plans, mean 5.2 ms, 14 cones seen, travel 34.4 m, finish_index 51
+[INFO] [1795435802.632675277] [cone_planner]: 200 plans, mean 5.2 ms, 9 cones seen, travel 62.6 m, finish_index 0
+[INFO] [1795435814.730221193] [cone_planner]: 300 plans, mean 5.0 ms, 2 cones seen, travel 75.4 m, finish_index 0
+[INFO] [1795435828.834107861] [cone_planner]: 400 plans, mean 5.1 ms, 14 cones seen, travel 32.8 m, finish_index 55
+[INFO] [1795435840.835430347] [cone_planner]: 500 plans, mean 5.1 ms, 16 cones seen, travel 76.2 m, finish_index 37
+[INFO] [1795435852.835980459] [cone_planner]: 600 plans, mean 5.4 ms, 17 cones seen, travel 77.8 m, finish_index 34
+Traceback (most recent call last):
+  File "/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_SCRIPT/2026-11-23_script/cone_planner_node.py", line 209, in <module>
+    main()
+  File "/home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_SCRIPT/2026-11-23_script/cone_planner_node.py", line 200, in main
+    rclpy.spin(node)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 229, in spin
+    executor.spin_once()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 812, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 801, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 784, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 685, in _wait_for_ready_callbacks
+    raise ExternalShutdownException()
+rclpy.executors.ExternalShutdownException

@@ -1,0 +1,28 @@
+[TRUE] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 chain:=off
+   OVERALL 75.4 = track 38.8 + time 16.6 + stop 20.0 | max_cte 0.21 m | failures: none
+   per path: straight 74.7 (v_eq 11.7, err 2.3)  wave 74.2 (v_eq 11.7, err 2.0)  lane_change 74.4 (v_eq 11.8, err 2.0)  circle 78.3 (v_eq 14.5, err 2.1)
+   rms err [cm]: stra 6  stra 4  wave 7  wave 7  lane 7  lane 7  circ 6  circ 4
+[FR60] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=60
+   OVERALL 51.0 = track 38.0 + time 13.0 + stop 0.0 | max_cte 0.29 m | failures: none
+   per path: straight 51.4 (v_eq 9.3, err 15.8)  wave 48.4 (v_eq 8.9, err 11.8)  lane_change 51.2 (v_eq 9.3, err 14.3)  circle 53.2 (v_eq 11.6, err 12.7)
+   rms err [cm]: stra 6  stra 4  wave 18  wave 17  lane 5  lane 7  circ 11  circ 11
+[CEN] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=60 pl.center:=1
+   OVERALL 51.5 = track 37.8 + time 13.1 + stop 0.6 | max_cte 0.44 m | failures: none
+   per path: straight 53.5 (v_eq 9.6, err 12.0)  wave 49.1 (v_eq 9.0, err 11.4)  lane_change 52.3 (v_eq 9.7, err 11.6)  circle 51.1 (v_eq 11.1, err 10.2)
+   rms err [cm]: stra 5  stra 5  wave 16  wave 12  lane 5  lane 6  circ 20  circ 17
+[CENS1] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=60 pl.center:=1 pl.step:=1.0
+   OVERALL 54.6 = track 36.1 + time 13.5 + stop 5.0 | max_cte 1.43 m | failures: none
+   per path: straight 52.4 (v_eq 9.8, err 10.9)  wave 43.4 (v_eq 9.0, err 12.4)  lane_change 51.0 (v_eq 9.4, err 13.1)  circle 71.7 (v_eq 12.4, err 2.2)
+   rms err [cm]: stra 3  stra 4  wave 72  wave 14  lane 8  lane 7  circ 19  circ 22
+[SAFE15] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.range:=15 sight_dist:=15.0
+   OVERALL 50.5 = track 38.3 + time 11.6 + stop 0.6 | max_cte 0.28 m | failures: none
+   per path: straight 50.5 (v_eq 8.5, err 11.2)  wave 47.9 (v_eq 8.3, err 12.8)  lane_change 52.3 (v_eq 8.6, err 10.3)  circle 51.1 (v_eq 9.5, err 13.2)
+   rms err [cm]: stra 3  stra 4  wave 16  wave 16  lane 6  lane 8  circ 8  circ 7
+[SAFE30] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.range:=30 sight_dist:=30.0
+   OVERALL 51.2 = track 38.1 + time 12.8 + stop 0.3 | max_cte 0.32 m | failures: none
+   per path: straight 51.1 (v_eq 9.1, err 12.9)  wave 50.6 (v_eq 9.5, err 11.2)  lane_change 50.8 (v_eq 9.2, err 13.0)  circle 52.3 (v_eq 10.8, err 11.1)
+   rms err [cm]: stra 6  stra 4  wave 18  wave 16  lane 7  lane 6  circ 11  circ 10
+[SAFE30C] lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.range:=30 sight_dist:=30.0 pl.center:=1
+   OVERALL 51.4 = track 37.8 + time 12.8 + stop 0.8 | max_cte 0.47 m | failures: none
+   per path: straight 51.5 (v_eq 9.1, err 14.0)  wave 49.0 (v_eq 9.2, err 14.4)  lane_change 54.2 (v_eq 9.5, err 10.5)  circle 50.7 (v_eq 10.6, err 13.8)
+   rms err [cm]: stra 3  stra 3  wave 15  wave 17  lane 8  lane 7  circ 17  circ 16

@@ -1,0 +1,3 @@
+terminate called after throwing an instance of 'rclcpp::exceptions::InvalidParameterTypeException'
+  what():  parameter 'sight_dist' has invalid type: Wrong parameter type, parameter {sight_dist} is of type {double}, setting it to {integer} is not allowed.
+[ros2run]: Aborted

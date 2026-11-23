@@ -49,6 +49,12 @@ grep -v '^\s*#' "$CFG" | grep -v '^\s*$' | while read -r id over; do
     ros2 run my_driver driver --ros-args "${args[@]}" > "$D/driver.log" 2>&1 &
   fi
   sleep 3
+  # crash guard (2026-11-23): a driver/planner that died at start would make the simulator wait forever
+  if ! pgrep -f "[l]ib/my_driver/driver" > /dev/null || { [ "$chain" = 1 ] && ! pgrep -f "[c]one_planner_node" > /dev/null; }; then
+    printf '[%s] %s\n   CRASHED AT START (see driver.log / planner.log), skipped\n' "$id" "$over" | tee -a "$OUT/summary.txt"
+    pkill -INT -f "lib/my_driver/driver" 2>/dev/null; pkill -INT -f "[c]one_planner_node" 2>/dev/null; sleep 1
+    continue
+  fi
   "$WS/evaluate.bash" --headless -n "$RUNS" -o "$D/eval.json" > "$D/sim.log" 2>&1 < /dev/null
   pkill -INT -f "lib/my_driver/driver" 2>/dev/null; pkill -INT -f "[c]one_planner_node" 2>/dev/null; sleep 1
   /usr/bin/python3 - "$D/eval.json" "$id" "$over" <<'PY' | tee -a "$OUT/summary.txt"

@@ -119,6 +119,7 @@ public:
     if (!ilc_file_.empty()) {ilc_load();}
     // 2026-11-23 full chain: the path is re-planned from cones (FSGPathPlan) several times per second, remap /path.
     replan_ = declare_parameter("replan", false);
+    sight_ = declare_parameter("sight_dist", 0.0);   // sensing distance [m]: speed <= sqrt(2 bang_decel sight), 0 = off
 
     // /path is latched: transient-local so we still get it if we start late.
     auto path_qos = rclcpp::QoS(1).reliable().transient_local();
@@ -551,6 +552,8 @@ private:
           // can we still brake from here down to vc by node j?
           v = std::min(v, std::sqrt(vc * vc + 2.0 * brake_ * dist));
         }
+        // 2026-11-23 safe speed: never faster than we can stop within what the sensors see (finish or a hidden curve)
+        if (sight_ > 0.0) {v = std::min(v, std::sqrt(2.0 * bang_decel_ * sight_));}
         // and brake so that we stop about `stop_aim` past the finish line
         if (bang_) {
           // Time-optimal: keep full speed, then command 0 once the stopping distance at full decel reaches the
@@ -558,7 +561,14 @@ private:
           // The brake point is only checked once per control period; at full throttle the car gains ~1 m/s per
           // 0.05 s, so at 20 Hz the stop spread is ~5 m (offline: +0.2..+5.6 m). Use control_hz 100 with bang_brake.
           const double va = std::max(0.0, v_actual_);
-          if (braking_ || remaining + stop_aim_ <= va * va / (2.0 * bang_decel_) + (bang_lead_ + period_) * va) {
+          // re-planned path: the finish distance can grow (it was a lower bound), so let go of the brake if the finish is
+          // clearly (5 m) farther than the stopping distance
+          if (braking_ && replan_ &&
+            remaining + stop_aim_ > va * va / (2.0 * bang_decel_) + (bang_lead_ + period_) * va + 5.0)
+          {
+            braking_ = false;
+          }
+          if (braking_ ||remaining + stop_aim_ <= va * va / (2.0 * bang_decel_) + (bang_lead_ + period_) * va) {
             braking_ = true;
             v = 0.0;
           }
@@ -609,6 +619,7 @@ private:
   bool use_age_;
   double ilc_gain_, ilc_lead_, ilc_max_, ld_kappa_, ld_err_, ld_min_;
   bool ilc_apply_, replan_ = false;
+  double sight_ = 0.0;
   int ilc_smooth_;
   std::string ilc_file_, ilc_key_;
   std::map<std::string, std::vector<double>> ilc_;   // learned steering correction per path, per 0.5 m

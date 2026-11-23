@@ -28,7 +28,12 @@ ap.add_argument("--width", type=float, default=5.0, help="track width between bl
 ap.add_argument("--spacing", type=float, default=4.0, help="cone spacing along the track [m]")
 ap.add_argument("--noise", type=float, default=0.0, help="cone position noise per frame, std [m]")
 ap.add_argument("--rate", type=float, default=10.0, help="re-plan rate [Hz]")
-ap.add_argument("--steps", type=int, default=40, help="planner steps (x STEP_SIZE 1.5 m)")
+ap.add_argument("--step", type=float, default=1.5, help="planner step [m] (FSGPathPlan STEP_SIZE 1.5)")
+ap.add_argument("--steps", type=int, default=-1, help="planner steps, -1 = enough for 60 m")
+ap.add_argument("--memory", type=int, default=0, help="1 = remember every cone seen this run (simple cone map)")
+ap.add_argument("--center", type=int, default=0,
+                help="1 = start the plan from the estimated track centre beside the car, not from the car itself")
+ap.add_argument("--blend", type=float, default=0.0, help="share of the previous plan kept (0 = off, 0.5 = half)")
 ap.add_argument("--min_travel", type=float, default=20.0)
 ap.add_argument("--finish_range", type=float, default=-1.0,
                 help="finish (orange cones) known within this distance [m]; -1 = same as --range")
@@ -37,7 +42,8 @@ a, ros_args = ap.parse_known_args()
 sys.path.insert(0, a.fsg)
 import hyper as hyp                      # FSGPathPlan
 hyp.MARGIN = a.width / 2.0               # the planner keeps MARGIN from each cone line = half the track width
-hyp.NUM_STEPS = a.steps
+hyp.STEP_SIZE = a.step
+hyp.NUM_STEPS = a.steps if a.steps > 0 else int(round(60.0 / a.step))
 import object as obj                     # FSGPathPlan
 from Path_planer import PathPlanner      # FSGPathPlan
 
@@ -60,6 +66,7 @@ class ConePlanner(Node):
         self.planner = PathPlanner()
         self.rng = np.random.default_rng()
         self.cones = None          # (N,2) positions
+        self.seen, self.prev = None, None
         self.colors = []
         self.finish = None
         self.state = None
@@ -67,10 +74,12 @@ class ConePlanner(Node):
         self.create_timer(1.0 / a.rate, self.tick)
         self.n_plans, self.t_plan = 0, 0.0
         self.get_logger().info(f"cone planner: range {a.range} m, fov {a.fov} deg, width {a.width} m, "
-                               f"spacing {a.spacing} m, noise {a.noise} m, {a.rate} Hz")
+                               f"spacing {a.spacing} m, noise {a.noise} m, {a.rate} Hz, step {a.step} m, memory {a.memory}, blend {a.blend}")
 
     def reset_run(self):
-        self.state, self.last_xy, self.travel, self.passed = None, None, 0.0, False
+        self.state, self.last_xy, self.travel, self.passed, self.fin_known = None, None, 0.0, False, False
+        self.seen = None if self.cones is None else np.zeros(len(self.cones), bool)   # cone map of this run
+        self.prev = None                                                              # previous plan (for --blend)
 
     def on_reset(self, _):
         self.reset_run()
@@ -93,12 +102,15 @@ class ConePlanner(Node):
             cones += [pts[i] + np.array([nx, ny]) * a.width / 2, pts[i] - np.array([nx, ny]) * a.width / 2]
             colors += [obj.BLUE, obj.YELLOW]
         self.cones, self.colors = np.array(cones), colors
+        self.seen = np.zeros(len(self.cones), bool)
 
     def on_state(self, m):
         if self.last_xy is not None:
             step = math.hypot(m.x - self.last_xy[0], m.y - self.last_xy[1])
             if step > 2.0:       # teleport back to the start (new run): not driven distance
-                self.travel, self.passed = 0.0, False
+                self.travel, self.passed, self.fin_known = 0.0, False, False
+                self.seen = None if self.cones is None else np.zeros(len(self.cones), bool)
+                self.prev = None
             else:
                 self.travel += step
         self.last_xy = (m.x, m.y)
@@ -113,14 +125,41 @@ class ConePlanner(Node):
         bearing = np.arctan2(d[:, 1], d[:, 0]) - yaw
         bearing = np.arctan2(np.sin(bearing), np.cos(bearing))
         vis = (dist <= a.range) & (np.abs(bearing) <= math.radians(a.fov) / 2)
+        if a.memory and self.seen is not None:   # cone map: everything seen so far this run, within the planner's 15 m
+            self.seen |= vis
+            vis = self.seen & (dist <= max(a.range, 15.0))
         seen = self.cones[vis] + (self.rng.normal(0.0, a.noise, (vis.sum(), 2)) if a.noise > 0 else 0.0)
         cones = [obj.Cone(float(c[0]), float(c[1]), col) for c, col in zip(seen, np.array(self.colors)[vis])]
+        sx, sy = x, y
+        if a.center:   # track centre beside the car = midpoint of the nearest blue and nearest yellow cone in use
+            pos, cols = self.cones[vis], np.array(self.colors)[vis]
+            b, yl = pos[cols == obj.BLUE], pos[cols == obj.YELLOW]
+            if len(b) and len(yl):
+                cb = b[np.argmin(np.hypot(*(b - [x, y]).T))]
+                cy = yl[np.argmin(np.hypot(*(yl - [x, y]).T))]
+                m = 0.5 * (cb + cy)
+                nx, ny = -math.sin(yaw), math.cos(yaw)               # left normal of the car
+                e0 = (x - m[0]) * nx + (y - m[1]) * ny               # car is e0 m left of the centre
+                if abs(e0) < a.width / 2:
+                    sx, sy = x - e0 * nx, y - e0 * ny
         t0 = time.time()
-        raw, _, _ = self.planner.generate_path((x, y), yaw, cones)
+        raw, _, _ = self.planner.generate_path((sx, sy), yaw, cones)
         self.t_plan += time.time() - t0
         self.n_plans += 1
         # smooth resample at ds with a cubic spline over arc length (the driver computes curvature from the nodes)
-        line = np.vstack([[x, y], np.array(raw)])
+        line = np.vstack([[sx, sy], np.array(raw)])
+        if a.blend > 0.0 and self.prev is not None:   # temporal smoothing: pull each point toward the previous plan
+            p0, p1 = self.prev[:-1], self.prev[1:]
+            dd = p1 - p0
+            l2 = np.maximum((dd ** 2).sum(1), 1e-12)
+            for i in range(1, len(line)):
+                t = np.clip(((line[i] - p0) * dd).sum(1) / l2, 0.0, 1.0)
+                proj = p0 + t[:, None] * dd
+                dq = np.hypot(*(proj - line[i]).T)
+                j = int(np.argmin(dq))
+                if dq[j] < 2.0:
+                    line[i] = (1.0 - a.blend) * line[i] + a.blend * proj[j]
+        self.prev = line.copy()
         seg = np.diff(line, axis=0)
         s = np.concatenate([[0.0], np.cumsum(np.hypot(seg[:, 0], seg[:, 1]))])
         cs = CubicSpline(s, line, bc_type="natural")
@@ -135,7 +174,9 @@ class ConePlanner(Node):
             self.passed = True   # crossed the finish: stays set until the next run
         if self.passed:
             fin = 0              # stop now
-        elif dist_f <= fr and ahead > 2.0:   # in front (circle: at the start it is AT the car, so not taken)
+        elif dist_f <= fr and (ahead > 2.0 or self.fin_known):   # in front (circle start: AT the car, not taken);
+            # once seen it stays known until passed (else the last 2 m would say 'no finish' = path end 60 m away)
+            self.fin_known = True
             dn = np.hypot(nodes[:, 0] - f[0], nodes[:, 1] - f[1])
             if dn.min() < 3.0:   # the planned path reaches the finish: use that point
                 fin = int(np.argmin(dn))

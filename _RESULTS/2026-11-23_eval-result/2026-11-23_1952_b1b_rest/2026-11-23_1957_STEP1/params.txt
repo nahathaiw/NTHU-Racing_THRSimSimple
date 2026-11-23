@@ -1,0 +1,1 @@
+cruise_speed:=25.0 lat_accel:=6.0 brake_decel:=5.9 stop_aim:=2.0 lookahead_gain:=0.25 lat_accel:=40.0 cruise_speed:=30.0 stop_aim:=1.5 lookahead_base:=2.9 lookahead_gain:=0.06 ld_kappa:=11.6 ld_err:=1.5 predict_time:=0.10 blend_lqr:=0.3 lqr_r:=3.0 ff_time:=0.10 stop_damp:=5.0 bang_brake:=true control_hz:=100.0 pl.finish_range:=60 pl.step:=1.0

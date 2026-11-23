@@ -62,3 +62,45 @@ the real distance along the track, so the car brakes a little early, never late)
 | N10FR60 (+10 cm cone noise) | 74.2 | none | 76.0 |
 **The full chain works: cones -> FSGPathPlan -> POL = 74.3, only 1.2 below driving on the true path.** Cone noise of 10 cm costs ~0.1.
 What is lost: wave 74.2 -> 71.7 (plan error ~15 cm) and circle 78.2 -> 76.3 (slower: v_eq 14.5 -> 14.0, plan only sees 15 m).
+
+### 2026-11-23 19:40 - Step 7: Task 1 safe speed + task 2 wave gap, B1 (`..._b1_safe_and_wave/` stopped, rest in `2026-11-23_1952_b1b_rest/`)
+New: driver `sight_dist` (speed <= sqrt(2 * 6 * sight)); planner `--memory` (cone map), `--step`, `--blend` (mix with previous plan).
+First try hung ~10 min: `sight_dist:=15` is an integer and the driver (double param) crashed at start; the simulator waited forever.
+Folder labelled `_INVALID-driver-crash-int-param`; ALWAYS write ROS double params with a dot (15.0). Added a crash guard to sweep_chain.bash.
+| Config | Score | Note |
+|---|---:|---|
+| TRUE | 75.2 (75.4 in b1) | true path |
+| FR60 (b1) | 74.5 | chain reference |
+| **SAFE15** (15 m sight, automatic speed) | **72.1** | = hand-set FR15C14 72.2: the automatic rule works (v_eq 10) |
+| SAFE30 | 68.4 | circle stopped 12 m SHORT (see below) |
+| MEM (cone memory) | 74.1 | no help |
+| STEP1 (1.0 m steps) | 74.6 | +0.1, noise |
+| BL5 / MEMBL5 (blend 0.5) | 67.5 / 69.6 | worse: plan lags behind, circle stop late/short |
+**Two causes found:** (1) circle, 30 m sight: the finish is "known" from across the circle; straight-line 30 m vs ~47 m along the
+track; the car brakes far too early and the brake latch cannot let go -> 12 m short. (2) wave gap: every plan starts AT the car, so
+the plan carries the car's own sideways error (wave 13-15 cm vs 7 cm on the true path); the driver follows the plan, not the centre.
+**Fixes (B2):** driver: with `replan`, the brake latch releases if the finish is > 5 m farther than the stopping distance.
+Planner `--center 1`: start the plan at the estimated track centre beside the car (midpoint of the nearest blue and yellow cone).
+
+### 2026-11-23 20:02 - Step 8: B2 first try INVALID (`..._b2_center_unlatch_INVALID-finish-gap-bug/`)
+Every chain config stopped 10-15 m off (TRUE fine, 75.4). Cause: with the new brake release, a hidden planner gap showed up: in the
+last 2 m the finish is no longer "> 2 m in front" but not "passed" yet, so the planner said "finish unknown" = path end 60 m away,
+and the brake let go. The old brake latch had hidden this. Fix: once seen, the finish stays known until passed (`fin_known`).
+
+### 2026-11-23 20:12 - Step 9: B2 rerun (`2026-11-23_2012_b2_center_unlatch/`, 2 runs/path)
+| Config | Score | Circle | Wave | Note |
+|---|---:|---:|---:|---|
+| TRUE | 75.4 | 78.1 | 74.0 | true path |
+| FR60 (cones 15 m, finish known) | 73.8 | 74.9 | 72.1 | (74.3-74.5 before; ~noise / brake release) |
+| CEN (plan from track centre) | 72.8 | 71.0 | 71.7 | WORSE (circle error up to 38 cm) |
+| CENS1 (centre + 1 m steps) | 73.3 | 71.6 | 72.3 | worse |
+| **SAFE15** (15 m sight, automatic speed) | **72.1** | 72.9 | 70.7 | same as B1: automatic speed rule works |
+| **SAFE30** (30 m sight, automatic speed) | **73.8** | 74.4 | 72.6 | **fixed** (was 68.4, circle 12 m short) |
+| SAFE30C (+ centre) | 73.0 | 72.6 | 71.5 | worse |
+**Task 1 done:** the car sets its own safe speed from its sight distance and stops correctly on every path:
+15 m sight (camera) 72.1, 30 m sight (lidar) 73.8, vs 75.4 on the true path.
+**Task 2 not solved:** the centre start made it worse. The midpoint of the nearest blue and nearest yellow cone is not a good centre
+estimate (they are usually not a pair; in curves the inner and outer cones are at different places along the track), so it adds
+noise. Cone memory, 1 m steps and blending did not help either. The wave gap (~2 points, plan error 14-18 cm vs 7 cm) comes from
+FSGPathPlan itself (offline error on the wave 0.11 m mean, step 2). Closing it needs a better planner (e.g. fit the centre line
+through cone-pair midpoints), not more tuning around it.
