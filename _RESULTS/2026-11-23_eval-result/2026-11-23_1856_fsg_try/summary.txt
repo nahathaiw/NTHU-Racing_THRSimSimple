@@ -1,0 +1,15 @@
+FSGPathPlan try, 2026-11-23 18:56  (planner: 40 steps x 1.5 m = 60 m ahead)
+
+Part A: FSGPathPlan's own random tracks (width 5 m, cones every 4 m, as in its test.ipynb)
+FSG track seed 0       raw: mean 0.12 m, max 0.30 m | smoothed: mean 0.15 m, max 0.32 m | confidence at end 4.3e-11 | time 9 + 90 ms
+FSG track seed 1       raw: mean 0.18 m, max 0.58 m | smoothed: mean 0.23 m, max 0.73 m | confidence at end 3.6e-14 | time 8 + 85 ms
+FSG track seed 2       raw: mean 0.13 m, max 0.64 m | smoothed: mean 0.13 m, max 0.27 m | confidence at end 4.7e-11 | time 8 + 79 ms
+FSG track seed 3       raw: mean 0.09 m, max 0.33 m | smoothed: mean 0.13 m, max 0.44 m | confidence at end 6.5e-12 | time 7 + 81 ms
+
+Part B: our THRSim paths as cones (width 5.0 m, one pair every 4.0 m)
+THRSim straight        raw: mean 0.00 m, max 0.00 m | smoothed: mean 0.00 m, max 0.00 m | confidence at end 2.4e-06 | time 5 + 18 ms
+THRSim wave            raw: mean 0.11 m, max 0.20 m | smoothed: mean 0.16 m, max 0.30 m | confidence at end 4.1e-07 | time 4 + 18 ms
+THRSim lane_change     raw: mean 0.04 m, max 0.14 m | smoothed: mean 0.05 m, max 0.19 m | confidence at end 1.3e-06 | time 5 + 18 ms
+THRSim circle          raw: mean 0.12 m, max 0.17 m | smoothed: mean 0.29 m, max 0.47 m | confidence at end 7.5e-06 | time 6 + 25 ms
+
+plots: /home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-23_eval-result/2026-11-23_1856_fsg_try/fsg_tracks.png, /home/sigma/Desktop/pleng/NTHU-Racing_THRSimSimple/_RESULTS/2026-11-23_eval-result/2026-11-23_1856_fsg_try/thrsim_paths.png
